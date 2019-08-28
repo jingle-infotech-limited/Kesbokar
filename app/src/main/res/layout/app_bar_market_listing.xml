@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MarketListing">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="#FFA700"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo" />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="240dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/ic_search_black_24dp"/>
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/marketlisting" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="500dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="HELP"
+                    android:textAlignment="center"
+                    android:background="@drawable/rect_button"
+                    android:id="@+id/help"/>
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="BUISNESS"
+                    android:textAlignment="center"
+                    android:background="@drawable/rect_button"
+                    android:id="@+id/buis"/>
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="MARKET"
+                    android:textAlignment="center"
+                    android:background="@drawable/rect_button"
+                    android:id="@+id/mar"/>
+
+            </LinearLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>

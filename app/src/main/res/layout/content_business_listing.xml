@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_margin="15dp"
+    android:layout_marginBottom="30dp"
+    android:background="@drawable/border">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/bli"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/clickable"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/heading"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bln"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/kesbokar"
+        android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:layout_width="wrap_content"
+        android:fitsSystemWindows="true"
+        style="@style/customRatingBar"
+        android:layout_height="wrap_content"
+        android:id="@+id/blr"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:id="@+id/bls"/>
+
+    <TextView
+        android:id="@+id/bld"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/blrq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorAccent"
+        android:text="Get In Touch"
+        android:textColor="@color/White" />
+
+    </LinearLayout>
