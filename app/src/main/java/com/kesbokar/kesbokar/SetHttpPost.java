@@ -45,7 +45,6 @@ public class SetHttpPost {
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             conn.setRequestProperty("Accept","application/json");
             conn.setDoOutput(true);
-            conn.setDoInput(true);
 
             JSONObject jsonParam = new JSONObject();
 //            jsonParam.put("timestamp", 1488873360);

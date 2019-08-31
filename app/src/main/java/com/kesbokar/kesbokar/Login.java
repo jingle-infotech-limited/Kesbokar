@@ -1,6 +1,7 @@
 package com.kesbokar.kesbokar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,26 +16,46 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONObject;
+import org.jsoup.select.Evaluator;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.Attributes;
+
 
 public class Login extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,8 +63,15 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     ProgressDialog progressDialog;
     EditText edtLoginId, edtLoginPass;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+
+    String personName, personEmail, personID;
+
+    TextView name, create_an_account;
+    Button login, logout, signup;
+
     int id;
-    SharedPreferences loginData;
+    SharedPreferences loginData, googleSignInData;
+
     private static final int LOADER_LOGIN_ID = 35;
     private LoaderManager.LoaderCallbacks<LoginInfo> login_info_loader;
     private boolean isNetworkAvailable(){
@@ -56,6 +84,9 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
+    SignInButton signInButton;
+    GoogleSignInClient mGoogleSignInClient;
+    int RC_SIGN_IN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +115,12 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         loginId = "";
         loginPass = "";
 
+        View ab = navigationView.getHeaderView(0);
+        signup = (Button) ab.findViewById(R.id.signup);
+        login = (Button) ab.findViewById(R.id.login);
+        logout=ab.findViewById(R.id.logout);
+        name=(TextView)ab.findViewById(R.id.name_user);
+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -91,7 +128,38 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
             window.setStatusBarColor(this.getResources().getColor(R.color.kesbokar));
             //If true set flag =1
         }
+//      Configure sign-in to request the user's ID, email address, and basic
+//      profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
+//        Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+        signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (v.getId()) {
+                    case R.id.sign_in_button:
+                        signIn();
+                        break;
+                    // ...
+                }
+            }
+        });
+
+        create_an_account = findViewById(R.id.create_an_account);
+        create_an_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new  Intent(Login.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
 
         Button logbut=findViewById(R.id.logbut);
         logbut.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +192,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         login_info_loader = new LoaderManager.LoaderCallbacks<LoginInfo>() {
             @Override
             public Loader<LoginInfo> onCreateLoader(int i, Bundle bundle) {
-                LoaderLogin loaderLogin = new LoaderLogin(Login.this,loginId,loginPass,"http://serv.kesbokar.com.au/jil.0.1/auth/login");
+                LoaderLogin loaderLogin = new LoaderLogin(Login.this, loginId, loginPass,"http://serv.kesbokar.com.au/jil.0.1/auth/login");
                 return loaderLogin;
             }
 
@@ -139,6 +207,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                     created=loginInfos.getCreated();
                     updated=loginInfos.getUpdated();
                     id=loginInfos.getid();
+
                     Log.i("Login_data", loginInfos + "");
                     saveData();
                 }else{
@@ -156,7 +225,132 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         getLoaderManager().initLoader(LOADER_LOGIN_ID,null,login_info_loader);
     }
 
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+
+            final String personName = account.getDisplayName();
+//            String personGivenName = acct.getGivenName();
+//            String personFamilyName = acct.getFamilyName();
+            final String personEmail = account.getEmail();
+            final String personId = account.getId();
+            final Uri personPhoto = account.getPhotoUrl();
+//            final String authToken = account.getIdToken();
+
+            String url;
+            url = "https://serv.kesbokar.com.au/jil.0.1/auth/login/google";
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("Response", "Google Sign In api");
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("Error",error.toString());
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("name", personName);
+                    params.put("email", personEmail);
+                    params.put("provider_id", personId);
+                    params.put("token", "");
+                    params.put("provider", "google");
+                    if (personPhoto != null){
+                        params.put("avatar", personPhoto.toString());
+                    } else {
+                        params.put("avatar", "");
+                    }
+
+                    params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                    return params;
+                }
+            };
+            requestQueue.add(stringRequest);
+            flag=1;
+
+            if (account != null){
+
+
+//              startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                Menu show=navigationView.getMenu();
+
+                if(flag==1) {
+
+                    name.setText(full_name);
+                    full_name = personName;
+
+                    login.setVisibility(View.INVISIBLE);
+                    signup.setVisibility(View.INVISIBLE);
+                    show.findItem(R.id.nav_send).setVisible(true);
+                    show.findItem(R.id.nav_share).setVisible(true);
+                    show.findItem(R.id.advertise).setVisible(false);
+                    show.findItem(R.id.loginPage).setVisible(true);
+                    logout.setVisibility(View.VISIBLE);
+
+                }
+                saveData();
+                Intent intent = new Intent(Login.this, Navigation.class);
+                startActivity(intent);
+            }
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("TAG",  "signInResult:failed code=" + e.getStatusCode());
+//            updateUI(null);
+
+        }
+        return ;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Check for existing Google Sign In account, If the user is already signed in
+        //The Google Sign in Account will be non null
+        //This is used to Get Profile Information
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (account != null){
+
+//          startActivity(new Intent(MainActivity.this, Main2Activity.class));
+//            Intent intent = new Intent(Login.this, Navigation.class);
+//            startActivity(intent);
+        }
+
+    }
+
+    
     @Override
     public void onBackPressed() {
         Intent intent=new Intent(Login.this,Navigation.class);
@@ -174,7 +368,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
     public void saveData()
     {
-        loginData= getSharedPreferences("data",0);
+        loginData = getSharedPreferences("data",0);
         SharedPreferences.Editor editor=loginData.edit();
         editor.putInt("Flag",flag);
         editor.putString("Name",full_name);
@@ -184,7 +378,18 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         editor.putString("create",created);
         editor.putString("update",updated);
         editor.putInt("id",id);
+
+        editor.putString("name", personName);
+        editor.putString("email", personEmail);
+        editor.putString("provider_id", personID);
         editor.apply();
+
+//        googleSignInData = getSharedPreferences("data1",0);
+//        SharedPreferences.Editor editor1=googleSignInData.edit();
+//        editor1.putString("name", personName);
+//        editor1.putString("email", personEmail);
+//        editor1.putString("provider_id", personID);
+//        editor1.apply();
     }
 
     @Override
@@ -194,7 +399,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
         if (Id == R.id.nav_share) {
             if (flag==1){
-                Intent about=new Intent(Login.this,Main3BusinessActivity.class);
+                Intent about = new Intent(Login.this,Main3BusinessActivity.class);
                 startActivity(about);
             } else {
                 Intent intent = new Intent(Login.this, Login.class);
@@ -398,7 +603,6 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                 startActivity(intent);
             }
         }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

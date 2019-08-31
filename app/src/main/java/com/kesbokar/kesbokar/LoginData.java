@@ -20,10 +20,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 public class LoginData extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+
+    String personName, personEmail, personID;
 
     int id, flag;
 
@@ -321,6 +325,11 @@ public class LoginData extends AppCompatActivity
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+
+        personName=loginData.getString("name","");
+        personEmail=loginData.getString("email", "");
+        personID=loginData.getString("provider_id","");
+
 
     }
 

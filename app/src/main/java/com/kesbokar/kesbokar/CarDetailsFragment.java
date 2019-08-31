@@ -163,7 +163,7 @@ public class CarDetailsFragment extends Fragment {
             car_year.setText(year1);
             car_variant.setText(variant_name);
             car_color.setText(colour);
-            if (airconditioning.equals("y")||airconditioning.equals("Y")) {
+            if (airconditioning.equals("y")|| airconditioning.equals("Y")) {
                 car_air.setText("Yes");
             }
             else {

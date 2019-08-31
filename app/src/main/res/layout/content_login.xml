@@ -27,12 +27,48 @@
             android:textSize="40sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login To Kesbokar"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="40dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easily Using"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/Black" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or Using"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/Black" />
+
         <EditText
             android:id="@+id/edtLoginId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:hint="User Name" />
 
@@ -51,21 +87,55 @@
             android:id="@+id/logbut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:background="@color/colorPrimaryDark"
             android:text="Login"
             android:textColor="@color/White"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="Login"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:textColor="@color/Black"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp" />
+            android:orientation="vertical">
+
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="Forgot Password"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:textColor="@color/Black"-->
+<!--                android:textSize="16dp"-->
+<!--                android:textStyle="bold"/>-->
+
+            <TextView
+                android:id="@+id/create_an_account"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:text="Create Account"
+                android:textColor="@color/Black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

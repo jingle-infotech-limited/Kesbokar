@@ -212,9 +212,6 @@ public class BasicInfoFragment extends Fragment {
 
         }
 
-
-
-
         txtCatFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -316,6 +313,7 @@ public class BasicInfoFragment extends Fragment {
                 categoryThirdArrayList.removeAll(null);
             }
         };
+
         tagsObjectLoader = new LoaderManager.LoaderCallbacks<ArrayList<TagsObject>>() {
             @NonNull
             @Override

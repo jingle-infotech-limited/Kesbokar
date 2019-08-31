@@ -54,6 +54,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Buisness_Listing extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
@@ -513,6 +514,8 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                                 {
                                     heading=cat_title;
                                 }
+
+
 
                                 id=dat.getInt("id");
                                 exampleItems.add(new ExampleItem(image, name, synopsis,url1,city,id,ratings,heading));

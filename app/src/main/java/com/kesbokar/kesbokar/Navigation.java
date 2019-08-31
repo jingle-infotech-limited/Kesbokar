@@ -86,6 +86,10 @@ public class Navigation extends AppCompatActivity
     String about;
     TextView name;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated, title;
+
+    String personName, personEmail, personID;
+
+
     boolean a;
     LinearLayout.LayoutParams params;
     LinearLayout.LayoutParams params1;
@@ -163,12 +167,43 @@ public class Navigation extends AppCompatActivity
     }
 
 
+    GoogleSignInClient mGoogleSignInClient;
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         //savedInstanceState.putBoolean("a",a);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(Navigation.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(Navigation.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
 
+        }
+        if(ActivityCompat.shouldShowRequestPermissionRationale(Navigation.this, Manifest.permission.ACCESS_FINE_LOCATION)){
+            new AlertDialog.Builder(Navigation.this)
+                    .setTitle("Grant Permission")
+                    .setMessage("Please open your GPS")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(Navigation.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0101);
+                        }
+                    })
+                    .create()
+                    .show();
+        }else{
+            ActivityCompat.requestPermissions(Navigation.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0101);
+        }
 
 
         final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
@@ -255,6 +290,26 @@ public class Navigation extends AppCompatActivity
         final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Navigation.this);
+
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+//            String personGivenName = acct.getGivenName();
+//            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+
+        }
+//        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//        onLocationChanged(location);
+
 //        Intent intent = getIntent();
 //        Bundle extras = intent.getExtras();
 //        if (extras!=null) {
@@ -306,11 +361,15 @@ public class Navigation extends AppCompatActivity
                 }
                 Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 onLocationChanged(location);
+
             }
         });
+
         if(flag==1)
         {
             name.setText(full_name);
+            full_name=personName;
+
             login.setVisibility(View.INVISIBLE);
             signup.setVisibility(View.INVISIBLE);
             show.findItem(R.id.nav_send).setVisible(true);
@@ -433,8 +492,7 @@ public class Navigation extends AppCompatActivity
             public void onLoadFinished(Loader<ArrayList<ExampleItem>> loader, ArrayList<ExampleItem> data) {
                 switch (loader.getId()){
                     case LOADER_ID_BTNSRCH:
-                        if(data != null && q.length()>
-                                2){
+                        if(data != null && q.length()> 2){
                             exampleItems = data;
                             Log.i("Search", data.toString());
                             Intent intent = new Intent(Navigation.this,Buisness_Listing.class);
@@ -445,7 +503,6 @@ public class Navigation extends AppCompatActivity
                         break;
                 }
             }
-
 
             @Override
             public void onLoaderReset(Loader<ArrayList<ExampleItem>> loader) {
@@ -976,6 +1033,7 @@ public class Navigation extends AppCompatActivity
     public void getData()
     {
         SharedPreferences loginData=getSharedPreferences("data",0);
+
         flag = loginData.getInt("Flag",0);
         full_name=loginData.getString("Name","");
         email=loginData.getString("mail","");
@@ -984,6 +1042,17 @@ public class Navigation extends AppCompatActivity
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+
+        personName=loginData.getString("name","");
+        personEmail=loginData.getString("","");
+        personID=loginData.getString("provider_id", "");
+
+//        SharedPreferences googleSignInData=getSharedPreferences("data1",0);
+//
+//        personName=googleSignInData.getString("name","");
+//        personEmail=googleSignInData.getString("email","");
+//        personID=googleSignInData.getString("provider_id","");
+
     }
     void getLocation() {
         try {

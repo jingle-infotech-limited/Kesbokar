@@ -464,6 +464,9 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 {
                                     heading=cat_title;
                                 }
+                                if (synopsis=="null") {
+                                    synopsis = "";
+                                }
                                 id=dat.getInt("id");
                                 marketIems.add(new MarketIem(image, name, synopsis,url1,city,id,title,price,heading));
                             }
@@ -510,7 +513,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
     public void onBackPressed() {
         Intent intent = new Intent(MarketListing.this, Navigation_market.class);
         startActivity(intent);
-        super.onBackPressed();
+
     }
 
     @Override

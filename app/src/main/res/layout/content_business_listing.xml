@@ -10,6 +10,7 @@
     android:layout_margin="15dp"
     android:layout_marginBottom="30dp"
     android:background="@drawable/border">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -47,6 +48,7 @@
         style="@style/customRatingBar"
         android:layout_height="wrap_content"
         android:id="@+id/blr"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"

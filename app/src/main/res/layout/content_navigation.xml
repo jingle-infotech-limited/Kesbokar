@@ -130,6 +130,7 @@
                     android:layout_height="match_parent">
 
                         <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextViewOne_type_or_name"
                             android:layout_width="320dp"
                             android:layout_height="35dp"
                             android:layout_centerHorizontal="true"
@@ -140,16 +141,15 @@
                             android:paddingStart="15dp"
                             android:textColorHint="#C0C0C0"
                             android:selectAllOnFocus="true"
-                            android:hint="Enter Type Or Name"
-                            android:id="@+id/autoCompleteTextViewOne_type_or_name">
+                            android:hint="Enter Type Or Name">
                         </AutoCompleteTextView>
 
                     <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextViewTwo_suburb_or_state"
                         android:layout_width="320dp"
                         android:layout_height="35dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="150dp"
-                        android:id="@+id/autoCompleteTextViewTwo_suburb_or_state"
                         android:paddingStart="15dp"
                         android:hint="Suburb Or State"
                         android:textColorHint="#C0C0C0"

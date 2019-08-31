@@ -1,8 +1,10 @@
 package com.kesbokar.kesbokar;
 
 public class LoginInfo {
+
     private String fullName, phone_no, email_id,image,created,updated;
     private int id;
+
     public String getFullName() {
         return fullName;
     }
