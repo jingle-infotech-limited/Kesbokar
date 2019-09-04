@@ -514,6 +514,11 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                                 {
                                     heading=cat_title;
                                 }
+                                if (synopsis=="null"){
+                                    synopsis = "";
+                                }else {
+
+                                }
 
 
 

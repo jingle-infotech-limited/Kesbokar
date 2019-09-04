@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,10 +57,14 @@ import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.select.Evaluator;
 
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.Attributes;
@@ -69,8 +82,15 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     TextView name, create_an_account;
     Button login, logout, signup;
 
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+
+    private static final String EMAIL = "email";
+//    private static final String fbName = "id";
+//    private static final String fbName = "first_name";
+
     int id;
-    SharedPreferences loginData, googleSignInData;
+    SharedPreferences loginData;
 
     private static final int LOADER_LOGIN_ID = 35;
     private LoaderManager.LoaderCallbacks<LoginInfo> login_info_loader;
@@ -161,6 +181,88 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
             }
         });
 
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        // If you are using in a fragment, call loginButton.setFragment(this);
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                final AccessToken accessToken = loginResult.getAccessToken();
+
+                saveData();
+
+                Toast.makeText(Login.this, "Hello", Toast.LENGTH_SHORT).show();
+
+                GraphRequest graphRequest=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+
+                    @Override
+                    public void onCompleted(final JSONObject object, GraphResponse response) {
+
+                        flag=1;
+
+                        String url1 = "https://serv.kesbokar.com.au/jil.0.1/auth/login/facebook";
+
+                        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                Log.i("Response", "Facebook SignIn Api");
+                                Toast.makeText(Login.this, "Hello World", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.i("Error",error.toString());
+                            }
+                        }){
+                            @Override
+                            protected Map<String, String> getParams(){
+                                Map<String, String> params = new HashMap<String, String>();
+
+                                try {
+                                    params.put("email", object.getString("email"));
+                                    params.put("name", object.getString("name"));
+                                    params.put("provider_id", object.getString("id"));
+                                    params.put("provider", "facebook");
+
+                                }catch (JSONException e){
+                                    System.out.println(e);
+                                }
+
+                                params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                                return params;
+                            }
+                        };
+                        requestQueue.add(stringRequest);
+                        Intent intent = new Intent(Login.this, Navigation.class);
+                        startActivity(intent);
+
+                    }
+                });
+                Bundle bundle = new Bundle();
+                bundle.putString("fields", "name, email, id");
+                graphRequest.setParameters(bundle);
+                graphRequest.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
+
         Button logbut=findViewById(R.id.logbut);
         logbut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,6 +335,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -300,7 +404,6 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
             if (account != null){
 
-
 //              startActivity(new Intent(MainActivity.this, Main2Activity.class));
                 Menu show=navigationView.getMenu();
 
@@ -330,8 +433,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 //            updateUI(null);
 
         }
-        return ;
     }
+
 
     @Override
     protected void onStart() {
@@ -382,14 +485,16 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         editor.putString("name", personName);
         editor.putString("email", personEmail);
         editor.putString("provider_id", personID);
+
+        editor.putString("name", "name");
+        editor.putString("email", "email");
+        editor.putString("provider_id", "id");
+
+//        editor.putString("name", fbName);
+//        editor.putString("email", fbEMAIL);
+//        editor.putString("provider_id", fbId);
         editor.apply();
 
-//        googleSignInData = getSharedPreferences("data1",0);
-//        SharedPreferences.Editor editor1=googleSignInData.edit();
-//        editor1.putString("name", personName);
-//        editor1.putString("email", personEmail);
-//        editor1.putString("provider_id", personID);
-//        editor1.apply();
     }
 
     @Override

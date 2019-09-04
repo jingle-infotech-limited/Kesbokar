@@ -32,4 +32,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_post_acar_ad">PostACarAdActivity</string>
     <string name="title_activity_main3_market">Main3MarketActivity</string>
+
+    <string name="facebook_app_id">709552069470369</string>
+    <string name="fb_login_protocol_scheme">fb709552069470369</string>
+
 </resources>

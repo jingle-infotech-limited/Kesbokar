@@ -89,6 +89,7 @@ public class Navigation extends AppCompatActivity
 
     String personName, personEmail, personID;
 
+    String facebookName, facebookEmail, facebookID;
 
     boolean a;
     LinearLayout.LayoutParams params;
@@ -660,7 +661,7 @@ public class Navigation extends AppCompatActivity
 
             @Override
             public void onLoadFinished(Loader<ArrayList<ServiceExpertSpace>> loader, final ArrayList<ServiceExpertSpace> serviceExpertSpaces) {
-//                String BASE_URL = "https://serv.kesbokar.com.au/jil.0.1/v2/yellowpage-featured?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";;
+//                String BASE_URL = "https://serv.kesbokar.com.au/jil.0.1/v2/yellowpage-featured?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
                 switch (loader.getId()) {
                     case LOADER_ID_SERVICES:
                         // Prepare textview object programmatically
@@ -1044,14 +1045,8 @@ public class Navigation extends AppCompatActivity
         updated=loginData.getString("update","");
 
         personName=loginData.getString("name","");
-        personEmail=loginData.getString("","");
+        personEmail=loginData.getString("email","");
         personID=loginData.getString("provider_id", "");
-
-//        SharedPreferences googleSignInData=getSharedPreferences("data1",0);
-//
-//        personName=googleSignInData.getString("name","");
-//        personEmail=googleSignInData.getString("email","");
-//        personID=googleSignInData.getString("provider_id","");
 
     }
     void getLocation() {

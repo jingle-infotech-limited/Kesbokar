@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -42,6 +43,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -72,6 +74,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WebViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>>{
+
     static String URL1;
     Document doc1;
     public static WebView webView;
@@ -84,11 +87,11 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     private static final int LOADER_ID_BUSVAL = 3;
     private static final int LOADER_ID_BUSSUB = 4;
     private static final int LOADER_ID_BTNSRCH = 5;
-    Button rqst_quote;
+    Button rqst_quote, btnOpenCallDialler;
     String entry_level;
     TextView txt_name;
     EditText et_quote;
-    Button btn_send;
+    Button btn_send, btnCloseDialog;
     int PID;
     String url_name;
     TextView txtCancel;
@@ -126,7 +129,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         rqst_quote=findViewById(R.id.rqst_quote);
         Intent intent = getIntent();
         Bundle extras=intent.getExtras();
+
         URL1 = extras.getString("URL");
+
         flag = extras.getInt("Flag");
         full_name=extras.getString("Name");
         Menu show=navigationView.getMenu();
@@ -135,6 +140,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         Button signup=(Button)ab.findViewById(R.id.signup);
         Button login=(Button)ab.findViewById(R.id.login);
         Button logout=ab.findViewById(R.id.logout);
+        btnOpenCallDialler = findViewById(R.id.btnOpenCallDialler);
         AppBarLayout rqst_quote_toolbar=findViewById(R.id.rqst_quote_toolbar);
         email=extras.getString("mail");
         image1=extras.getString("image");
@@ -145,14 +151,23 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         if (entry_level.equals("1"))
         {
-            rqst_quote.setVisibility(View.INVISIBLE);
-            rqst_quote_toolbar.setVisibility(View.INVISIBLE);
+            rqst_quote.setVisibility(View.VISIBLE);
+            rqst_quote_toolbar.setVisibility(View.VISIBLE);
 
         }
         else if (entry_level.equals("0")){
             PID=extras.getInt("PID");
             url_name=extras.getString("url_name");
         }
+
+        btnOpenCallDialler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:0123456789"));
+                startActivity(intent);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,8 +226,16 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                     txt_name=dialog1.findViewById(R.id.name);
                     et_quote=dialog1.findViewById(R.id.et_quote);
                     btn_send=dialog1.findViewById(R.id.btn_send);
+                    btnCloseDialog=dialog1.findViewById(R.id.btnCloseDialog);
                     txt_name.setText(full_name);
                     dialog1.show();
+
+                    btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog1.dismiss();
+                        }
+                    });
                     btn_send.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -275,6 +298,11 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -510,6 +538,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
             view.loadUrl(url);
             return true;
 
@@ -523,6 +554,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             Document document = null;
             try {
                 document= Jsoup.connect(URL1).get();
+
                 document.getElementsByClass("navbar navbar-default").remove();
                 document.getElementsByClass("needhelp_in_touch").remove();
                 document.getElementsByClass("footer_area").remove();
@@ -531,6 +563,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 document.getElementsByClass("sel-filters text-left").remove();
                 document.getElementsByClass("text-center btnn-position").remove();
                 document.getElementsByClass("fbp-footer listing-data").attr("style", "bottom:0;");
+
 
 
             } catch (IOException e) {
@@ -542,9 +575,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
-            //webView.setWebViewClient(new WebViewClient());
+            webView.setWebViewClient(new WebViewClient());
             WebSettings webSettings=webView.getSettings();
-            //webSettings.setBuiltInZoomControls(true);
+//            webSettings.setBuiltInZoomControls(true);
             webView.loadDataWithBaseURL(URL1,document.toString(),"text/html","utf-8","");
             //webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
             webSettings.setJavaScriptEnabled(true);

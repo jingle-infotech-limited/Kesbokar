@@ -46,12 +46,23 @@
             android:textSize="15dp"
             android:textColor="@color/Black" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp" />
+
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:background="@color/colorPrimaryDark" />
 
         <TextView
@@ -133,6 +144,11 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewAbdul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

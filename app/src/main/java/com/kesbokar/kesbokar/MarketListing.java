@@ -409,7 +409,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 querySub = s.toString();
-                getSupportLoaderManager().restartLoader(LOADER_ID_MARSUB,null,marketSub);            }
+                getSupportLoaderManager().restartLoader(LOADER_ID_MARSUB,null,marketSub);
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -464,8 +465,10 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 {
                                     heading=cat_title;
                                 }
-                                if (synopsis=="null") {
+                                if (synopsis=="null"){
                                     synopsis = "";
+                                }else {
+
                                 }
                                 id=dat.getInt("id");
                                 marketIems.add(new MarketIem(image, name, synopsis,url1,city,id,title,price,heading));
