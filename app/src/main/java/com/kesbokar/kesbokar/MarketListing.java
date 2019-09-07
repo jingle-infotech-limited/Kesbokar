@@ -58,6 +58,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
 
     private Button btnHelp,btnBuis,btnMar,btnTop;
 
+    ImageView imgKesbokarLogo;
+
     private ScrollView scrollView;
     String price,state_id,state_name,cat_title;
 
@@ -124,6 +126,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
 
         final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
 
+        imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
+
         intent=getIntent();
         bundle=intent.getExtras();
         recyclerView = findViewById(R.id.recyclerView);
@@ -141,6 +145,14 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View v) {
                 RequestAlertDialogBox();
+            }
+        });
+
+        imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketListing.this, Navigation.class);
+                startActivity(intent);
             }
         });
 

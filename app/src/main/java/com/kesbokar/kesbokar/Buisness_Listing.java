@@ -95,9 +95,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
     Bundle bundle;
     SharedPreferences loginData;
 
-    TextView getTxtCancel;
-
-    ScrollView scrollView;
+    ImageView imgKesbokarLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +114,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         btnBuis = (Button)findViewById(R.id.buis);
         btnMar = (Button)findViewById(R.id.mar);
         btnTop = (Button)findViewById(R.id.top);
+        imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
 
         final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
 
@@ -147,6 +146,14 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         exampleItems = new ArrayList<>();
+
+        imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Buisness_Listing.this, Navigation.class);
+                startActivity(intent);
+            }
+        });
 
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override

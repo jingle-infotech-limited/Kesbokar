@@ -24,6 +24,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/imgKesbokarLogo"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/logo" />
@@ -46,61 +47,48 @@
         android:id="@+id/rqst_quote_toolbar"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_alignParentBottom="true"
+        android:visibility="visible"
         android:background="#ff9900">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <Button
-                android:id="@+id/btnOpenCallDialler"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:text=" Click To Call"
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="11dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/Black"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:drawableStart="@drawable/ic_call_black_24dp"
-                android:background="@drawable/bottom_three_buttons" />
+<!--            <Button-->
+<!--                android:id="@+id/btnOpenCallDialler"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:text=" Click To Call"-->
+<!--                android:textSize="12sp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:visibility="invisible"-->
+<!--                android:paddingStart="11dp"-->
+<!--                android:paddingEnd="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:textColor="@color/Black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:drawableStart="@drawable/ic_call_black_24dp"-->
+<!--                android:background="@drawable/bottom_three_buttons" />-->
 
             <Button
                 android:id="@+id/rqst_quote"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:text=" Get In Touch "
                 android:textSize="12sp"
                 android:layout_marginTop="10dp"
-                android:paddingStart="5dp"
-                android:layout_marginStart="25dp"
-                android:paddingEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
                 android:textColor="@color/Black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textStyle="bold"
                 android:textAllCaps="false"
                 android:drawableStart="@drawable/ic_mail_black_24dp"
-                android:background="@drawable/bottom_three_buttons" />
-
-            <Button
-                android:id="@+id/btnWebsite"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:text=" View Website "
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="5dp"
-                android:layout_marginStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/Black"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:drawableStart="@drawable/ic_desktop_mac_black_24dp"
                 android:background="@drawable/bottom_three_buttons" />
 
 

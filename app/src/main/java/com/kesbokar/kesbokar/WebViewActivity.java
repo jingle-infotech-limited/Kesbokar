@@ -87,7 +87,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     private static final int LOADER_ID_BUSVAL = 3;
     private static final int LOADER_ID_BUSSUB = 4;
     private static final int LOADER_ID_BTNSRCH = 5;
-    Button rqst_quote, btnOpenCallDialler;
+    Button rqst_quote;
     String entry_level;
     TextView txt_name;
     EditText et_quote;
@@ -95,6 +95,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     int PID;
     String url_name;
     TextView txtCancel;
+
+    ImageView imgKesbokarLogo;
 
     private LoaderManager.LoaderCallbacks<ArrayList<String>> businessSearch;
     private androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<StateAndSuburb>> businessSuburb;
@@ -140,7 +142,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         Button signup=(Button)ab.findViewById(R.id.signup);
         Button login=(Button)ab.findViewById(R.id.login);
         Button logout=ab.findViewById(R.id.logout);
-        btnOpenCallDialler = findViewById(R.id.btnOpenCallDialler);
+
+        imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
+
         AppBarLayout rqst_quote_toolbar=findViewById(R.id.rqst_quote_toolbar);
         email=extras.getString("mail");
         image1=extras.getString("image");
@@ -151,8 +155,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         if (entry_level.equals("1"))
         {
-            rqst_quote.setVisibility(View.VISIBLE);
-            rqst_quote_toolbar.setVisibility(View.VISIBLE);
+            rqst_quote.setVisibility(View.INVISIBLE);
+            rqst_quote_toolbar.setVisibility(View.INVISIBLE);
 
         }
         else if (entry_level.equals("0")){
@@ -160,11 +164,11 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             url_name=extras.getString("url_name");
         }
 
-        btnOpenCallDialler.setOnClickListener(new View.OnClickListener() {
+
+        imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:0123456789"));
+                Intent intent = new Intent(WebViewActivity.this, Navigation.class);
                 startActivity(intent);
             }
         });
@@ -303,6 +307,28 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public class myWebClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if(url.contains("phone-view")) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } else {
+                view.loadUrl(url);
+                return true;
+            }
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -504,7 +530,6 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             }
         }
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -525,29 +550,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    public void onRadioButtonClicked(View view) {
-    }
 
-    public class myWebClient extends WebViewClient
-    {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
-            view.loadUrl(url);
-            return true;
-
-        }
-    }
-
-    private static class MyAsyncTask extends AsyncTask<Void, Void, Document> {
+    private class MyAsyncTask extends AsyncTask<Void, Void, Document> {
         @Override
         protected Document doInBackground(Void... voids) {
 
@@ -561,9 +565,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 document.getElementsByClass("breadcrumb").remove();
                 document.getElementsByClass("page-subheader sorting pl0").remove();
                 document.getElementsByClass("sel-filters text-left").remove();
-                document.getElementsByClass("text-center btnn-position").remove();
+//                document.getElementsByClass("text-center btnn-position").remove();
                 document.getElementsByClass("fbp-footer listing-data").attr("style", "bottom:0;");
-
 
 
             } catch (IOException e) {
@@ -575,13 +578,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
-            webView.setWebViewClient(new WebViewClient());
-            WebSettings webSettings=webView.getSettings();
+//            webView.setWebViewClient(new myWebClient());
+//            WebSettings webSettings=webView.getSettings();
 //            webSettings.setBuiltInZoomControls(true);
             webView.loadDataWithBaseURL(URL1,document.toString(),"text/html","utf-8","");
             //webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
-            webSettings.setJavaScriptEnabled(true);
+//            webSettings.setJavaScriptEnabled(true);
         }
+
     }
     public void getData()
     {
