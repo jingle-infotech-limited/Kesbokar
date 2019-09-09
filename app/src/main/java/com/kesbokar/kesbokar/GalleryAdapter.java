@@ -47,7 +47,7 @@ class GalleryAdapter  extends BaseAdapter {
 
         View itemView = inflater.inflate(R.layout.grid_view_layout, parent, false);
 
-        ivGallery = (ImageView) itemView.findViewById(R.id.ivGallery);
+        ivGallery = itemView.findViewById(R.id.ivGallery);
 
         ivGallery.setImageURI(mArrayUri.get(position));
 

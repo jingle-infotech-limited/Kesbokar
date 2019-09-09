@@ -59,15 +59,15 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
         setContentView(R.layout.activity_career);
         getData();
 
-        btnHel = (Button)findViewById(R.id.btnCareerHelp);
-        btnBuis = (Button)findViewById(R.id.btnCareerBusiness);
-        btnMar = (Button)findViewById(R.id.btnCareerMark);
+        btnHel = findViewById(R.id.btnCareerHelp);
+        btnBuis = findViewById(R.id.btnCareerBusiness);
+        btnMar = findViewById(R.id.btnCareerMark);
 
         toolbar = findViewById(R.id.toolbar);
 
         logo=findViewById(R.id.logo);
         contact=findViewById(R.id.contact);
-        webView = (WebView) findViewById(R.id.webview);
+        webView = findViewById(R.id.webview);
 
         category = findViewById(R.id.category);
         drawer = findViewById(R.id.drawer_layout);

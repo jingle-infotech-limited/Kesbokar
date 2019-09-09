@@ -88,7 +88,11 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     private static final int LOADER_ID_BUSVAL = 3;
     private static final int LOADER_ID_BUSSUB = 4;
     private static final int LOADER_ID_BTNSRCH = 5;
+<<<<<<< HEAD
     Button rqst_quote, btnOpenCallDialler, btnAlertDialogSearch;
+=======
+    Button rqst_quote;
+>>>>>>> 195a50fda55c1d879cf31177667203d99e34b416
     String entry_level;
     TextView txt_name;
     EditText et_quote;
@@ -96,6 +100,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     int PID;
     String url_name;
     TextView txtCancel;
+
+    ImageView imgKesbokarLogo;
 
     private LoaderManager.LoaderCallbacks<ArrayList<String>> businessSearch;
     private androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<StateAndSuburb>> businessSuburb;
@@ -108,6 +114,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_web_view);
@@ -168,6 +175,71 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                     startActivity(intent);
                 }
             });
+=======
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_web_view);
+        final ScrollView scrollView= findViewById(R.id.scroll);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        getData();
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        webView = findViewById(R.id.webview);
+        search_btn=findViewById(R.id.search_btn);
+        valsBus = new ArrayList<>();
+        valsSub = new ArrayList<>();
+        querySub = subV = subType = q = "";
+        exampleItems = new ArrayList<>();
+        rqst_quote=findViewById(R.id.rqst_quote);
+        Intent intent = getIntent();
+        Bundle extras=intent.getExtras();
+
+        URL1 = extras.getString("URL");
+
+        flag = extras.getInt("Flag");
+        full_name=extras.getString("Name");
+        Menu show=navigationView.getMenu();
+        View ab = navigationView.getHeaderView(0);
+        TextView name1= ab.findViewById(R.id.name_user);
+        Button signup= ab.findViewById(R.id.signup);
+        Button login= ab.findViewById(R.id.login);
+        Button logout=ab.findViewById(R.id.logout);
+
+        imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
+
+        AppBarLayout rqst_quote_toolbar=findViewById(R.id.rqst_quote_toolbar);
+        email=extras.getString("mail");
+        image1=extras.getString("image");
+        phone_no=extras.getString("phone");
+        id1=extras.getInt("id");
+        created=extras.getString("create");
+        updated=extras.getString("update");
+
+        if (entry_level.equals("1"))
+        {
+            rqst_quote.setVisibility(View.INVISIBLE);
+            rqst_quote_toolbar.setVisibility(View.INVISIBLE);
+
+        }
+        else if (entry_level.equals("0")){
+            PID=extras.getInt("PID");
+            url_name=extras.getString("url_name");
+        }
+
+
+        imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WebViewActivity.this, Navigation.class);
+                startActivity(intent);
+            }
+        });
+>>>>>>> 195a50fda55c1d879cf31177667203d99e34b416
 
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -303,6 +375,28 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public class myWebClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if(url.contains("phone-view")) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } else {
+                view.loadUrl(url);
+                return true;
+            }
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -500,7 +594,6 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             }
         }
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -521,6 +614,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
     }
 
+<<<<<<< HEAD
 
     public  class myWebClient extends WebViewClient {
 
@@ -624,6 +718,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
 
 
+=======
+
+>>>>>>> 195a50fda55c1d879cf31177667203d99e34b416
     private class MyAsyncTask extends AsyncTask<Void, Void, Document> {
         @Override
         protected Document doInBackground(Void... voids) {
@@ -638,7 +735,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 document.getElementsByClass("breadcrumb").remove();
                 document.getElementsByClass("page-subheader sorting pl0").remove();
                 document.getElementsByClass("sel-filters text-left").remove();
-                document.getElementsByClass("text-center btnn-position").remove();
+//                document.getElementsByClass("text-center btnn-position").remove();
                 document.getElementsByClass("fbp-footer listing-data").attr("style", "bottom:0;");
 
 
@@ -651,6 +748,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
+<<<<<<< HEAD
 try {
     webView.setWebViewClient(new myWebClient());
     WebSettings webSettings = webView.getSettings();
@@ -660,7 +758,16 @@ try {
     webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
 
 }catch(Exception e){ System.out.println(e);}
+=======
+//            webView.setWebViewClient(new myWebClient());
+//            WebSettings webSettings=webView.getSettings();
+//            webSettings.setBuiltInZoomControls(true);
+            webView.loadDataWithBaseURL(URL1,document.toString(),"text/html","utf-8","");
+            //webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
+//            webSettings.setJavaScriptEnabled(true);
+>>>>>>> 195a50fda55c1d879cf31177667203d99e34b416
         }
+
     }
 
     public void getData() {

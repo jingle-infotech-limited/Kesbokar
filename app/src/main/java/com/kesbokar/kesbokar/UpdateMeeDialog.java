@@ -29,8 +29,8 @@ public class UpdateMeeDialog {
         dialog.setContentView(R.layout.dialog_update);
         am = (ActivityManager)activity.getSystemService(Context.ACTIVITY_SERVICE);
 
-        Button update=(Button)dialog.findViewById(R.id.buttonUpdate);
-        Button cancel=(Button) dialog.findViewById(R.id.remindlater);
+        Button update= dialog.findViewById(R.id.buttonUpdate);
+        Button cancel= dialog.findViewById(R.id.remindlater);
         Log.i("package name",packageName);
         update.setOnClickListener(new View.OnClickListener() {
             @Override

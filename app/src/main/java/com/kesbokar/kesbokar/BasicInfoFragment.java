@@ -133,16 +133,16 @@ public class BasicInfoFragment extends Fragment {
         entry_state=0;
         // Categories
         final String[] value = new String[3];
-        txtCatFirst =(TextView) view.findViewById(R.id.txtCatFirst);
-        txtCatSecond =(TextView) view.findViewById(R.id.txtCatSecond);
-        txtCatThird =(TextView) view.findViewById(R.id.txtCatThird);
+        txtCatFirst = view.findViewById(R.id.txtCatFirst);
+        txtCatSecond = view.findViewById(R.id.txtCatSecond);
+        txtCatThird = view.findViewById(R.id.txtCatThird);
         etPostProduct = view.findViewById(R.id.etPostProduct);
-        edtProductTitle = (EditText) view.findViewById(R.id.etProductTitle);
+        edtProductTitle = view.findViewById(R.id.etProductTitle);
 
         cancel_tag= view.findViewById(R.id.cancel_tag);
-        btnCancel_1 = (Button) view.findViewById(R.id.btnCancel_1);
-        btnCancel_2 = (Button) view.findViewById(R.id.btnCancel_2);
-        btnCancel_3 = (Button) view.findViewById(R.id.btnCancel_3);
+        btnCancel_1 = view.findViewById(R.id.btnCancel_1);
+        btnCancel_2 = view.findViewById(R.id.btnCancel_2);
+        btnCancel_3 = view.findViewById(R.id.btnCancel_3);
         btn_save_and_nxt=view.findViewById(R.id.btn_save_and_next);
         txtCatSecond.setVisibility(View.GONE);
         txtCatThird.setVisibility(View.GONE);
@@ -151,9 +151,9 @@ public class BasicInfoFragment extends Fragment {
         btnCancel_2.setVisibility(View.GONE);
         btnCancel_3.setVisibility(View.GONE);
 
-        etPrice = (EditText)  view.findViewById(R.id.etPrice);
+        etPrice = view.findViewById(R.id.etPrice);
 
-        mltAutoKeyWords = (MultiAutoCompleteTextView) view.findViewById(R.id.mltAutoKeyWords);
+        mltAutoKeyWords = view.findViewById(R.id.mltAutoKeyWords);
         final String[] firstValueArray = {"API1", "API1", "API1"};
         final String[] secondValueArray;
         final String[] thirdValueArray;

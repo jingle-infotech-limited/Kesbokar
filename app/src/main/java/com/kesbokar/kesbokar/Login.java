@@ -14,6 +14,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,6 +24,8 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.util.Base64;
+import android.util.Base64DataException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,6 +69,8 @@ import org.jsoup.select.Evaluator;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,8 +93,6 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     private CallbackManager callbackManager;
 
     private static final String EMAIL = "email";
-//    private static final String fbName = "id";
-//    private static final String fbName = "first_name";
 
     int id;
     SharedPreferences loginData;
@@ -111,6 +116,21 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.kesbokar.kesbokar",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
 
         if(!isNetworkAvailable())
         {
@@ -136,10 +156,10 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         loginPass = "";
 
         View ab = navigationView.getHeaderView(0);
-        signup = (Button) ab.findViewById(R.id.signup);
-        login = (Button) ab.findViewById(R.id.login);
+        signup = ab.findViewById(R.id.signup);
+        login = ab.findViewById(R.id.login);
         logout=ab.findViewById(R.id.logout);
-        name=(TextView)ab.findViewById(R.id.name_user);
+        name= ab.findViewById(R.id.name_user);
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -182,7 +202,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         });
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button);
 
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
         // If you are using in a fragment, call loginButton.setFragment(this);
@@ -190,20 +210,18 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
                 // App code
                 final AccessToken accessToken = loginResult.getAccessToken();
 
-                saveData();
-
                 Toast.makeText(Login.this, "Hello", Toast.LENGTH_SHORT).show();
 
-                GraphRequest graphRequest=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                final GraphRequest graphRequest=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
 
                     @Override
                     public void onCompleted(final JSONObject object, GraphResponse response) {
 
-                        flag=1;
+                        Log.i("Response", response.toString());
 
                         String url1 = "https://serv.kesbokar.com.au/jil.0.1/auth/login/facebook";
 
@@ -212,10 +230,34 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                             @Override
                             public void onResponse(String response) {
 
-                                Log.i("Response", "Facebook SignIn Api");
-                                Toast.makeText(Login.this, "Hello World", Toast.LENGTH_SHORT).show();
+//                                Log.e("Response_facebook", response.toString());
+
+                                try {
+                                    JSONObject jsonObject1 = new JSONObject(response);
+                                    Log.i("Response",  jsonObject1.getString("data"));
+
+                                    JSONObject jsonObject2 = new JSONObject(jsonObject1.getString("data"));
+                                    Log.i("Response",  jsonObject2.getString("id"));
+
+                                    if(jsonObject2!=null) {
+                                        flag = 1;
+                                        full_name = object.getString("name");
+                                        email = jsonObject2.getString("email");
+                                        image = jsonObject2.getString("image");
+                                        phone_no = jsonObject2.getString("phone");
+                                        id=jsonObject2.getInt("id");
+                                        saveData();
+                                        ResetLeftMenu();
+                                    }else{
+                                        flag=0;
+                                    }
+
+                                } catch (Exception e){
+
+                                }
                             }
                         }, new Response.ErrorListener() {
+
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.i("Error",error.toString());
@@ -229,7 +271,14 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                                     params.put("email", object.getString("email"));
                                     params.put("name", object.getString("name"));
                                     params.put("provider_id", object.getString("id"));
+                                    params.put("token", "");
                                     params.put("provider", "facebook");
+
+                                    if (object!=null){
+                                        params.put("avatar",  "https://graph.facebook.com/"+object.getString("id")+"/picture?type=normal");
+                                    } else {
+                                        params.put("avatar", "");
+                                    }
 
                                 }catch (JSONException e){
                                     System.out.println(e);
@@ -240,21 +289,22 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                             }
                         };
                         requestQueue.add(stringRequest);
-                        Intent intent = new Intent(Login.this, Navigation.class);
-                        startActivity(intent);
-
+//                        flag = 1;
+                        saveData();
+//                        Intent intent = new Intent(Login.this, Navigation.class);
+//                        startActivity(intent);
                     }
                 });
-                Bundle bundle = new Bundle();
-                bundle.putString("fields", "name, email, id");
-                graphRequest.setParameters(bundle);
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email,id");
+                graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
-
             }
 
             @Override
             public void onCancel() {
                 // App code
+
             }
 
             @Override
@@ -367,11 +417,34 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
             RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            final StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i("Response", "Google Sign In api");
+//                    Log.i("Response", response.toString());
 
+                    try {
+                        JSONObject jsonObject1 = new JSONObject(response);
+                        Log.i("Response",  jsonObject1.getString("data"));
+
+                        JSONObject jsonObject2 = new JSONObject(jsonObject1.getString("data"));
+//                        Log.i("Response",  jsonObject2.getString("id"));
+
+                        if(jsonObject2!=null) {
+                            flag = 1;
+                            full_name = jsonObject2.getString("first_name")+" "+jsonObject2.getString("last_name");
+                            email = jsonObject2.getString("email");
+                            image = jsonObject2.getString("image");
+                            phone_no = jsonObject2.getString("phone");
+                            id=jsonObject2.getInt("id");
+                            saveData();
+                            ResetLeftMenu();
+                        }else{
+                            flag=0;
+                        }
+
+                    } catch (Exception e){
+
+                    }
 
                 }
             }, new Response.ErrorListener() {
@@ -410,7 +483,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                 if(flag==1) {
 
                     name.setText(full_name);
-                    full_name = personName;
+                    full_name=personName;
 
                     login.setVisibility(View.INVISIBLE);
                     signup.setVisibility(View.INVISIBLE);
@@ -419,7 +492,6 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                     show.findItem(R.id.advertise).setVisible(false);
                     show.findItem(R.id.loginPage).setVisible(true);
                     logout.setVisibility(View.VISIBLE);
-
                 }
                 saveData();
                 Intent intent = new Intent(Login.this, Navigation.class);
@@ -481,20 +553,29 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         editor.putString("create",created);
         editor.putString("update",updated);
         editor.putInt("id",id);
-
-        editor.putString("name", personName);
-        editor.putString("email", personEmail);
-        editor.putString("provider_id", personID);
-
-        editor.putString("name", "name");
-        editor.putString("email", "email");
-        editor.putString("provider_id", "id");
-
-//        editor.putString("name", fbName);
-//        editor.putString("email", fbEMAIL);
-//        editor.putString("provider_id", fbId);
         editor.apply();
 
+    }
+
+    public void ResetLeftMenu(){
+
+        Menu show=navigationView.getMenu();
+
+        if(flag==1) {
+
+            name.setText(full_name);
+            login.setVisibility(View.INVISIBLE);
+            signup.setVisibility(View.INVISIBLE);
+            show.findItem(R.id.nav_send).setVisible(true);
+            show.findItem(R.id.nav_share).setVisible(true);
+            show.findItem(R.id.advertise).setVisible(false);
+            show.findItem(R.id.loginPage).setVisible(true);
+            logout.setVisibility(View.VISIBLE);
+        }
+        Intent intent = new Intent(Login.this, Navigation.class);
+        startActivity(intent);
+
+        return;
     }
 
     @Override

@@ -52,7 +52,7 @@ public class Help extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        Button send=(Button)findViewById(R.id.send);
+        Button send= findViewById(R.id.send);
         getData();
         Context context;
         context=Help.this;

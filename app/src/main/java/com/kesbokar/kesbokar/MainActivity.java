@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if (isNetworkAvailable()) {
             try {
                 versionChecker VersionChecker = new versionChecker();
-                versionUpdated = VersionChecker.execute().get().toString();
+                versionUpdated = VersionChecker.execute().get();
                 Log.i("version code is", versionUpdated);
 
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 int version_code = packageInfo.versionCode;
                 version_name = packageInfo.versionName;
-                Log.i("updated version code", String.valueOf(version_code) + "  " + version_name);
+                Log.i("updated version code", version_code + "  " + version_name);
                 if (!version_name.equals(versionUpdated)) {
                     String packageName = getApplicationContext().getPackageName();//
                     UpdateMeeDialog updateMeeDialog = new UpdateMeeDialog();

@@ -450,8 +450,6 @@ public class CarDetailsFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
                         new Response.ErrorListener()
@@ -509,7 +507,7 @@ public class CarDetailsFragment extends Fragment {
                 editor.putInt("entry_state1",entry_state);
                 editor.apply();
 
-                
+
 
                 int item=viewPager.getCurrentItem();
                 View tab=tabLayout.getTabAt(item+1).view;
@@ -557,6 +555,8 @@ public class CarDetailsFragment extends Fragment {
         });
         requestQueue.add(jsonObjectRequest);
     }
+
+
     public void jsonParserModel()
     {
         url1 = "http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/model/dd/get?make_id="+id_make+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";

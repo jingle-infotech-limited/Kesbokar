@@ -148,10 +148,10 @@ String cdn_url;
         } else {
             setContentView(R.layout.activity_navigation_market);
         }
-        final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        final ScrollView scrollView = findViewById(R.id.scroll);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ab = (TextView) findViewById(R.id.about);
+        ab = findViewById(R.id.about);
         relativelayout = findViewById(R.id.abc1);
         params = new LinearLayout
                 .LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -185,12 +185,12 @@ String cdn_url;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        top = (Button) findViewById(R.id.top);
+        top = findViewById(R.id.top);
         View ab = navigationView.getHeaderView(0);
         Menu show = navigationView.getMenu();
-        name = (TextView) ab.findViewById(R.id.name_user);
-        signup = (Button) ab.findViewById(R.id.signup);
-        login = (Button) ab.findViewById(R.id.login);
+        name = ab.findViewById(R.id.name_user);
+        signup = ab.findViewById(R.id.signup);
+        login = ab.findViewById(R.id.login);
         logout = ab.findViewById(R.id.logout);
         layoutsec = findViewById(R.id.bcd);
         btnSrch = findViewById(R.id.marBtnSrch);
@@ -199,7 +199,7 @@ String cdn_url;
         RadioButton rb_business = findViewById(R.id.rb_businesses);
         btnBusinessNavMark = findViewById(R.id.buis);
         ml = findViewById(R.id.ml);
-        btnNavHelp = (Button) findViewById(R.id.btnNavHelp);
+        btnNavHelp = findViewById(R.id.btnNavHelp);
 
         recyclerView_navigation_service_expert = findViewById(R.id.recyclerView_navigation_service_expert);
         recyclerView_navigation_featured_ads = findViewById(R.id.recyclerView_navigation_featured_ads);

@@ -79,7 +79,7 @@ public class ProfileBusinessListing extends AppCompatActivity implements Navigat
             }
         });
 
-        btnCreateNewBusinessListing = (Button)findViewById(R.id.btnCreate_new_business_listing);
+        btnCreateNewBusinessListing = findViewById(R.id.btnCreate_new_business_listing);
 
         btnCreateNewBusinessListing.setOnClickListener(new View.OnClickListener() {
             @Override

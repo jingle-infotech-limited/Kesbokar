@@ -153,29 +153,29 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
 
         progressDialog = new ProgressDialog(getActivity());
         edtCompanyTitle = view.findViewById(R.id.edtCompanyTitle);
-        mltAutoKeyWords = (MultiAutoCompleteTextView) view.findViewById(R.id.mltAutoKeyWords_business);
-        edtABN_Number = (EditText) view.findViewById(R.id.etABN);
-        btnVerify = (Button) view.findViewById(R.id.btnVerify);
-        btnDetect = (Button) view.findViewById(R.id.btnDetect);
+        mltAutoKeyWords = view.findViewById(R.id.mltAutoKeyWords_business);
+        edtABN_Number = view.findViewById(R.id.etABN);
+        btnVerify = view.findViewById(R.id.btnVerify);
+        btnDetect = view.findViewById(R.id.btnDetect);
 
-        etState = (AutoCompleteTextView) view.findViewById(R.id.etState);
-        etSuburb = (AutoCompleteTextView) view.findViewById(R.id.etSuburb);
-        etLicense = (EditText) view.findViewById(R.id.etLicense);
-        etQuote = (EditText) view.findViewById(R.id.etQuote);
-        etPhone = (EditText) view.findViewById(R.id.etPhone);
-        etEmail = (EditText) view.findViewById(R.id.etEmail);
-        etStreet = (EditText) view.findViewById(R.id.etStreet);
-        etWebsite = (EditText) view.findViewById(R.id.etWebsite);
+        etState = view.findViewById(R.id.etState);
+        etSuburb = view.findViewById(R.id.etSuburb);
+        etLicense = view.findViewById(R.id.etLicense);
+        etQuote = view.findViewById(R.id.etQuote);
+        etPhone = view.findViewById(R.id.etPhone);
+        etEmail = view.findViewById(R.id.etEmail);
+        etStreet = view.findViewById(R.id.etStreet);
+        etWebsite = view.findViewById(R.id.etWebsite);
 
-        etLongitude = (EditText) view.findViewById(R.id.etLongitude);
-        etLatitude = (EditText) view.findViewById(R.id.etLatitude);
+        etLongitude = view.findViewById(R.id.etLongitude);
+        etLatitude = view.findViewById(R.id.etLatitude);
 
         context = getContext();
 
 
-        btnCancel_1 = (Button) view.findViewById(R.id.btnCancel_1);
-        btnCancel_2 = (Button) view.findViewById(R.id.btnCancel_2);
-        btnCancel_3 = (Button) view.findViewById(R.id.btnCancel_3);
+        btnCancel_1 = view.findViewById(R.id.btnCancel_1);
+        btnCancel_2 = view.findViewById(R.id.btnCancel_2);
+        btnCancel_3 = view.findViewById(R.id.btnCancel_3);
 
         btnCancel_1.setVisibility(View.GONE);
         btnCancel_2.setVisibility(View.GONE);
