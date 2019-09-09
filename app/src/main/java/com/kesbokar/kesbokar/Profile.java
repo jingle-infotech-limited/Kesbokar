@@ -24,7 +24,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     TextView tvName, tvEmail, tvPhone, tvCreatedAt, tvUpdatedAt;
     ImageView ivImage;
     Button change_password,edit_profile;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
     int id,flag;
 
     Button logout;
@@ -89,7 +89,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
             }
         });
-        Picasso.with(Profile.this).load("https://www.kesbokar.com.au/uploads/profile/"+image).into(ivImage);
+        Picasso.with(Profile.this).load(cdn_url+"uploads/profile/"+image).into(ivImage);
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,6 +340,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        cdn_url=loginData.getString("cdn_url","");
 
     }
 

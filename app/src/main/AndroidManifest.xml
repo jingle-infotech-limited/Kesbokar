@@ -76,7 +76,9 @@
             android:name=".WebViewActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_web_view"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".Navigation_market"
             android:configChanges="orientation"

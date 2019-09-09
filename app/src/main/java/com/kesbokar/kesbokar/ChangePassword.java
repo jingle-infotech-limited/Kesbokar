@@ -38,38 +38,42 @@ public class ChangePassword extends AppCompatActivity {
         change_password_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (new_password.getText().toString().equals(confirm_password.getText().toString())) {
-                    String url = "http://serv.kesbokar.com.au/jil.0.1/v1/users/" + id;
-                    RequestQueue requestQueue = Volley.newRequestQueue(ChangePassword.this);
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i("Response",response);
-                            Toast.makeText(ChangePassword.this, "Your Password Has Been Changed", Toast.LENGTH_SHORT).show();
-                        }
-                    },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.i("Error",error.toString());
-                                }
-                            }) {
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("id", "" + id);
-                            params.put("password", new_password.getText().toString());
-                            params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
-                            return params;
-                        }
-                    };
-                    requestQueue.add(stringRequest);
-                    Intent intent=new Intent(ChangePassword.this,Profile.class);
-                    startActivity(intent);
-                    finish();
+                if (new_password.getText().toString().equals("") && confirm_password.getText().toString().equals("")) {
+                    Toast.makeText(ChangePassword.this, "You can't submit empty field", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(ChangePassword.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                    if (new_password.getText().toString().equals(confirm_password.getText().toString())) {
+                        String url = "http://serv.kesbokar.com.au/jil.0.1/v1/users/" + id;
+                        RequestQueue requestQueue = Volley.newRequestQueue(ChangePassword.this);
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("Response", response);
+
+                            }
+                        },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.i("Error", error.toString());
+                                    }
+                                }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("id", "" + id);
+                                params.put("password", new_password.getText().toString());
+                                params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                                return params;
+                            }
+                        };
+                        requestQueue.add(stringRequest);
+                        Intent intent = new Intent(ChangePassword.this, Profile.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(ChangePassword.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

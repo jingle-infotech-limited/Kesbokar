@@ -53,8 +53,8 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class SliderBusinessFragment extends Fragment {
-
-    String myurl = "https://www.kesbokar.com.au/jil.0.1/api/v1/yellowpage/slider/upload";
+String cdn_url;
+    String myurl = cdn_url+"jil.0.1/api/v1/yellowpage/slider/upload";
 
     Button btnChooseFiles, btnUpload, btnPrevious, btnSave;
     TextView tvChosen;
@@ -374,6 +374,7 @@ public class SliderBusinessFragment extends Fragment {
         image = loginData.getString("image", "");
         phone_no = loginData.getString("phone", "");
         id = loginData.getInt("id", 0);
+        cdn_url=loginData.getString("cdn_url","");
         created = loginData.getString("create", "");
         updated = loginData.getString("update", "");
         SharedPreferences get_product_detail = getActivity().getSharedPreferences("product_detail", 0);

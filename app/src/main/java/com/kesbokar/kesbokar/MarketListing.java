@@ -225,11 +225,11 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             name1.setText(full_name);
             login.setVisibility(View.INVISIBLE);
             signup.setVisibility(View.INVISIBLE);
-            show.findItem(R.id.nav_send).setVisible(true);
-            show.findItem(R.id.nav_share).setVisible(true);
-            show.findItem(R.id.advertise).setVisible(true);
+            //show.findItem(R.id.nav_send).setVisible(true);
+            //show.findItem(R.id.nav_share).setVisible(true);
+            //show.findItem(R.id.advertise).setVisible(true);
             logout.setVisibility(View.VISIBLE);
-            show.findItem(R.id.loginPage).setVisible(true);
+            //show.findItem(R.id.loginPage).setVisible(true);
 
         }
 

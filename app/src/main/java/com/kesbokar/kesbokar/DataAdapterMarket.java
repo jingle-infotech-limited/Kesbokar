@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Activity mActivity;
+    String cdn_url;
     private Context context;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -34,6 +35,7 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_market_listing, parent, false);
             return new MyViewHolder(view);
@@ -60,12 +62,14 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
         return marketItems.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
         LinearLayout parent;
         private TextView mln,mlt,mld,price,heading_text;
         ImageView mli;
-        private Button blrq,blw;
+      //  private Button blrq,blw;
         public MyViewHolder(@NonNull View view) {
             super(view);
             mli=view.findViewById(R.id.mli);
@@ -107,7 +111,7 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     private void populateItemRows(MyViewHolder holder, int position) {
         MarketIem current=marketItems.get(position);
-        String image="https://www.kesbokar.com.au/uploads/product/thumbs/"+current.getImg();
+        String image=cdn_url+"uploads/product/thumbs/"+current.getImg();
         String bName=current.getBusi_name();
         String bSynop=current.getBusi_synop();
         String price_ad=current.getprice();

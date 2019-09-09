@@ -85,7 +85,7 @@ public class Navigation extends AppCompatActivity
     Button btnSrch,logout;
     String about;
     TextView name;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title,cdn_url;
 
     String personName, personEmail, personID;
 
@@ -607,7 +607,7 @@ public class Navigation extends AppCompatActivity
                                 imagebutton[i].setLayoutParams(params);
                                 imagebutton[i].setTag(data.get(i).getId());
                                 final int index = i;
-                                String imgURL = "https://www.kesbokar.com.au/uploads/category/" + data.get(i).getImage();
+                                String imgURL = cdn_url+"uploads/category/" + data.get(i).getImage();
                                 Picasso.with(Navigation.this).load(imgURL).into(imagebutton[i]);
                                 imagebutton[i].setAdjustViewBounds(true);
                                 //new DownLoadImageTask(imagebutton[i]).execute(imgURL);
@@ -1043,7 +1043,7 @@ public class Navigation extends AppCompatActivity
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+              cdn_url=loginData.getString("cdn_url","");
         personName=loginData.getString("name","");
         personEmail=loginData.getString("email","");
         personID=loginData.getString("provider_id", "");

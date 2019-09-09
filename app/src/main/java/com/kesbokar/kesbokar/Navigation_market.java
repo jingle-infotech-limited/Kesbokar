@@ -125,6 +125,7 @@ public class Navigation_market extends AppCompatActivity
     String subType;
     int stateid;
     Button btnSrch;
+String cdn_url;
     private ArrayList<MarketIem> marketItems;
 
     private RecyclerView recyclerView_navigation_service_expert,recyclerView_navigation_featured_ads;
@@ -140,6 +141,8 @@ public class Navigation_market extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences=getSharedPreferences("data",0);
+        cdn_url=sharedPreferences.getString("cdn_url","");
         if (!isNetworkAvailable()) {
             setContentView(R.layout.no_internet);
         } else {
@@ -455,7 +458,7 @@ public class Navigation_market extends AppCompatActivity
                                 imagebutton[i].setLayoutParams(params);
                                 imagebutton[i].setTag(data.get(i).getId());
                                 final int index = i;
-                                String imgURL = "https://www.kesbokar.com.au/uploads/category/" + data.get(i).getImage();
+                                String imgURL = cdn_url+"uploads/category/" + data.get(i).getImage();
                                 Picasso.with(Navigation_market.this).load(imgURL).into(imagebutton[i]);
                                 imagebutton[i].setAdjustViewBounds(true);
                                 //new DownLoadImageTask(imagebutton[i]).execute(imgURL);
@@ -921,7 +924,7 @@ public class Navigation_market extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... voids) {
             try{
-                Document doc1 = Jsoup.connect("https://www.kesbokar.com.au/").get();
+                Document doc1 = Jsoup.connect(cdn_url).get();
                 Elements repositories=doc1.select("#business-list-block");//doc1.getElementsByClass("content-area home-area-1 recent-property");
                 for (Element repository : repositories) {
                     Elements header = repository.getElementsByClass("col-md-10col-sm-12 text-center page-title");

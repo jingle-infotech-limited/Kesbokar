@@ -81,7 +81,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
     private Button btnDetect, btnSave;
 
     private String name, registration_no, license_no, website, category_id, phone, address, description, latitude, longitude, email1,topcat_id,parentcat_id,
-            quote_message, short_description,category_name,topcat_name,parentcat_name,yellowpage_id, new_name;
+            quote_message, short_description,category_name,topcat_name,parentcat_name,yellowpage_id, new_name,cdn_url;
 
 
     private EditText etLongitude, etLatitude, etLicense, etQuote, etPhone, etEmail, etStreet, etWebsite;
@@ -551,7 +551,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
 
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 String url;
-                url = "https://www.kesbokar.com.au/jil.0.1/api/v1/yellowpage/verify/abn?abn=" + edtABN_Number.getText().toString() + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                url = cdn_url+"jil.0.1/api/v1/yellowpage/verify/abn?abn=" + edtABN_Number.getText().toString() + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -828,6 +828,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             id = loginData.getInt("id", 0);
             created = loginData.getString("create", "");
             updated = loginData.getString("update", "");
+            cdn_url=loginData.getString("cdn_url","");
 
         SharedPreferences basicInfoBusiness = getActivity().getSharedPreferences("business_edit", 0);
         edit1=basicInfoBusiness.getInt("edit",0);

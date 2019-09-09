@@ -24,6 +24,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -36,8 +37,8 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
     static String URL1;
     Document doc1;
     public static WebView webView;
-    public static Button contact;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    public static ImageView contact,logo;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
     int id,flag;
 
     private Button btnHel,btnBuis,btnMar;
@@ -64,7 +65,7 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
 
         toolbar = findViewById(R.id.toolbar);
 
-
+        logo=findViewById(R.id.logo);
         contact=findViewById(R.id.contact);
         webView = (WebView) findViewById(R.id.webview);
 
@@ -94,7 +95,13 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
 
         }
 
-
+logo.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent= new Intent(getApplicationContext(),Navigation.class);
+        startActivity(intent);
+    }
+});
         getData();
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -102,7 +109,7 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.kesbokar.com.au/contact-us";
+                String url = cdn_url+"contact-us";
                 Intent intent = new Intent(Career.this, WebViewActivity.class);
                 intent.putExtra("URL", url);
                 startActivity(intent);
@@ -110,7 +117,7 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
 
             }
         });
-        URL1 ="https://www.kesbokar.com.au/career";
+        URL1 =cdn_url+"career";
         new Career.MyAsyncTask().execute();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -492,6 +499,7 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        cdn_url=loginData.getString("cdn_url","");
 
     }
 }

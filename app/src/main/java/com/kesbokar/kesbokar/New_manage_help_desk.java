@@ -61,51 +61,53 @@ public class New_manage_help_desk extends AppCompatActivity implements Navigatio
         create_helpdesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String Subject=subject_helpdesk.getText().toString();
-                final String Message=message_helpdesk.getText().toString();
-                RequestQueue queue= Volley.newRequestQueue(New_manage_help_desk.this);
-                String url1="http://serv.kesbokar.com.au/jil.0.1/v1/helpdesk";
-                StringRequest stringRequest=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(New_manage_help_desk.this, "Response"+"Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
-                        Log.i("Resposnse",response);
+                final String Subject = subject_helpdesk.getText().toString();
+                final String Message = message_helpdesk.getText().toString();
+                if (Subject.equals("") && (Message.equals(""))) {
+                    Toast.makeText(New_manage_help_desk.this, "Can't submit empty fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    RequestQueue queue = Volley.newRequestQueue(New_manage_help_desk.this);
+                    String url1 = "http://serv.kesbokar.com.au/jil.0.1/v1/helpdesk";
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(New_manage_help_desk.this, "Response" + "Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
+                            Log.i("Resposnse", response);
 
-                    }
-                },
-                        new Response.ErrorListener()
-                        {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // errorLog.d("Error.Response", String.valueOf(error));
-                                Toast.makeText(New_manage_help_desk.this, "Error", Toast.LENGTH_SHORT).show();
-                            }
-                        }){
-                    @Override
-                    protected Map<String, String> getParams()
-                    {
-                        String id1=""+id;
-                        Map<String, String>  params = new HashMap<String, String >();
-                        params.put("subject", Subject);
-                        params.put("message", Message);
-                        params.put("sender_id", id1);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        }
+                    },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // errorLog.d("Error.Response", String.valueOf(error));
+                                    Toast.makeText(New_manage_help_desk.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            String id1 = "" + id;
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("subject", Subject);
+                            params.put("message", Message);
+                            params.put("sender_id", id1);
+                            params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
 
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue= Volley.newRequestQueue(New_manage_help_desk.this);
-                queue.add(stringRequest);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent1=new Intent(New_manage_help_desk.this,ManageHelpDeskActivity.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivityForResult(intent1, 0);
-                        overridePendingTransition(0, 0);
-                        finish();
-                    }
-                },2000);
+                            return params;
+                        }
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(New_manage_help_desk.this);
+                    queue.add(stringRequest);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent1 = new Intent(New_manage_help_desk.this, ManageHelpDeskActivity.class);
+                            intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivityForResult(intent1, 0);
+                            overridePendingTransition(0, 0);
+                            finish();
+                        }
+                    }, 2000);
+                }
             }
         });
 

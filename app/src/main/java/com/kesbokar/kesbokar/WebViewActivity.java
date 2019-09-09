@@ -43,6 +43,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -73,21 +74,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>>{
+public class WebViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>> {
 
     static String URL1;
     Document doc1;
     public static WebView webView;
-    String loginId, loginPass, full_name, email, image1, phone_no,created,updated;
-    int id1,flag;
+    String loginId, loginPass, full_name, email, image1, phone_no, created, updated;
+    int id1, flag;
     ImageView search_btn;
-    private AutoCompleteTextView autoCompleteTextViewOne,autoCompleteTextViewTwo;
-    private Button btnAlertDialogSearch;
+    private AutoCompleteTextView autoCompleteTextViewOne, autoCompleteTextViewTwo;
+    private Button btnAlertDialogSfearch;
     private ArrayList<ExampleItem> exampleItems;
     private static final int LOADER_ID_BUSVAL = 3;
     private static final int LOADER_ID_BUSSUB = 4;
     private static final int LOADER_ID_BTNSRCH = 5;
-    Button rqst_quote, btnOpenCallDialler;
+    Button rqst_quote, btnOpenCallDialler, btnAlertDialogSearch;
     String entry_level;
     TextView txt_name;
     EditText et_quote;
@@ -102,192 +103,191 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     private ArrayList<String> valsBus;
     private ArrayList<StateAndSuburb> valsSub;
     private String query = "";
-    String querySub,subV,subType,q;
+    String querySub, subV, subType, q;
     int stateid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
-        final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        getData();
-        setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        webView = (WebView) findViewById(R.id.webview);
-        search_btn=findViewById(R.id.search_btn);
-        valsBus = new ArrayList<>();
-        valsSub = new ArrayList<>();
-        querySub = subV = subType = q = "";
-        exampleItems = new ArrayList<>();
-        rqst_quote=findViewById(R.id.rqst_quote);
-        Intent intent = getIntent();
-        Bundle extras=intent.getExtras();
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_web_view);
+            final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            getData();
+            setSupportActionBar(toolbar);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+            navigationView.setNavigationItemSelectedListener(this);
+            webView = (WebView) findViewById(R.id.webview);
+            search_btn = findViewById(R.id.search_btn);
+            valsBus = new ArrayList<>();
+            valsSub = new ArrayList<>();
+            querySub = subV = subType = q = "";
+            exampleItems = new ArrayList<>();
+            rqst_quote = findViewById(R.id.rqst_quote);
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
 
-        URL1 = extras.getString("URL");
+            URL1 = extras.getString("URL");
 
-        flag = extras.getInt("Flag");
-        full_name=extras.getString("Name");
-        Menu show=navigationView.getMenu();
-        View ab = navigationView.getHeaderView(0);
-        TextView name1=(TextView)ab.findViewById(R.id.name_user);
-        Button signup=(Button)ab.findViewById(R.id.signup);
-        Button login=(Button)ab.findViewById(R.id.login);
-        Button logout=ab.findViewById(R.id.logout);
-        btnOpenCallDialler = findViewById(R.id.btnOpenCallDialler);
-        AppBarLayout rqst_quote_toolbar=findViewById(R.id.rqst_quote_toolbar);
-        email=extras.getString("mail");
-        image1=extras.getString("image");
-        phone_no=extras.getString("phone");
-        id1=extras.getInt("id");
-        created=extras.getString("create");
-        updated=extras.getString("update");
+            flag = extras.getInt("Flag");
+            full_name = extras.getString("Name");
+            Menu show = navigationView.getMenu();
+            View ab = navigationView.getHeaderView(0);
+            TextView name1 = (TextView) ab.findViewById(R.id.name_user);
+            Button signup = (Button) ab.findViewById(R.id.signup);
+            Button login = (Button) ab.findViewById(R.id.login);
+            Button logout = ab.findViewById(R.id.logout);
+            btnOpenCallDialler = findViewById(R.id.btnOpenCallDialler);
+            AppBarLayout rqst_quote_toolbar = findViewById(R.id.rqst_quote_toolbar);
+            email = extras.getString("mail");
+            image1 = extras.getString("image");
+            phone_no = extras.getString("phone");
+            id1 = extras.getInt("id");
+            created = extras.getString("create");
+            updated = extras.getString("update");
 
-        if (entry_level.equals("1"))
-        {
-            rqst_quote.setVisibility(View.VISIBLE);
-            rqst_quote_toolbar.setVisibility(View.VISIBLE);
+            if (entry_level.equals("1")) {
+                rqst_quote.setVisibility(View.VISIBLE);
+                rqst_quote_toolbar.setVisibility(View.VISIBLE);
 
-        }
-        else if (entry_level.equals("0")){
-            PID=extras.getInt("PID");
-            url_name=extras.getString("url_name");
-        }
-
-        btnOpenCallDialler.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:0123456789"));
-                startActivity(intent);
+            } else if (entry_level.equals("0")) {
+                PID = extras.getInt("PID");
+                url_name = extras.getString("url_name");
             }
-        });
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent);
-            }
-        });
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WebViewActivity.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flag=0;
-                SharedPreferences loginData= getSharedPreferences("data",0);
-                SharedPreferences.Editor editor=loginData.edit();
-                editor.putInt("Flag",flag);
-                editor.apply();
-                Intent intent=new Intent(WebViewActivity.this,Navigation.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            }
-        });
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RequestAlertDialogBox();
-            }
-        });
-        getData();
-        if(flag==1)
-        {
-            name1.setText(full_name);
-            login.setVisibility(View.INVISIBLE);
-            signup.setVisibility(View.INVISIBLE);
-            show.findItem(R.id.nav_send).setVisible(true);
-            show.findItem(R.id.nav_share).setVisible(true);
-            show.findItem(R.id.advertise).setVisible(true);
-            logout.setVisibility(View.VISIBLE);
-            show.findItem(R.id.loginPage).setVisible(true);
-        }
-        rqst_quote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (flag==1) {
-                    final Dialog dialog1 = new Dialog(WebViewActivity.this);
-                    dialog1.setContentView(R.layout.get_in_touch);
-                    dialog1.getWindow();
-                    txt_name=dialog1.findViewById(R.id.name);
-                    et_quote=dialog1.findViewById(R.id.et_quote);
-                    btn_send=dialog1.findViewById(R.id.btn_send);
-                    btnCloseDialog=dialog1.findViewById(R.id.btnCloseDialog);
-                    txt_name.setText(full_name);
-                    dialog1.show();
-
-                    btnCloseDialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog1.dismiss();
-                        }
-                    });
-                    btn_send.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            final String url="http://serv.kesbokar.com.au/jil.0.1/v2/product/enquiry";
-                            RequestQueue queue= Volley.newRequestQueue(WebViewActivity.this);
-                            //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
-                            StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    Toast.makeText(WebViewActivity.this, "Response"+"Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
-                                    Log.i("Response",response);
-
-                                }
-                            },
-                                    new Response.ErrorListener()
-                                    {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            // errorLog.d("Error.Response", String.valueOf(error));
-                                            Toast.makeText(WebViewActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                                            Log.i("Error",error.toString());
-                                        }
-                                    }){
-                                @Override
-                                protected Map<String, String> getParams()
-                                {
-                                    Map<String, String>  params = new HashMap<String, String >();
-                                    params.put("user_id",""+ id1);
-                                    params.put("product_id", ""+PID);
-                                    params.put("urlname",url_name);
-                                    params.put("message",et_quote.getText().toString());
-                                    params.put("ipaddress","");
-                                    params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
-
-                                    return params;
-                                }
-                            };
-                            RequestQueue requestQueue=Volley.newRequestQueue(WebViewActivity.this);
-                            queue.add(stringRequest);
-                            dialog1.dismiss();
-                        }
-                    });
+            btnOpenCallDialler.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:0123456789"));
+                    startActivity(intent);
                 }
-                else {
-                    Intent intent1=new Intent(WebViewActivity.this,Login.class);
-                    startActivity(intent1);
-                }
-            }
-        });
+            });
 
-        new MyAsyncTask().execute();
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WebViewActivity.this, Login.class);
+                    startActivity(intent);
+                }
+            });
+            signup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WebViewActivity.this, SignUp.class);
+                    startActivity(intent);
+                }
+            });
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    flag = 0;
+                    SharedPreferences loginData = getSharedPreferences("data", 0);
+                    SharedPreferences.Editor editor = loginData.edit();
+                    editor.putInt("Flag", flag);
+                    editor.apply();
+                    Intent intent = new Intent(WebViewActivity.this, Navigation.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+            });
+            search_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RequestAlertDialogBox();
+                }
+            });
+            getData();
+            if (flag == 1) {
+                name1.setText(full_name);
+                login.setVisibility(View.INVISIBLE);
+                signup.setVisibility(View.INVISIBLE);
+                show.findItem(R.id.nav_send).setVisible(true);
+                show.findItem(R.id.nav_share).setVisible(true);
+                show.findItem(R.id.advertise).setVisible(true);
+                logout.setVisibility(View.VISIBLE);
+                show.findItem(R.id.loginPage).setVisible(true);
+            }
+            rqst_quote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (flag == 1) {
+                        final Dialog dialog1 = new Dialog(WebViewActivity.this);
+                        dialog1.setContentView(R.layout.get_in_touch);
+                        dialog1.getWindow();
+                        txt_name = dialog1.findViewById(R.id.name);
+                        et_quote = dialog1.findViewById(R.id.et_quote);
+                        btn_send = dialog1.findViewById(R.id.btn_send);
+                        btnCloseDialog = dialog1.findViewById(R.id.btnCloseDialog);
+                        txt_name.setText(full_name);
+                        dialog1.show();
+
+                        btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog1.dismiss();
+                            }
+                        });
+                        btn_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final String url = "http://serv.kesbokar.com.au/jil.0.1/v2/product/enquiry";
+                                RequestQueue queue = Volley.newRequestQueue(WebViewActivity.this);
+                                //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Toast.makeText(WebViewActivity.this, "Response" + "Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
+                                        Log.i("Response", response);
+
+                                    }
+                                },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                // errorLog.d("Error.Response", String.valueOf(error));
+                                                Toast.makeText(WebViewActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                Log.i("Error", error.toString());
+                                            }
+                                        }) {
+                                    @Override
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("user_id", "" + id1);
+                                        params.put("product_id", "" + PID);
+                                        params.put("urlname", url_name);
+                                        params.put("message", et_quote.getText().toString());
+                                        params.put("ipaddress", "");
+                                        params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+
+                                        return params;
+                                    }
+                                };
+                                RequestQueue requestQueue = Volley.newRequestQueue(WebViewActivity.this);
+                                queue.add(stringRequest);
+                                dialog1.dismiss();
+                            }
+                        });
+                    } else {
+                        Intent intent1 = new Intent(WebViewActivity.this, Login.class);
+                        startActivity(intent1);
+                    }
+                }
+            });
+
+            new MyAsyncTask().execute();
+        } catch (Exception e) {
+            System.out.println(e);
         }
+    }
+
     @Override
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -312,8 +312,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         int Id = item.getItemId();
 
         if (Id == R.id.nav_share) {
-            if (flag==1){
-                Intent about=new Intent(WebViewActivity.this,Main3BusinessActivity.class);
+            if (flag == 1) {
+                Intent about = new Intent(WebViewActivity.this, Main3BusinessActivity.class);
                 startActivity(about);
             } else {
                 Intent intent = new Intent(WebViewActivity.this, Login.class);
@@ -321,14 +321,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             }
 
         } else if (Id == R.id.business_lg_page) {
-            if (flag==1) {
-                Intent intent=new Intent(WebViewActivity.this,ProfileBusinessListing.class);
-                intent.putExtra("Flag",flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+            if (flag == 1) {
+                Intent intent = new Intent(WebViewActivity.this, ProfileBusinessListing.class);
+                intent.putExtra("Flag", flag);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -341,8 +341,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.nav_send) {
 
-            if (flag==1){
-                Intent about=new Intent(WebViewActivity.this,ProductManagementActivity.class);
+            if (flag == 1) {
+                Intent about = new Intent(WebViewActivity.this, ProductManagementActivity.class);
                 startActivity(about);
             } else {
                 Intent intent = new Intent(WebViewActivity.this, Login.class);
@@ -351,14 +351,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.market_lg_page) {
 
-            if (flag==1) {
-                Intent intent=new Intent(WebViewActivity.this,ProfileMarket.class);
-                intent.putExtra("Flag",flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+            if (flag == 1) {
+                Intent intent = new Intent(WebViewActivity.this, ProfileMarket.class);
+                intent.putExtra("Flag", flag);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -371,8 +371,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.business_in) {
 
-            if (flag==1){
-                Intent intent=new Intent(WebViewActivity.this,inbox_business.class);
+            if (flag == 1) {
+                Intent intent = new Intent(WebViewActivity.this, inbox_business.class);
                 startActivity(intent);
 
             } else {
@@ -383,14 +383,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.market_in) {
 
-            if (flag==1){
-                Intent intent=new Intent(WebViewActivity.this,inbox_market.class);
-                intent.putExtra("Flag",flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+            if (flag == 1) {
+                Intent intent = new Intent(WebViewActivity.this, inbox_market.class);
+                intent.putExtra("Flag", flag);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -402,14 +402,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.profile) {
 
-            if (flag==1) {
+            if (flag == 1) {
                 Intent intent = new Intent(WebViewActivity.this, Profile.class);
-                intent.putExtra("Flag",flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+                intent.putExtra("Flag", flag);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -419,9 +419,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
 
-        } else if(Id == R.id.manage_help_desk) {
+        } else if (Id == R.id.manage_help_desk) {
 
-            if (flag==1) {
+            if (flag == 1) {
                 Intent intent = new Intent(WebViewActivity.this, ManageHelpDeskActivity.class);
                 startActivity(intent);
             } else {
@@ -431,14 +431,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.about) {
 
-            if (flag==1){
+            if (flag == 1) {
                 Intent intent = new Intent(WebViewActivity.this, About.class);
                 intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -451,14 +451,14 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.career) {
 
-            if (flag==1){
+            if (flag == 1) {
                 Intent intent = new Intent(WebViewActivity.this, Career.class);
                 intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
@@ -472,33 +472,29 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.loginPage) {
 
-            if (flag==1){
-                Intent intent=new Intent(WebViewActivity.this,LoginData.class);
+            if (flag == 1) {
+                Intent intent = new Intent(WebViewActivity.this, LoginData.class);
                 intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
+                intent.putExtra("Name", full_name);
+                intent.putExtra("mail", email);
+                intent.putExtra("phone", phone_no);
+                intent.putExtra("create", created);
+                intent.putExtra("update", updated);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
 
-            }
-
-            else {
+            } else {
                 Intent intent = new Intent(WebViewActivity.this, Login.class);
                 startActivity(intent);
             }
 
-        } else if(Id == R.id.dashboard) {
+        } else if (Id == R.id.dashboard) {
 
-            if (flag==1) {
+            if (flag == 1) {
                 Intent intent = new Intent(WebViewActivity.this, Navigation.class);
                 startActivity(intent);
-            }
-
-            else {
+            } else {
                 Intent intent = new Intent(WebViewActivity.this, Login.class);
                 startActivity(intent);
             }
@@ -516,7 +512,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<ButtonsDetails>> loader, ArrayList<ButtonsDetails> data) {
+    public void onLoadFinished(Loader<ArrayList<ButtonsDetails>> loader, ArrayList<ButtonsDetails> buttonsDetails) {
 
     }
 
@@ -525,35 +521,116 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    public void onRadioButtonClicked(View view) {
-    }
 
-    public class myWebClient extends WebViewClient
-    {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
+    public  class myWebClient extends WebViewClient {
 
+        //    myWebClient() {
+        //       Toast.makeText(WebViewActivity.this, "Entered web Client", Toast.LENGTH_LONG).show();
+        // }
+
+        //@Override
+        //public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        //   super.onPageStarted(view, url, favicon);
+        //}
+
+      /* @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url=request.getUrl().toString();
+            Toast.makeText(WebViewActivity.this, "URL is "+url, Toast.LENGTH_LONG).show();
+            if(url.startsWith("tel:"))
+            {Toast.makeText(WebViewActivity.this, "tell pressed"+url, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                view.reload();;
+                Toast.makeText(WebViewActivity.this, "tell pressed", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            else if(url.startsWith("https:")){
+                return false;
+                }
+            return false;
+
+        }*/
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            System.out.println(url);
+            if (url.contains("tel:")) {
+                try {
+                    Toast.makeText(getApplicationContext(), "tell pressed "+ url, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    //Toast.makeText(WebViewActivity.this, "tell pressed", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
-            view.loadUrl(url);
-            return true;
+                } catch (Exception e) {
+                    Toast.makeText(WebViewActivity.this, "e", Toast.LENGTH_LONG).show();
+                }
+                return true;
 
+            } else {
+                Toast.makeText(WebViewActivity.this, " not a tell pressed", Toast.LENGTH_LONG).show();
+                //progressBar.setVisibility(view.VISIBLE);
+                view.loadUrl(url);
+                return true;
+            }
+            //return super.shouldOverrideUrlLoading(view, request);
         }
+        /*@Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if( URLUtil.isNetworkUrl(url) ) {
+                view.loadUrl(url);
+                return false;
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity( intent );
+            return true;
+            return false;
+        }
+
+        */
+     /*   @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            //System.out.println(url);
+
+            try {
+                if (url.contains("tel:")) {
+
+                    Toast.makeText(WebViewActivity.this, "tell pressed"+url, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    Toast.makeText(WebViewActivity.this, "tell pressed", Toast.LENGTH_LONG).show();
+
+
+                    //return true;
+                } else {
+                    Toast.makeText(WebViewActivity.this, " not a tell pressed"+url, Toast.LENGTH_LONG).show();
+                    //progressBar.setVisibility(view.VISIBLE);
+                    view.loadUrl(url);
+
+                }
+            } catch (Exception e) {
+                Toast.makeText(WebViewActivity.this, "e", Toast.LENGTH_LONG).show();
+
+            }
+            return true;
+        }*/
     }
 
-    private static class MyAsyncTask extends AsyncTask<Void, Void, Document> {
+
+
+
+
+    private class MyAsyncTask extends AsyncTask<Void, Void, Document> {
         @Override
         protected Document doInBackground(Void... voids) {
 
             Document document = null;
             try {
-                document= Jsoup.connect(URL1).get();
+                document = Jsoup.connect(URL1).get();
 
                 document.getElementsByClass("navbar navbar-default").remove();
                 document.getElementsByClass("needhelp_in_touch").remove();
@@ -565,7 +642,6 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 document.getElementsByClass("fbp-footer listing-data").attr("style", "bottom:0;");
 
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -575,31 +651,34 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
-            webView.setWebViewClient(new WebViewClient());
-            WebSettings webSettings=webView.getSettings();
-//            webSettings.setBuiltInZoomControls(true);
-            webView.loadDataWithBaseURL(URL1,document.toString(),"text/html","utf-8","");
-            //webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
-            webSettings.setJavaScriptEnabled(true);
+try {
+    webView.setWebViewClient(new myWebClient());
+    WebSettings webSettings = webView.getSettings();
+    webSettings.setJavaScriptEnabled(true);
+   // webSettings.getJavaScriptCanOpenWindowsAutomatically();
+    System.out.println(URL1);
+    webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
+
+}catch(Exception e){ System.out.println(e);}
         }
     }
-    public void getData()
-    {
-        SharedPreferences loginData=getSharedPreferences("data",0);
-        flag = loginData.getInt("Flag",0);
-        full_name=loginData.getString("Name","");
-        email=loginData.getString("mail","");
-        image1=loginData.getString("image","");
-        phone_no=loginData.getString("phone","");
-        id1=loginData.getInt("id",0);
-        created=loginData.getString("create","");
-        updated=loginData.getString("update","");
-        SharedPreferences loginData1=getSharedPreferences("entry",0);
-        entry_level=loginData1.getString("entry_level","");
+
+    public void getData() {
+        SharedPreferences loginData = getSharedPreferences("data", 0);
+        flag = loginData.getInt("Flag", 0);
+        full_name = loginData.getString("Name", "");
+        email = loginData.getString("mail", "");
+        image1 = loginData.getString("image", "");
+        phone_no = loginData.getString("phone", "");
+        id1 = loginData.getInt("id", 0);
+        created = loginData.getString("create", "");
+        updated = loginData.getString("update", "");
+        SharedPreferences loginData1 = getSharedPreferences("entry", 0);
+        entry_level = loginData1.getString("entry_level", "");
 
     }
-    private void RequestAlertDialogBox()
-    {
+
+    private void RequestAlertDialogBox() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //
 //        // get the layout inflater
@@ -629,20 +708,20 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         btnSearch = new LoaderManager.LoaderCallbacks<ArrayList<ExampleItem>>() {
             @Override
             public Loader<ArrayList<ExampleItem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(WebViewActivity.this,q,subV,"https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages",stateid,subType,0.0,0.0);
+                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(WebViewActivity.this, q, subV, "https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages", stateid, subType, 0.0, 0.0);
                 return loaderBtnSearch;
             }
 
             @Override
             public void onLoadFinished(Loader<ArrayList<ExampleItem>> loader, ArrayList<ExampleItem> data) {
-                switch (loader.getId()){
+                switch (loader.getId()) {
                     case LOADER_ID_BTNSRCH:
-                        if(data != null && q.length()!=0){
+                        if (data != null && q.length() != 0) {
                             exampleItems = data;
                             Log.i("Search", data.toString());
-                            Intent intent = new Intent(WebViewActivity.this,Buisness_Listing.class);
+                            Intent intent = new Intent(WebViewActivity.this, Buisness_Listing.class);
                             intent.putExtra("CHOICE", "btnSearch");
-                            intent.putParcelableArrayListExtra("ARRAYLIST",exampleItems);
+                            intent.putParcelableArrayListExtra("ARRAYLIST", exampleItems);
                             startActivity(intent);
                             finish();
                         }
@@ -657,21 +736,20 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         };
 
 
-
         businessSuburb = new androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<StateAndSuburb>>() {
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(WebViewActivity.this,querySub,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search/cities");
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(WebViewActivity.this, querySub, "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search/cities");
                 return loaderBusSuburb;
             }
 
             @Override
-            public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data){
+            public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data) {
                 if (data.size() != 0) {
                     valsSub = data;
                     Log.i("Tag", valsSub + "");
-                    ArrayAdapter<StateAndSuburb> adapter=new ArrayAdapter<StateAndSuburb>(WebViewActivity.this,android.R.layout.simple_dropdown_item_1line,valsSub);
+                    ArrayAdapter<StateAndSuburb> adapter = new ArrayAdapter<StateAndSuburb>(WebViewActivity.this, android.R.layout.simple_dropdown_item_1line, valsSub);
                     autoCompleteTextViewTwo.setAdapter(adapter);
                     getLoaderManager().destroyLoader(LOADER_ID_BUSVAL);
                 } else {
@@ -688,7 +766,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         businessSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(WebViewActivity.this,query,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search");
+                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(WebViewActivity.this, query, "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search");
                 return loaderBusSearch;
             }
 
@@ -697,9 +775,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 if (data.size() != 0) {
                     valsBus = data;
                     Log.i("Tag", valsBus + "");
-                    ArrayAdapter<String> adapter=new ArrayAdapter<String>(WebViewActivity.this,android.R.layout.simple_dropdown_item_1line,valsBus);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(WebViewActivity.this, android.R.layout.simple_dropdown_item_1line, valsBus);
                     autoCompleteTextViewOne.setAdapter(adapter);
-                    getSupportLoaderManager().initLoader(LOADER_ID_BUSSUB,null,businessSuburb);
+                    getSupportLoaderManager().initLoader(LOADER_ID_BUSSUB, null, businessSuburb);
                 } else {
                     Toast.makeText(WebViewActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
                 }
@@ -719,14 +797,12 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             public void onClick(View v) {
                 q = autoCompleteTextViewOne.getText().toString();
                 Log.i("Q and subV", q + " " + subV);
-                if(q.length() == 0 && subV.length() == 0){
+                if (q.length() == 0 && subV.length() == 0) {
                     Toast.makeText(WebViewActivity.this, "Cannot Search Empty fields", Toast.LENGTH_SHORT).show();
-                }
-                else if (subV.length()==0)
-                {
+                } else if (subV.length() == 0) {
                     Toast.makeText(WebViewActivity.this, "Cannot Search Empty State", Toast.LENGTH_SHORT).show();
                 }
-                getLoaderManager().initLoader(LOADER_ID_BTNSRCH,null,btnSearch);
+                getLoaderManager().initLoader(LOADER_ID_BTNSRCH, null, btnSearch);
             }
         });
 
@@ -748,7 +824,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 querySub = s.toString();
-                getSupportLoaderManager().restartLoader(LOADER_ID_BUSSUB,null,businessSuburb);
+                getSupportLoaderManager().restartLoader(LOADER_ID_BUSSUB, null, businessSuburb);
             }
 
             @Override
@@ -759,3 +835,4 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
     }
 }
+

@@ -63,7 +63,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
     private RequestQueue requestQueue;
     private ProgressDialog progressDialog;
     private Button btnHelp,btnBuis,btnMar,btnTop;
-    String heading,state_id,state_name;
+    String heading,state_id,state_name ,cdn_url;
 
     TextView txtCancel;
     TextView txtVisitMarketPlace;
@@ -830,6 +830,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         id1=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        cdn_url=loginData.getString("cdn_url","");
 
     }
 

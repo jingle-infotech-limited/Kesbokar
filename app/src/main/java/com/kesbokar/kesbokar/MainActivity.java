@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -21,9 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     public static int SPLASH_SCREEN_TIME=1500;
     String versionUpdated,version_name;
+    String cdn_url="https://www.kesbokar.com.au/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences=getSharedPreferences("data",0);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("cdn_url",cdn_url);
+        editor.apply();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (isNetworkAvailable()) {
             try {

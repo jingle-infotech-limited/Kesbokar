@@ -31,7 +31,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
     Context context;
     Activity activity;
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
     int id,flag;
 
 
@@ -66,7 +66,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
         bc.setText(serviceExpertSpaces.get(position).getName());
         bd.setText(serviceExpertSpaces.get(position).getCat_title() + " - " + serviceExpertSpaces.get(position).getCity().getTitle() + " , " + serviceExpertSpaces.get(position).getState().getTitle());
 
-        String imgURL = "https://www.kesbokar.com.au/uploads/yellowpage/" + serviceExpertSpaces.get(position).getImageLogo();
+        String imgURL = cdn_url+"uploads/yellowpage/" + serviceExpertSpaces.get(position).getImageLogo();
         Picasso.with(context).load(imgURL).into(bi);
 
         //new DownLoadImageTask(bi[i]).execute(imgURL);
@@ -76,7 +76,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
         bi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.kesbokar.com.au/business/" + ab + "/" + serviceExpertSpaces.get(index).getUrlname() + "/" + serviceExpertSpaces.get(index).getId();
+                String url = cdn_url+"business/" + ab + "/" + serviceExpertSpaces.get(index).getUrlname() + "/" + serviceExpertSpaces.get(index).getId();
                 SharedPreferences get_product_detail= context.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
@@ -115,6 +115,8 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        cdn_url=loginData.getString("cdn_url","");
+
     }
 }
 

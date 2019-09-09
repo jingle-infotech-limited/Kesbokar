@@ -55,8 +55,9 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class PhotosFragment extends Fragment {
+    String cdn_url;
 
-    String myurl="https://www.kesbokar.com.au/jil.0.1/api/v1/product/gallery/upload";
+    String myurl=cdn_url+"jil.0.1/api/v1/product/gallery/upload";
 
     Button btnChoose, btnUpload, btnBack,btnSubmit;
 
@@ -416,6 +417,7 @@ public class PhotosFragment extends Fragment {
         description1=business_edit.getString("description","");
         status1=business_edit.getString("status","");
         pro_id=business_edit.getString("product_id","");
+        cdn_url=loginData.getString("cdn_url","");
 
 
     }
