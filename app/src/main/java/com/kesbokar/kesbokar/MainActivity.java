@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     String versionUpdated,version_name;
     String cdn_url="https://www.kesbokar.com.au/";
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstangitceState) {
+        super.onCreate(savedInstangitceState);
         SharedPreferences sharedPreferences=getSharedPreferences("data",0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString("cdn_url",cdn_url);
