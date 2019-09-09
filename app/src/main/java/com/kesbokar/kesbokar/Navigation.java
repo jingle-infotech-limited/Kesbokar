@@ -207,7 +207,7 @@ public class Navigation extends AppCompatActivity
         }
 
 
-        final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        final ScrollView scrollView = findViewById(R.id.scroll);
         a = false;
        // Toast.makeText(this, ""+a, Toast.LENGTH_SHORT).show();
         toolbar = findViewById(R.id.toolbar);
@@ -235,7 +235,7 @@ public class Navigation extends AppCompatActivity
         q = subV = querySub = "";
 
         setSupportActionBar(toolbar);
-        ab = (TextView) findViewById(R.id.about);
+        ab = findViewById(R.id.about);
 
         recyclerView_navigation_service_expert = findViewById(R.id.recyclerView_navigation_service_expert);
         recyclerView_navigation_featured_ads = findViewById(R.id.recyclerView_navigation_featured_ads);
@@ -249,7 +249,7 @@ public class Navigation extends AppCompatActivity
         recyclerView_navigation_featured_ads.setHasFixedSize(true);
         recyclerView_navigation_featured_ads.setLayoutManager(new LinearLayoutManager(this));
 
-        ImgViewLocation = (ImageView) findViewById(R.id.ImgViewLocation);
+        ImgViewLocation = findViewById(R.id.ImgViewLocation);
         category = findViewById(R.id.category);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -262,20 +262,20 @@ public class Navigation extends AppCompatActivity
         autoCompleteTextViewOne_type_or_name = findViewById(R.id.autoCompleteTextViewOne_type_or_name);
 
         navigationView.setNavigationItemSelectedListener(this);
-        btnTop = (Button) findViewById(R.id.btnTop);
+        btnTop = findViewById(R.id.btnTop);
         View ab = navigationView.getHeaderView(0);
         Menu show=navigationView.getMenu();
-        signup = (Button) ab.findViewById(R.id.signup);
-        login = (Button) ab.findViewById(R.id.login);
+        signup = ab.findViewById(R.id.signup);
+        login = ab.findViewById(R.id.login);
         logout=ab.findViewById(R.id.logout);
-        name=(TextView)ab.findViewById(R.id.name_user);
+        name= ab.findViewById(R.id.name_user);
 
         RadioGroup radioGroup = findViewById(R.id.radio_group);
-        RadioButton rb_marketplace = (RadioButton) findViewById(R.id.rb_marketplace);
-        RadioButton rb_business = (RadioButton) findViewById(R.id.rb_businesses);
+        RadioButton rb_marketplace = findViewById(R.id.rb_marketplace);
+        RadioButton rb_business = findViewById(R.id.rb_businesses);
 
         btnBottomMarket = findViewById(R.id.btnBottomMar);
-        btnNavHelp = (Button) findViewById(R.id.btnNavHelp);
+        btnNavHelp = findViewById(R.id.btnNavHelp);
         layoutmain = findViewById(R.id.abc);
         layoutsec = findViewById(R.id.bcd);
         params = new LinearLayout

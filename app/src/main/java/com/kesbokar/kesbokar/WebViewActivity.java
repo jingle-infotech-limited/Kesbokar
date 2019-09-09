@@ -111,7 +111,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
+        final ScrollView scrollView= findViewById(R.id.scroll);
         Toolbar toolbar = findViewById(R.id.toolbar);
         getData();
         setSupportActionBar(toolbar);
@@ -122,7 +122,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        webView = (WebView) findViewById(R.id.webview);
+        webView = findViewById(R.id.webview);
         search_btn=findViewById(R.id.search_btn);
         valsBus = new ArrayList<>();
         valsSub = new ArrayList<>();
@@ -138,9 +138,9 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         full_name=extras.getString("Name");
         Menu show=navigationView.getMenu();
         View ab = navigationView.getHeaderView(0);
-        TextView name1=(TextView)ab.findViewById(R.id.name_user);
-        Button signup=(Button)ab.findViewById(R.id.signup);
-        Button login=(Button)ab.findViewById(R.id.login);
+        TextView name1= ab.findViewById(R.id.name_user);
+        Button signup= ab.findViewById(R.id.signup);
+        Button login= ab.findViewById(R.id.login);
         Button logout=ab.findViewById(R.id.logout);
 
         imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);

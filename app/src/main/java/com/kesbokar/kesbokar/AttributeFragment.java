@@ -67,7 +67,7 @@ public class AttributeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_attribute, container, false);
 
 
-        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout);
+        final LinearLayout linearLayout = view.findViewById(R.id.linear_layout);
         final Button btnRefresh = view.findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override

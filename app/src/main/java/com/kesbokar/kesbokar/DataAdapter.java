@@ -317,12 +317,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 dialog.setContentView(R.layout.request_quote);
                 dialog.setTitle("Request A Quote");
                 dialog.setCancelable(true); //none-dismiss when touching outside Dialog
-                name = (EditText) dialog.findViewById(R.id.etApiName);
-                email = (EditText) dialog.findViewById(R.id.etEmail);
-                phone = (EditText) dialog.findViewById(R.id.etPhone);
-                details = (EditText) dialog.findViewById(R.id.etDetails);
-                TextView LoggedInName =(TextView) dialog.findViewById(R.id.etName);
-                TextView FromName = (TextView) dialog.findViewById(R.id.etFromName);
+                name = dialog.findViewById(R.id.etApiName);
+                email = dialog.findViewById(R.id.etEmail);
+                phone = dialog.findViewById(R.id.etPhone);
+                details = dialog.findViewById(R.id.etDetails);
+                TextView LoggedInName = dialog.findViewById(R.id.etName);
+                TextView FromName = dialog.findViewById(R.id.etFromName);
                 final String[] method = {"No Preference", "Email", "Mobile"};
 
                 final Button[] btn = {dialog.findViewById(R.id.btnOpenDialog)};
@@ -341,11 +341,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         AlertDialog alert = builder.create();
                         alert.show();
                     }
-
-
                 });
-
-
 
                 View btnSubmit = dialog.findViewById(R.id.btnSubmit);
                 View btnClose = dialog.findViewById(R.id.btnClose);

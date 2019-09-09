@@ -82,7 +82,7 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
             signup.setVisibility(View.INVISIBLE);
 
         }
-        webView = (WebView) findViewById(R.id.webview);
+        webView = findViewById(R.id.webview);
         URL1 ="https://www.kesbokar.com.au/about-us";
         new About.MyAsyncTask().execute();
 

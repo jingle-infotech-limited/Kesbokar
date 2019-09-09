@@ -62,7 +62,7 @@ public class ManageHelpDeskActivity extends AppCompatActivity implements Navigat
         View header=navigationView.getHeaderView(0);
 
         logout=header.findViewById(R.id.logout);
-        name=(TextView) header.findViewById(R.id.name_user);
+        name= header.findViewById(R.id.name_user);
 
         if (flag==1){
             name.setText(full_name);

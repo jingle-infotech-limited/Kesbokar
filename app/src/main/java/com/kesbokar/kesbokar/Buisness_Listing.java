@@ -110,13 +110,13 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
-        btnHelp = (Button)findViewById(R.id.help);
-        btnBuis = (Button)findViewById(R.id.buis);
-        btnMar = (Button)findViewById(R.id.mar);
-        btnTop = (Button)findViewById(R.id.top);
+        btnHelp = findViewById(R.id.help);
+        btnBuis = findViewById(R.id.buis);
+        btnMar = findViewById(R.id.mar);
+        btnTop = findViewById(R.id.top);
         imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
 
-        final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
+        final ScrollView scrollView= findViewById(R.id.scroll);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,12 +126,12 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
         View ab = navigationView.getHeaderView(0);
         Menu show=navigationView.getMenu();
-        TextView name1=(TextView)ab.findViewById(R.id.name_user);
+        TextView name1= ab.findViewById(R.id.name_user);
 
-        Button signup=(Button)ab.findViewById(R.id.signup);
-        Button login=(Button)ab.findViewById(R.id.login);
+        Button signup= ab.findViewById(R.id.signup);
+        Button login= ab.findViewById(R.id.login);
         Button logout=ab.findViewById(R.id.logout);
-        ImageView imageView = (ImageView)findViewById(R.id.imgSearch);
+        ImageView imageView = findViewById(R.id.imgSearch);
         valsBus = new ArrayList<>();
         valsSub = new ArrayList<>();
         querySub = subV = subType = q = "";
@@ -288,7 +288,6 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         initScrollListener();
 
     }
-
 
     private void RequestAlertDialogBox()
     {

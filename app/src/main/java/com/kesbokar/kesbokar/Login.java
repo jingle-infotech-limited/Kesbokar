@@ -156,10 +156,10 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         loginPass = "";
 
         View ab = navigationView.getHeaderView(0);
-        signup = (Button) ab.findViewById(R.id.signup);
-        login = (Button) ab.findViewById(R.id.login);
+        signup = ab.findViewById(R.id.signup);
+        login = ab.findViewById(R.id.login);
         logout=ab.findViewById(R.id.logout);
-        name=(TextView)ab.findViewById(R.id.name_user);
+        name= ab.findViewById(R.id.name_user);
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -202,7 +202,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         });
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button);
 
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
         // If you are using in a fragment, call loginButton.setFragment(this);
@@ -213,6 +213,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
             public void onSuccess(final LoginResult loginResult) {
                 // App code
                 final AccessToken accessToken = loginResult.getAccessToken();
+
+                Toast.makeText(Login.this, "Hello", Toast.LENGTH_SHORT).show();
 
                 final GraphRequest graphRequest=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
 
@@ -435,7 +437,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                             phone_no = jsonObject2.getString("phone");
                             id=jsonObject2.getInt("id");
                             saveData();
-//                            ResetLeftMenu();
+                            ResetLeftMenu();
                         }else{
                             flag=0;
                         }

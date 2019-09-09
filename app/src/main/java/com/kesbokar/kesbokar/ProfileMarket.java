@@ -77,7 +77,7 @@ public class ProfileMarket extends AppCompatActivity implements NavigationView.O
 
 
         listView = findViewById(R.id.listProfileMarket);
-        btnProductManagement =(Button) findViewById(R.id.btnProductManagement);
+        btnProductManagement = findViewById(R.id.btnProductManagement);
 
         btnProductManagement.setOnClickListener(new View.OnClickListener() {
             @Override

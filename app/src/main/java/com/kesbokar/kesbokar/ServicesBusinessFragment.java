@@ -41,7 +41,7 @@ public class ServicesBusinessFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_services_business, container, false);
 
         int totalSpace = 0;
-        FrameLayout fragment_container = (FrameLayout) view.findViewById(R.id.fragmentServicesBusiness);
+        FrameLayout fragment_container = view.findViewById(R.id.fragmentServicesBusiness);
 
 
         int n = 5;

@@ -30,13 +30,13 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         getData();
 
-        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Kesbokar");
         Bundle extras = getIntent().getExtras();
         boolean car_yes_or_no = extras.getBoolean("CAR_YES_OR_NO");
 
-        myViewPager = (CustomViewPager) findViewById(R.id.main_tabs_pager);
+        myViewPager = findViewById(R.id.main_tabs_pager);
         myTabLayout =  findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
 

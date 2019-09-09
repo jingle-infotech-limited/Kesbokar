@@ -14,7 +14,7 @@ public class LoaderButtons extends AsyncTaskLoader<ArrayList<ButtonsDetails>> {
     private static String Base_Url;
     public LoaderButtons(Context context, String url){
         super(context);
-        this.Base_Url = url;
+        Base_Url = url;
         if (buttonsDetails != null) {
             // Use cached data
             deliverResult(buttonsDetails);

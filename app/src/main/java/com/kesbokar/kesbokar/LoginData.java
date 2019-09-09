@@ -48,7 +48,7 @@ public class LoginData extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
 
         logout=header.findViewById(R.id.logout);
-        name=(TextView)header.findViewById(R.id.name_user);
+        name= header.findViewById(R.id.name_user);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

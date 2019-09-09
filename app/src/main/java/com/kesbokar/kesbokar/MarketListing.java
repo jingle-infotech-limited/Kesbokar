@@ -48,6 +48,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class MarketListing extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +81,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
     private String query = "";
     String querySub,subV,subType,q,heading;
     int stateid = 0;
+
+    int count = 0;
 
     boolean isLoading = false;
     String name,image,synopsis,url1,city,city_id;
@@ -114,17 +117,17 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
         View ab = navigationView.getHeaderView(0);
         Menu show=navigationView.getMenu();
-        TextView name1=(TextView)ab.findViewById(R.id.name_user);
-        Button signup=(Button)ab.findViewById(R.id.signup);
-        Button login=(Button)ab.findViewById(R.id.login);
+        TextView name1= ab.findViewById(R.id.name_user);
+        Button signup= ab.findViewById(R.id.signup);
+        Button login= ab.findViewById(R.id.login);
         Button logout=ab.findViewById(R.id.logout);
 
-        btnHelp = (Button)findViewById(R.id.help);
-        btnBuis = (Button)findViewById(R.id.buis);
-        btnMar = (Button)findViewById(R.id.mar);
-        btnTop = (Button)findViewById(R.id.top);
+        btnHelp = findViewById(R.id.help);
+        btnBuis = findViewById(R.id.buis);
+        btnMar = findViewById(R.id.mar);
+        btnTop = findViewById(R.id.top);
 
-        final ScrollView scrollView=(ScrollView)findViewById(R.id.scroll);
+        final ScrollView scrollView= findViewById(R.id.scroll);
 
         imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
 
@@ -138,7 +141,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
         valsSub = new ArrayList<>();
         querySub = subV = subType = q = "";
 
-        ImageView imageView = (ImageView)findViewById(R.id.imgSearch);
+        ImageView imageView = findViewById(R.id.imgSearch);
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -482,6 +485,14 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 }else {
 
                                 }
+
+//                                if(price.length()>3){
+//                                    for (int j = 0; j<price.length(); j++){
+//                                        System.out.print(",");
+//                                    }
+//                                } else {
+//                                    price = "";
+//                                }
                                 id=dat.getInt("id");
                                 marketIems.add(new MarketIem(image, name, synopsis,url1,city,id,title,price,heading));
                             }
