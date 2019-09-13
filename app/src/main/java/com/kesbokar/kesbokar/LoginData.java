@@ -25,7 +25,7 @@ import org.w3c.dom.Text;
 public class LoginData extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
 
     String personName, personEmail, personID;
 
@@ -325,6 +325,7 @@ public class LoginData extends AppCompatActivity
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+//        cdn_url=loginData.getString("cdn_url", "");
 
         personName=loginData.getString("name","");
         personEmail=loginData.getString("email", "");

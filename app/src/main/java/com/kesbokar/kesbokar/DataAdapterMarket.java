@@ -26,9 +26,10 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final int VIEW_TYPE_LOADING = 1;
 
     private ArrayList<MarketIem> marketItems;
-    public DataAdapterMarket(MarketListing activity ,ArrayList<MarketIem> marketItems) {
+    public DataAdapterMarket(MarketListing activity ,ArrayList<MarketIem> marketItems,Context context) {
         this.mActivity = activity;
         this.marketItems = marketItems;
+        this.context=context;
     }
 
 
@@ -110,6 +111,7 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
     private void populateItemRows(MyViewHolder holder, int position) {
+        getData();
         MarketIem current=marketItems.get(position);
         String image=cdn_url+"uploads/product/thumbs/"+current.getImg();
         String bName=current.getBusi_name();
@@ -135,7 +137,8 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String finalUrl="https://www.kesbokar.com.au/marketplace/"+city+"/"+title+"/"+url+"/"+id;
+getData();
+                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -154,7 +157,8 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String finalUrl="https://www.kesbokar.com.au/marketplace/"+city+"/"+title+"/"+url+"/"+id;
+                getData();
+                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -172,7 +176,8 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String finalUrl="https://www.kesbokar.com.au/marketplace/"+city+"/"+title+"/"+url+"/"+id;
+                getData();
+                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -188,7 +193,11 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         });
     }
-
+void getData()
+{
+    SharedPreferences loginData=context.getSharedPreferences("data",0);
+    cdn_url=loginData.getString("cdn_url","");
+}
 
 }
 

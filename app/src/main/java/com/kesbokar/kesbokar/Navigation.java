@@ -85,11 +85,10 @@ public class Navigation extends AppCompatActivity
     Button btnSrch,logout;
     String about;
     TextView name;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title,cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title, cdn_url;
 
     String personName, personEmail, personID;
 
-    String facebookName, facebookEmail, facebookID;
 
     boolean a;
     LinearLayout.LayoutParams params;
@@ -390,19 +389,23 @@ public class Navigation extends AppCompatActivity
         rb_marketplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Navigation.this, Navigation_market.class);
-                intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("image",image);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
-                intent.putExtra("id",id);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 0);
-                overridePendingTransition(0, 0);
-                finish();
+                try {
+                   // Toast.makeText(getApplicationContext(),"market pressed",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Navigation.this, Navigation_market.class);
+                    intent.putExtra("Flag", flag);
+                    intent.putExtra("Name", full_name);
+                    intent.putExtra("mail", email);
+                    intent.putExtra("image", image);
+                    intent.putExtra("phone", phone_no);
+                    intent.putExtra("create", created);
+                    intent.putExtra("update", updated);
+                    intent.putExtra("id", id);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivityForResult(intent, 0);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }catch (Exception e)
+                {Toast.makeText(getApplicationContext(),"e="+e,Toast.LENGTH_LONG).show();}
             }
         });
 
@@ -608,6 +611,7 @@ public class Navigation extends AppCompatActivity
                                 imagebutton[i].setTag(data.get(i).getId());
                                 final int index = i;
                                 String imgURL = cdn_url+"uploads/category/" + data.get(i).getImage();
+                                Log.i("Response", imgURL);
                                 Picasso.with(Navigation.this).load(imgURL).into(imagebutton[i]);
                                 imagebutton[i].setAdjustViewBounds(true);
                                 //new DownLoadImageTask(imagebutton[i]).execute(imgURL);
@@ -669,11 +673,8 @@ public class Navigation extends AppCompatActivity
                         mAdapter = new ServiceExpertAdapter(Navigation.this,serviceExpertSpaces,Navigation.this );
                         recyclerView_navigation_service_expert.setAdapter(mAdapter);
 
-
                         //if(serviceExpertSpaces.size()!=0){
-
                             getLoaderManager().initLoader(LOADER_ID_MARKET, null, MarketPlaceApiCallbacks);
-
 
                         //}
 //                        else{
@@ -819,8 +820,8 @@ public class Navigation extends AppCompatActivity
 
         if (Id == R.id.nav_share) {
             if (flag==1){
-                Intent about=new Intent(Navigation.this,Main3BusinessActivity.class);
-                startActivity(about);
+                Intent about1=new Intent(Navigation.this,Main3BusinessActivity.class);
+                startActivity(about1);
             } else {
                 Intent intent = new Intent(Navigation.this, Login.class);
                 startActivity(intent);
@@ -945,8 +946,7 @@ public class Navigation extends AppCompatActivity
 
         } else if (Id == R.id.about) {
 
-            if (flag==1){
-                Intent intent = new Intent(Navigation.this, About.class);
+               Intent intent = new Intent(Navigation.this, About.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
                 intent.putExtra("mail",email);
@@ -960,14 +960,10 @@ public class Navigation extends AppCompatActivity
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Navigation.this, Login.class);
-                startActivity(intent);
-            }
 
         } else if (Id == R.id.career) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(Navigation.this, Career.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -982,10 +978,7 @@ public class Navigation extends AppCompatActivity
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Navigation.this, Login.class);
-                startActivity(intent);
-            }
+
 
 
         } else if (Id == R.id.loginPage) {
@@ -1013,15 +1006,9 @@ public class Navigation extends AppCompatActivity
 
         } else if(Id == R.id.dashboard) {
 
-            if (flag==1) {
                 Intent intent = new Intent(Navigation.this, Navigation.class);
                 startActivity(intent);
-            }
 
-            else {
-                Intent intent = new Intent(Navigation.this, Login.class);
-                startActivity(intent);
-            }
         }
 
 
@@ -1043,7 +1030,7 @@ public class Navigation extends AppCompatActivity
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-              cdn_url=loginData.getString("cdn_url","");
+        cdn_url=loginData.getString("cdn_url","");
         personName=loginData.getString("name","");
         personEmail=loginData.getString("email","");
         personID=loginData.getString("provider_id", "");
@@ -1057,8 +1044,6 @@ public class Navigation extends AppCompatActivity
                 @Override
                 public void onLocationChanged(Location location) {
                    // Toast.makeText(Navigation.this, "Lat:"+location.getLatitude() + "\n Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-
-
                 }
 
                 @Override

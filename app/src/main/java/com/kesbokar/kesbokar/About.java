@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -248,9 +249,10 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
                 startActivity(intent);
             }
 
-        } else if (Id == R.id.about) {
+        } else if (Id == R.id.about)
+        {
 
-            if (flag==1){
+
                 Intent intent = new Intent(About.this, About.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -265,14 +267,11 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(About.this, Login.class);
-                startActivity(intent);
-            }
 
-        } else if (Id == R.id.career) {
 
-            if (flag==1){
+        } else if (Id == R.id.career)
+        {
+
                 Intent intent = new Intent(About.this, Career.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -285,12 +284,6 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(0, 0);
-
-
-            } else {
-                Intent intent = new Intent(About.this, Login.class);
-                startActivity(intent);
-            }
 
 
         } else if (Id == R.id.advertise) {
@@ -360,19 +353,22 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            view.loadUrl(url);
+try {
+    view.loadUrl(url);
+}catch (Exception e)
+{Log.i("exception", e+"");}
             return true;
 
         }
     }
 
-    private static class MyAsyncTask extends AsyncTask<Void, Void, Document> {
+    private class MyAsyncTask extends AsyncTask<Void, Void, Document> {
         @Override
         protected Document doInBackground(Void... voids) {
 
             Document document = null;
             try {
+                URL1 ="https://www.kesbokar.com.au/about-us";
                 document= Jsoup.connect(URL1).get();
                 document.getElementsByClass("navbar navbar-default").remove();
                 document.getElementsByClass("needhelp_in_touch").remove();
@@ -390,12 +386,17 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
         @Override
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
-            webView.setWebViewClient(new WebViewClient());
-            WebSettings webSettings=webView.getSettings();
-            webSettings.setBuiltInZoomControls(true);
-            webView.loadDataWithBaseURL(URL1,document.toString(),"text/html","utf-8","");
-            webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
-            webSettings.setJavaScriptEnabled(true);
+            try {
+                webView.setWebViewClient(new myWebClient());
+                WebSettings webSettings = webView.getSettings();
+                webSettings.setBuiltInZoomControls(true);
+                URL1 ="https://www.kesbokar.com.au/about-us";
+                webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
+                webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+                webSettings.setJavaScriptEnabled(true);
+            }catch(Exception e)
+            {
+                Log.i("Exception",e+"");}
         }
     }
     public void getData()

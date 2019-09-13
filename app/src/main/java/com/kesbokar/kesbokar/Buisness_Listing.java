@@ -391,6 +391,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
 
             }
         };
+
         businessSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
@@ -526,8 +527,6 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
 
                                 }
 
-
-
                                 id=dat.getInt("id");
                                 exampleItems.add(new ExampleItem(image, name, synopsis,url1,city,id,ratings,heading));
                             }
@@ -563,7 +562,6 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                 if (!isLoading) {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == exampleItems.size() - 1) {
                         //bottom of list!
-
                         isLoading = true;
                     }
                 }
@@ -739,7 +737,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
 
         } else if (Id == R.id.about) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(Buisness_Listing.this, About.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -754,14 +752,11 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Buisness_Listing.this, Login.class);
-                startActivity(intent);
-            }
+
 
         } else if (Id == R.id.career) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(Buisness_Listing.this, Career.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -776,10 +771,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Buisness_Listing.this, Login.class);
-                startActivity(intent);
-            }
+
 
 
         } else if (Id == R.id.advertise) {
@@ -809,15 +801,10 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
 
         } else if(Id == R.id.dashboard) {
 
-            if (flag==1) {
+
                 Intent intent = new Intent(Buisness_Listing.this, Navigation.class);
                 startActivity(intent);
-            }
 
-            else {
-                Intent intent = new Intent(Buisness_Listing.this, Login.class);
-                startActivity(intent);
-            }
         }
 
 
@@ -825,6 +812,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void getData()
     {
         loginData=getSharedPreferences("data",0);

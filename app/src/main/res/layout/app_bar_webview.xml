@@ -56,23 +56,6 @@
             android:visibility="visible"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-<!--            <Button-->
-<!--                android:id="@+id/btnOpenCallDialler"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="52dp"-->
-<!--                android:text=" Click To Call"-->
-<!--                android:textSize="12sp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:visibility="invisible"-->
-<!--                android:paddingStart="11dp"-->
-<!--                android:paddingEnd="10dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:textColor="@color/Black"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:drawableStart="@drawable/ic_call_black_24dp"-->
-<!--                android:background="@drawable/bottom_three_buttons" />-->
-
             <Button
                 android:id="@+id/rqst_quote"
                 android:visibility="visible"

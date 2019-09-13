@@ -21,6 +21,7 @@
         android:layout_height="match_parent"
         android:id="@+id/clickable"
         android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,10 +29,12 @@
         android:textSize="10dp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +45,7 @@
         android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:fitsSystemWindows="true"
@@ -60,8 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
-    </LinearLayout>
 
+    </LinearLayout>
 
     <Button
         android:id="@+id/blrq"

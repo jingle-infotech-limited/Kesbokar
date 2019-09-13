@@ -1,8 +1,410 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="483fa0f2-1261-4ef4-8033-16e4957a3987" name="Default Changelist" comment="">
+    <list default="true" id="88bd8474-df35-48d1-a94e-1819e8aa11ee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_5_5_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_5_5_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_5_5_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_8_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_8_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_8_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_8_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_smarteist_autoimageslider_1_3_2_appcompat_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_auth_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_auth_api_phone_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_auth_base_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_impl_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_api_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_value_auto_value_annotations_1_6_5_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_20_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_18_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_20_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_3_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_android_1_4_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_applinks_1_4_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_tasks_1_4_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsoup_jsoup_1_12_1_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/render.experimental.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_0_2_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__co_roverlabs_picasso_2_5_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__co_roverlabs_picasso_2_5_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_16_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_16_0_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_16_0_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_16_0_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_impl_16_2_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_16_0_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_16_0_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_17_0_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_17_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_impl_17_0_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_17_3_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsoup_jsoup_1_11_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/kesbokar/kesbokar/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/androidTest/java/com/kesbokar/kesbokar/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/kesbokar/kisbokar/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/androidTest/java/com/kesbokar/kisbokar/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AccreditationBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AccreditationBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterBusListProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterBusListProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterBusListProfileMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterBusListProfileMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterCarDetailsSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterCarDetailsSeries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxBusiness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxBusiness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxReplyBusiness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxReplyBusiness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxReplyMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterInboxReplyMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Adapter_Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Adapter_Reply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterhelpDesk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AdapterhelpDesk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AttributeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/AttributeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BannersBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BannersBusinessFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BasicInfoBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BasicInfoBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BasicInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BasicInfoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Buisness_Listing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Buisness_Listing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BusinessProfileList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BusinessProfileList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BusinessSearchBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/BusinessSearchBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ButtonSearchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ButtonSearchData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ButtonsDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ButtonsDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CarDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CarDetailsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CarDetailsSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CarDetailsSeries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Career.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Career.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesBaseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesBaseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesSecondAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesSecondAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesThirdAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoriesThirdAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoryBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoryBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategorySecond.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategorySecond.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoryThird.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CategoryThird.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ChangePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ChangePassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ContactDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ContactDetailsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Country.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CustomViewPager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/CustomViewPager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DescriptionBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DescriptionBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DescriptionFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DescriptionFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/EditProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/EditProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ExampleItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ExampleItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/GalleryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/GalleryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/GetHelpDesk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/GetHelpDesk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Get_for_reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Get_for_reply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxBusinessList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxBusinessList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxMarketList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxMarketList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxReplyBusiness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxReplyBusiness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxReplyMarketplace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/InboxReplyMarketplace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/JsonParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/JsonParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBtnSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBtnSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBtnSrchMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBtnSrchMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusProfileList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusProfileList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusProfileListMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusProfileListMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusSuburb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderBusSuburb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderButtons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderButtons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderCategoriesThird.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderCategoriesThird.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderCategorySecond.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderCategorySecond.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderFirstCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderFirstCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderGetTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderGetTags.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderInboxBusinessList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderInboxBusinessList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderInboxMarketList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderInboxMarketList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderMarketSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderMarketSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoaderServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoginData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoginData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoginInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/LoginInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Main2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Main2Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Main3BusinessActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Main3BusinessActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ManageHelpDeskActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ManageHelpDeskActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketIem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketIem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketListing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketListing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketPlaceApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketPlaceApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketPlaceApiAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketPlaceApiAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketProfileList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MarketProfileList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MyFirebaseMessagingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/New_manage_help_desk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/New_manage_help_desk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/PhotosBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/PhotosBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/PhotosFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/PhotosFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProductManagementActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProductManagementActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProfileBusinessListing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProfileBusinessListing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProfileMarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ProfileMarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Reply_Help_Desk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Reply_Help_Desk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SecondTabsAccessorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SecondTabsAccessorAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServiceExpertSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServiceExpertSpace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServicesBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServicesBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SetHttpConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SetHttpConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SetHttpPost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SetHttpPost.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SliderBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SliderBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SocialLinkBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/SocialLinkBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StateAndSuburb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StateAndSuburb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StatusBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StatusBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StatusFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/StatusFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/TabsAccessorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/TabsAccessorAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/TagsObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/TagsObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ThirdTabAccessorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ThirdTabAccessorAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/UpdateMeeDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/UpdateMeeDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/VideosBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/VideosBusinessFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/WebViewActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_business.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_business.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_market.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_market.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_reply_business.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_reply_business.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_reply_market.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/inbox_reply_market.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/versionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/versionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/border.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/border.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/bottom_three_buttons.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/bottom_three_buttons.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/box.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/button_bg_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/button_bg_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/button_bg_round_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/button_bg_round_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/edit_text_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/edit_text_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_arrow_back_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_cancel_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_cancel_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_directions_car_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_directions_car_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_search_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_search_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/image_border.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/image_border.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/rect_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/rect_button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/side_nav_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/side_nav_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/action_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/action_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_about.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_buisness__listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_buisness__listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_career.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_career.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_change_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_change_password.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_edit_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_edit_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_help.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_help.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_login_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_login_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main3_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main3_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_market_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_market_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_navigation_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_navigation_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_new_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_new_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_product_management.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_product_management.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile_business_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_business_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_reply__help__desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_reply__help__desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_reply_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_reply_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_reply_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_reply_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_sign_up.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_web_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_web_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_business_reply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_business_reply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_market_reply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_inbox_market_reply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_layout_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_layout_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_reply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_reply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_about.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_business_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_business_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_career.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_career.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_login_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_login_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_market_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_market_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_navigation_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_new_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_new_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_product_management.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_product_management.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile_business_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile_business_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_profile_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_reply_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/app_bar_webview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/app_bar_webview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/basic_info_dialog_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/basic_info_dialog_box.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/category_base_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/category_base_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/category_base_dialog_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/category_base_dialog_adapter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_about.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_business_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_business_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_career.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_career.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_change_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_change_password.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_edit_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_edit_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_login_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_login_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_market_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_market_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_navigation_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_navigation_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_new_manage_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_new_manage_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_product_management.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_product_management.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_profile_business_listing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_profile_business_listing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_profile_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_profile_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_reply_help_desk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_reply_help_desk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_reply_inbox_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_reply_inbox_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_reply_inbox_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_reply_inbox_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_sign_up.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/content_web_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/content_web_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_update.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_update.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_accreditation_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_accreditation_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_attribute.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_attribute.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_banners_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_banners_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_basic_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_basic_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_basic_info_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_basic_info_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_car_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_car_details.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_contact_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_contact_details.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_description.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_description.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_description_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_description_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_photos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_photos.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_photos_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_photos_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_services_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_services_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_slider_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_slider_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_social_link_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_social_link_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_status.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_status.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_status_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_status_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_videos_business.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_videos_business.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/get_in_touch.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/get_in_touch.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/grid_view_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/grid_view_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/listinglayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/listinglayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/listview_series_cardetails.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/listview_series_cardetails.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/marketlisting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/marketlisting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/nav_header_login_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/nav_header_login_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/nav_header_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/nav_header_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/no_internet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/no_internet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/progress.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/progress.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/request_quote.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/request_quote.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/search_alert_dialog_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/search_alert_dialog_box.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/search_alert_dialog_box_market.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/search_alert_dialog_box_market.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/service_expert_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/service_expert_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/sign_up_reply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/sign_up_reply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/activity_login_data_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/activity_login_data_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/activity_main_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/activity_main_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/activity_navigation_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/activity_navigation_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values-v21/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-v21/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/drawables.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/drawables.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/xml/network_security_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java~530c24a99a4b955c31fa3029fa761defc5c5c86f" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java~530c24a99a4b955c31fa3029fa761defc5c5c86f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java~HEAD" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kesbokar/ExampleUnitTest.java~HEAD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java~530c24a99a4b955c31fa3029fa761defc5c5c86f" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java~530c24a99a4b955c31fa3029fa761defc5c5c86f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java~HEAD" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kesbokar/kisbokar/ExampleUnitTest.java~HEAD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../settings.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,6 +412,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="my_emu" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -17,14 +424,123 @@
       </state>
     </system>
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="22" column="46" lean-forward="true" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServiceExpertAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/WebViewActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7065">
+              <caret line="574" column="17" lean-forward="true" selection-start-line="574" selection-start-column="17" selection-end-line="574" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/About.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="285" selection-start-line="285" selection-end-line="285" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/menu/activity_navigation_drawer.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="76" column="42" selection-start-line="76" selection-start-column="42" selection-end-line="76" selection-end-column="42" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2096">
+              <caret line="942" column="35" selection-start-line="942" selection-start-column="30" selection-end-line="942" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation_market.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="790" selection-start-line="790" selection-end-line="790" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="20" selection-start-column="12" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapterMarket.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="20" selection-start-column="12" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>shared</find>
+      <find>remove</find>
+      <find>kesbokar</find>
+      <find>about</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_COMMON_BRANCH" value="master" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapterMarket.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServiceExpertAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/About.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation_market.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1300" />
-    <option name="height" value="690" />
+    <option name="x" value="55" />
+    <option name="y" value="35" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -32,31 +548,61 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
-              <item name="KesboKar" type="1abcf292:AndroidViewProjectNode" />
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
-              <item name="KesboKar" type="1abcf292:AndroidViewProjectNode" />
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="kesbokar" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="KesboKar_backup" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="mipmap" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="android.sdk.path" value="D:/Android Sdk" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -78,7 +624,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -92,7 +638,7 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
@@ -137,18 +683,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="483fa0f2-1261-4ef4-8033-16e4957a3987" name="Default Changelist" comment="" />
-      <created>1563529731526</created>
+      <changelist id="88bd8474-df35-48d1-a94e-1819e8aa11ee" name="Default Changelist" comment="" />
+      <created>1568281088539</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1563529731526</updated>
+      <updated>1568281088539</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="49" y="-4" width="1317" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.3295302" />
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.3296617" />
       <window_info id="Structure" side_tool="true" />
       <window_info id="Build Variants" side_tool="true" />
       <window_info id="Image Layers" />
@@ -157,18 +704,87 @@
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Run" />
       <window_info anchor="bottom" id="Logcat" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Android Profiler" />
+      <window_info anchor="bottom" id="Debug" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.11937985" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Build" visible="true" weight="0.329429" />
+      <window_info anchor="bottom" id="Build" weight="0.32868218" />
       <window_info anchor="right" id="Device File Explorer" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="right" id="Gradle" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Preview" weight="0.3296617" />
     </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/DataAdapterMarket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="22" column="46" lean-forward="true" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/ServiceExpertAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/WebViewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7065">
+          <caret line="574" column="17" lean-forward="true" selection-start-line="574" selection-start-column="17" selection-end-line="574" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/About.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="285" selection-start-line="285" selection-end-line="285" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation_market.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="790" selection-start-line="790" selection-end-line="790" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/menu/activity_navigation_drawer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="76" column="42" selection-start-line="76" selection-start-column="42" selection-end-line="76" selection-end-column="42" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kesbokar/kesbokar/Navigation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2096">
+          <caret line="942" column="35" selection-start-line="942" selection-start-column="30" selection-end-line="942" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

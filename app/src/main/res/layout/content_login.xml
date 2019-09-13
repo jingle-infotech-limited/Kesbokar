@@ -18,10 +18,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="415dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/Black"
             android:gravity="center_horizontal"
+            android:textAlignment="center"
             android:text="LOGIN"
             android:textColor="@color/White"
             android:textSize="40sp"

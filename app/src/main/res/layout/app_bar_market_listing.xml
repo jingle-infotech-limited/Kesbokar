@@ -5,17 +5,12 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MarketListing">
-
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
-
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,6 +18,7 @@
             android:layout_height="35dp"
             android:background="#FFA700"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

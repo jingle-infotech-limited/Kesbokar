@@ -35,5 +35,10 @@
 
     <string name="facebook_app_id">507634983030964</string>
     <string name="fb_login_protocol_scheme">fb507634983030964</string>
+    <string name="cdn_url">https://www.kesbokar.com.au/</string>
+    <string name="main_url">https://www.kesbokar.com.au/</string>
+    <string name="api_url">https://serv.kesbokar.com.au/jil.0.1/</string>
+    <string name="api_token">FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK</string>
+
 
 </resources>

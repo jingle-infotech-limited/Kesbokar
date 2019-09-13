@@ -26,12 +26,13 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private TextView bc, bd;
     private ImageView bi;
+    String cdn_url;
 
     ArrayList<ServiceExpertSpace> serviceExpertSpaces;
     Context context;
     Activity activity;
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
 
 
@@ -62,7 +63,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+getData();
         bc.setText(serviceExpertSpaces.get(position).getName());
         bd.setText(serviceExpertSpaces.get(position).getCat_title() + " - " + serviceExpertSpaces.get(position).getCity().getTitle() + " , " + serviceExpertSpaces.get(position).getState().getTitle());
 
@@ -76,6 +77,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
         bi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getData();
                 String url = cdn_url+"business/" + ab + "/" + serviceExpertSpaces.get(index).getUrlname() + "/" + serviceExpertSpaces.get(index).getId();
                 SharedPreferences get_product_detail= context.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();

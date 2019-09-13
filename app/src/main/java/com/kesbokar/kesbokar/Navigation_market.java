@@ -141,8 +141,9 @@ String cdn_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences=getSharedPreferences("data",0);
-        cdn_url=sharedPreferences.getString("cdn_url","");
+//        SharedPreferences sharedPreferences=getSharedPreferences("data",0);
+//        cdn_url=sharedPreferences.getString("cdn_url","");
+        getData();
         if (!isNetworkAvailable()) {
             setContentView(R.layout.no_internet);
         } else {
@@ -438,6 +439,7 @@ String cdn_url;
 
             @Override
             public void onLoadFinished(Loader<ArrayList<ButtonsDetails>> loader, final ArrayList<ButtonsDetails> data) {
+                getData();
                 switch (loader.getId()) {
                     case LOADER_ID_BUSINESS:
                         // Add image path for imagebutton from drawable folder.
@@ -458,6 +460,7 @@ String cdn_url;
                                 imagebutton[i].setLayoutParams(params);
                                 imagebutton[i].setTag(data.get(i).getId());
                                 final int index = i;
+                                getData();
                                 String imgURL = cdn_url+"uploads/category/" + data.get(i).getImage();
                                 Picasso.with(Navigation_market.this).load(imgURL).into(imagebutton[i]);
                                 imagebutton[i].setAdjustViewBounds(true);
@@ -789,7 +792,6 @@ String cdn_url;
 
         } else if (Id == R.id.about) {
 
-            if (flag==1){
                 Intent intent = new Intent(Navigation_market.this, About.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -804,14 +806,11 @@ String cdn_url;
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Navigation_market.this, Login.class);
-                startActivity(intent);
-            }
+
 
         } else if (Id == R.id.career) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(Navigation_market.this, Career.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -826,10 +825,6 @@ String cdn_url;
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(Navigation_market.this, Login.class);
-                startActivity(intent);
-            }
 
 
         } else if (Id == R.id.loginPage) {
@@ -857,15 +852,10 @@ String cdn_url;
 
         } else if(Id == R.id.dashboard) {
 
-            if (flag==1) {
+
                 Intent intent = new Intent(Navigation_market.this, Navigation.class);
                 startActivity(intent);
-            }
 
-            else {
-                Intent intent = new Intent(Navigation_market.this, Login.class);
-                startActivity(intent);
-            }
         }
 
 
@@ -924,6 +914,7 @@ String cdn_url;
         @Override
         protected Void doInBackground(Void... voids) {
             try{
+                getData();
                 Document doc1 = Jsoup.connect(cdn_url).get();
                 Elements repositories=doc1.select("#business-list-block");//doc1.getElementsByClass("content-area home-area-1 recent-property");
                 for (Element repository : repositories) {
@@ -986,6 +977,11 @@ String cdn_url;
         protected void onPostExecute(Bitmap result){
             imageView.setImageBitmap(result);
         }
+    }
+    void getData()
+    {
+        SharedPreferences loginData=getSharedPreferences("data",0);
+        cdn_url=loginData.getString("cdn_url","");
     }
 
 }

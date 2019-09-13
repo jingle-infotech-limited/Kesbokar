@@ -253,7 +253,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             imgBtnService();
         }else if(denote.equals("btnSearch")){
             marketIems = bundle.getParcelableArrayList("ARRAYLIST");
-            dataAdapter = new DataAdapterMarket(MarketListing.this,marketIems);
+            dataAdapter = new DataAdapterMarket(MarketListing.this,marketIems,getApplicationContext());
             recyclerView.setAdapter(dataAdapter);
             progressDialog.dismiss();
         }
@@ -454,6 +454,11 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 city_id=dat.getString("city_id");
                                 title=dat.getString("cat_title");
                                 state_id=dat.getString("state_id");
+                                if(synopsis.length()>255)
+                                {
+                                    synopsis=synopsis.substring(0,255);
+                                }
+
                                 if (state_id!="null") {
                                     JSONObject stateob = dat.getJSONObject("state");
                                     state_name = stateob.getString("title");
@@ -496,7 +501,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 id=dat.getInt("id");
                                 marketIems.add(new MarketIem(image, name, synopsis,url1,city,id,title,price,heading));
                             }
-                            dataAdapter = new DataAdapterMarket(MarketListing.this, marketIems);
+                            dataAdapter = new DataAdapterMarket(MarketListing.this, marketIems,getApplicationContext());
                             recyclerView.setAdapter(dataAdapter);
                             progressDialog.dismiss();
                         } catch (JSONException e) {
@@ -675,7 +680,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
 
         } else if (Id == R.id.about) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(MarketListing.this, About.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -690,14 +695,10 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(MarketListing.this, Login.class);
-                startActivity(intent);
-            }
 
         } else if (Id == R.id.career) {
 
-            if (flag==1){
+
                 Intent intent = new Intent(MarketListing.this, Career.class);
                 intent.putExtra("Flag", flag);
                 intent.putExtra("Name",full_name);
@@ -712,10 +713,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                 overridePendingTransition(0, 0);
 
 
-            } else {
-                Intent intent = new Intent(MarketListing.this, Login.class);
-                startActivity(intent);
-            }
+
 
 
         } else if (Id == R.id.advertise) {
@@ -745,15 +743,10 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
 
         } else if(Id == R.id.dashboard) {
 
-            if (flag==1) {
+
                 Intent intent = new Intent(MarketListing.this, Navigation.class);
                 startActivity(intent);
-            }
 
-            else {
-                Intent intent = new Intent(MarketListing.this, Login.class);
-                startActivity(intent);
-            }
         }
 
 
