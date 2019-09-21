@@ -63,11 +63,11 @@
 
                     <ImageView
                         android:id="@+id/imgBusinessImage"
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerInside"
                         android:layout_gravity="center"
-                        android:background="@drawable/map"/>
+                        style="@style/LayoutMargin" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                             android:id="@+id/txtBusinessName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Platinum Group Painting Pty Ltd."
+                            android:layout_marginTop="5dp"
                             android:textColor="#006699"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
@@ -88,66 +88,70 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="4dp"
+                            android:layout_marginTop="5dp"
                             android:background="@drawable/ic_check_square"/>
 
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txtBusinessCategory"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Plumber &amp; Painters - Merrylands, NewSouth Wales 2160"
                         android:textColor="#006699"
+                        android:layout_marginTop="5dp"
                         android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:background="@drawable/ic_facebook" />
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/ic_telegram"/>
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/ic_instagram"/>
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/ic_youtube"/>
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/ic_twitter"/>
 
                         <androidx.appcompat.widget.AppCompatRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="70dp"
+                            android:layout_marginStart="48dp"
+                            android:layout_marginTop="4dp"
                             style="@style/customRatingBar" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
                             android:text="0"
-                            android:textSize="15sp"
+                            android:layout_marginStart="2dp"
+                            android:textSize="17sp"
                             android:inputType="number"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:textSize="15dp"
+                            android:layout_marginStart="2dp"
+                            android:textSize="17dp"
                             android:text="Reviews"/>
 
                     </LinearLayout>

@@ -34,6 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,11 @@ public class BusinessListDetailsPage extends AppCompatActivity implements Naviga
     String business_id;
     String business_name;
     String finalURL;
-    String business_detail;
+    String businessImage;
+    String businessName;
+    String businessCategory;
+    Object businessCity, businessState;
+    String businessZipCode;
 
     Context context;
 
@@ -65,7 +70,9 @@ public class BusinessListDetailsPage extends AppCompatActivity implements Naviga
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
 
-    ImageView imgKesbokarLogo;
+    ImageView imgKesbokarLogo, imgBusinessImage;
+
+    TextView txtBusinessName, txtBusinessCategory;
 
 
     @Override
@@ -90,6 +97,10 @@ public class BusinessListDetailsPage extends AppCompatActivity implements Naviga
         login =header.findViewById(R.id.login);
         signup =header.findViewById(R.id.signup);
         name=header.findViewById(R.id.name_user);
+
+        imgBusinessImage = findViewById(R.id.imgBusinessImage);
+        txtBusinessName = findViewById(R.id.txtBusinessName);
+        txtBusinessCategory = findViewById(R.id.txtBusinessCategory);
 
         if(flag==1)
         {
@@ -125,14 +136,12 @@ public class BusinessListDetailsPage extends AppCompatActivity implements Naviga
             }
         });
 
-
         sliderView = findViewById(R.id.imageSlider);
 
         Bundle intent=getIntent().getExtras();
         finalURL = intent.getString("URL");
         business_id = intent.getString("business_id");
         business_name =  intent.getString("business_name");
-
 
         //for business details list
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -146,6 +155,22 @@ public class BusinessListDetailsPage extends AppCompatActivity implements Naviga
                 try {
 
                     Log.i("Business Details",  response.toString());
+                    JSONObject detailObject = response.getJSONObject("data");
+                    Log.i("Response 100", detailObject.toString());
+
+                    businessName = detailObject.getString("name");
+                    businessImage = detailObject.getString("image");
+                    businessCategory = detailObject.getString("cat_title");
+                    businessCity = (Object) detailObject.getJSONObject("city").getString("title");
+                    businessState = (Object) detailObject.getJSONObject("state").getString("title");
+                    businessZipCode = detailObject.getString("zipcode");
+
+                    Picasso.with(context).load("https://www.kesbokar.com.au/uploads/yellowpage/"+businessImage)
+                            .fit()
+                            .into(imgBusinessImage);
+
+                    txtBusinessName.setText(txtBusinessName.getText()+businessName);
+                    txtBusinessCategory.setText(txtBusinessCategory.getText()+""+ businessCategory+ " " + businessCity + " " + businessState + " " + businessZipCode);
 
                 }catch (Exception e){
                     e.printStackTrace();
