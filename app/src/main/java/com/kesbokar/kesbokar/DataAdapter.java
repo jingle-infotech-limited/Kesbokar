@@ -296,8 +296,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
                 editor.apply();
-                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                Intent intent = new Intent(mActivity, BusinessListDetailsPage.class);
                 intent.putExtra("URL", finalUrl);
+                intent.putExtra("business_id",current.getId()+"");
+                intent.putExtra("business_name",current.getUrl());
+
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 mActivity.startActivityForResult(intent,0);
                 mActivity.overridePendingTransition(0,0);
@@ -312,9 +316,17 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
                 editor.apply();
+
                 String finalUrl=base_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
                 Intent intent = new Intent(mActivity, WebViewActivity.class);
+
+                String finalUrl=cdn_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
+                Intent intent = new Intent(mActivity, BusinessListDetailsPage.class);
+
                 intent.putExtra("URL", finalUrl);
+                intent.putExtra("business_id",current.getId()+"");
+                intent.putExtra("business_name",current.getUrl());
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 mActivity.startActivityForResult(intent,0);
                 mActivity.overridePendingTransition(0,0);
@@ -390,8 +402,11 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
                 editor.apply();
-                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                Intent intent = new Intent(mActivity, BusinessListDetailsPage.class);
                 intent.putExtra("URL", finalUrl);
+                intent.putExtra("business_id",current.getId()+"");
+                intent.putExtra("business_name",current.getUrl());
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 mActivity.startActivityForResult(intent,0);
                 mActivity.overridePendingTransition(0,0);
