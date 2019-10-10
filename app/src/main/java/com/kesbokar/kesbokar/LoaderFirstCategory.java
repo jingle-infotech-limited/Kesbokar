@@ -22,7 +22,7 @@ public class LoaderFirstCategory extends AsyncTaskLoader<ArrayList<CategoryBase>
     @Override
     public ArrayList<CategoryBase> loadInBackground() {
         ArrayList<CategoryBase> firstCategoriesList = new ArrayList<>();
-        String data = ((new SetHttpConnection(url))).getInputStreamData(url);
+        String data = ((new SetHttpConnection(url,getContext()))).getInputStreamData(url);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

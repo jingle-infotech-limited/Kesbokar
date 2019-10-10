@@ -22,7 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     public static int SPLASH_SCREEN_TIME=1500;
     String versionUpdated,version_name;
-    String cdn_url="https://www.kesbokar.com.au/";
+    String cdn_url="https://cdn.kesbokar.com.au/";
+    String base_url="https://www.kesbokar.com.au/";
+    String api_url="http://serv.kesbokar.com.au/jil.0.1/";
+    String api_topken="FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                       //FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("data",0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString("cdn_url",cdn_url);
+        editor.putString("base_url",base_url);
+        editor.putString("api_url",api_url);
+        editor.putString("api_token",api_topken);
         editor.apply();
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (isNetworkAvailable()) {
             try {

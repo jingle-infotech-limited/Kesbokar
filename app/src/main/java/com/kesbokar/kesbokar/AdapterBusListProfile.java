@@ -39,6 +39,8 @@ public class AdapterBusListProfile extends BaseAdapter {
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
     int pos;
+    String api_url,api_token;
+
     Activity activity;
 
     String id1;
@@ -90,8 +92,8 @@ public class AdapterBusListProfile extends BaseAdapter {
             public void onClick(View v) {
                 RequestQueue queue= Volley.newRequestQueue(context);
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
-
-                String url="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/delete";
+getData();
+                String url=api_url+"yellowpage/delete";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -116,7 +118,7 @@ public class AdapterBusListProfile extends BaseAdapter {
                         String user_id=""+id;
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("id",id1);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         params.put("user_id",user_id);
                         return params;
                     }
@@ -136,7 +138,7 @@ public class AdapterBusListProfile extends BaseAdapter {
                 id1=""+businessProfileLists.get(pos).getId();
                 getData();
 
-                final String url="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+id1+"?user_id="+id+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                final String url=api_url+"v1/yellowpage/"+id1+"?user_id="+id+"&api_token="+api_token;
                 //final String pro_id="" + businessProfileLists.get(i).getId();
                 //Log.i("Url",url+"    "+pro_id+"    "+i);
 
@@ -189,7 +191,8 @@ public class AdapterBusListProfile extends BaseAdapter {
                                 editor.putString("status",status);
                                 editor.putString("yellowpage_id",yellowpage_id);
                                 editor.commit();
-                                String url_video="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id+"/video?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url_video=api_url+"v1/yellowpage/"+yellowpage_id+"/video?api_token="+api_token;
                             final JsonObjectRequest jsonObjectRequest_video= new JsonObjectRequest(Request.Method.GET, url_video, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -221,7 +224,8 @@ public class AdapterBusListProfile extends BaseAdapter {
                                 }
                             });
                             queue.add(jsonObjectRequest_video);
-                            String url_social="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id+"/sociallinks?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                            getData();
+                            String url_social=api_url+"v1/yellowpage/"+yellowpage_id+"/sociallinks?api_token="+api_token;
                             final JsonObjectRequest jsonObjectRequest_social= new JsonObjectRequest(Request.Method.GET, url_social, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -260,7 +264,8 @@ public class AdapterBusListProfile extends BaseAdapter {
                                 }
                             });
                             queue.add(jsonObjectRequest_social);
-                            String url4="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category/"+topcat_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                            getData();
+                            String url4=api_url+"v1/yellowpage-category/"+topcat_id+"?api_token="+api_token;
                             final JsonObjectRequest jsonObjectRequest4 = new JsonObjectRequest(Request.Method.GET, url4, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -288,7 +293,8 @@ public class AdapterBusListProfile extends BaseAdapter {
                                 }
                             });
                             queue.add(jsonObjectRequest4);
-                            String url5="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category/"+parentcat_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                            getData();
+                            String url5=api_url+"v1/yellowpage-category/"+parentcat_id+"?api_token="+api_token;
                             final JsonObjectRequest jsonObjectRequest5 = new JsonObjectRequest(Request.Method.GET, url5, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -314,7 +320,8 @@ public class AdapterBusListProfile extends BaseAdapter {
                                 }
                             });
                             queue.add(jsonObjectRequest5);
-                            String url6="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category/"+category_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                            getData();
+                            String url6=api_url+"v1/yellowpage-category/"+category_id+"?api_token="+api_token;
                             final JsonObjectRequest jsonObjectRequest6 = new JsonObjectRequest(Request.Method.GET, url6, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -384,6 +391,8 @@ public class AdapterBusListProfile extends BaseAdapter {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
 
     }
 }

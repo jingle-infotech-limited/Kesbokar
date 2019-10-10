@@ -23,7 +23,7 @@ public class LoaderLogin extends AsyncTaskLoader<LoginInfo> {
     @Override
     public LoginInfo loadInBackground() {
         LoginInfo loginInfos = new LoginInfo();
-        String data = (new SetHttpPost()).sendPostLogin(QueryId,QueryPass,BaseUrl);
+        String data = (new SetHttpPost(getContext())).sendPostLogin(QueryId,QueryPass,BaseUrl);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

@@ -2,6 +2,7 @@ package com.kesbokar.kesbokar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Activity mActivity;
-    String cdn_url;
+    String cdn_url,base_url;
     private Context context;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -112,11 +113,14 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     private void populateItemRows(MyViewHolder holder, int position) {
         getData();
+
         MarketIem current=marketItems.get(position);
         String image=cdn_url+"uploads/product/thumbs/"+current.getImg();
         String bName=current.getBusi_name();
         String bSynop=current.getBusi_synop();
-        String price_ad=current.getprice();
+        bSynop=android.text.Html.fromHtml(bSynop).toString();
+        final String price_ad=current.getprice()+"";
+        Log.i("CURRENT",current+"");
         final String city=current.getCity();
         final String url=current.getUrl();
         final int id=current.getId();
@@ -125,8 +129,17 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mld.setText(bSynop);
         String ratings=current.getTitle();
         holder.mlt.setText(ratings);
-        holder.price.setText("$ "+price_ad);
-        holder.heading_text.setText(heading);
+       if(current.getprice()==null)
+       {
+           holder.price.setText("$ Not Available");
+       }
+       else {
+           holder.price.setText("$ " + price_ad);
+       }
+
+
+    holder.heading_text.setText(heading);
+
         final String title=ratings.toLowerCase().replace(" ","-");
         if(current.getImg()!="null") {
             Picasso.with(mActivity).load(image).fit().centerInside().into(holder.mli);
@@ -138,7 +151,7 @@ public class DataAdapterMarket extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
 getData();
-                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
+                String finalUrl=base_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -158,7 +171,7 @@ getData();
             @Override
             public void onClick(View v) {
                 getData();
-                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
+                String finalUrl=base_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -177,7 +190,7 @@ getData();
             @Override
             public void onClick(View v) {
                 getData();
-                String finalUrl=cdn_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
+                String finalUrl=base_url+"marketplace/"+city+"/"+title+"/"+url+"/"+id;
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","0");
@@ -196,7 +209,9 @@ getData();
 void getData()
 {
     SharedPreferences loginData=context.getSharedPreferences("data",0);
+    base_url=loginData.getString("base_url","");
     cdn_url=loginData.getString("cdn_url","");
+
 }
 
 }

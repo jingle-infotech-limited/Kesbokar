@@ -49,13 +49,13 @@ import java.util.Map;
 public class CarDetailsFragment extends Fragment {
 
     AutoCompleteTextView car_make, car_model, car_year, car_variant,car_color,car_air,car_registered,car_state;
-    String make,id_make,make1,model_id,model_title,model1,url1,id_model,model_year,year,variant_id,variant_title;
+    String make,id_make,make1,model_id,model_title,model1,url1,id_model,model_year,year,variant_id,variant_title,product_name;
     RequestQueue requestQueue;
     Dictionary<String, String> make_dictionary,model_dictionary,variant_dictionary;
     TextView make_text,model_text,year_text,variant_text,color_text,air_text,registered_text,state_text,number_text,expiry_text;
     ArrayList<String> make_array,model_array,year_array,variant_array;
     String [] color_array,response,state_array;
-    String url;
+    String url,api_url,api_token;
     String color_response,registered_response,air_response,state,number,expiry,id_series,name_series,des_body,des_engine,make_name;
     DatePicker car_expiry;
     EditText car_number;
@@ -70,6 +70,9 @@ public class CarDetailsFragment extends Fragment {
     ArrayList<CarDetailsSeries> carDetailsSeries;
     ViewPager viewPager;
     TabLayout tabLayout;
+   public CarDetailsFragment(){
+       super();
+   }
     public CarDetailsFragment(ViewPager viewPager, TabLayout tabLayout)
     {
         this.viewPager=viewPager;
@@ -81,9 +84,6 @@ public class CarDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        //return inflater.inflate(R.layout.fragment_car_details, container, false);
 
         View view = inflater.inflate(R.layout.fragment_car_details, container, false);
         getData();
@@ -383,7 +383,7 @@ public class CarDetailsFragment extends Fragment {
         next_frag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+               // getData();
                 number=car_number.getText().toString();
                 int d=car_expiry.getDayOfMonth();
                 int mon=car_expiry.getMonth()+1;
@@ -408,10 +408,10 @@ public class CarDetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), number+"     and     "+expiry+"   and   "+registered_response+"   and   "+color_response+"   and   "+air_response, Toast.LENGTH_SHORT).show();
                 if (edit1==1)
                 {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+pro_id+"/vehicle";
+                    url=api_url+"v1/product/"+pro_id+"/vehicle";
                 }
                 else {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/product";
+                    url = api_url+"v1/product";
                 }
                 RequestQueue queue= Volley.newRequestQueue(getActivity());
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
@@ -458,11 +458,13 @@ public class CarDetailsFragment extends Fragment {
                             public void onErrorResponse(VolleyError error) {
                                 // errorLog.d("Error.Response", String.valueOf(error));
                                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
                             }
                         }){
                     @Override
                     protected Map<String, String> getParams()
                     {
+                      //  getData();
                         String user_id;
                         user_id=""+id1;
                         Map<String, String>  params = new HashMap<String, String >();
@@ -495,7 +497,8 @@ public class CarDetailsFragment extends Fragment {
                             params.put("user_id", user_id);
                             params.put("vehicle", jsonObject.toString());
                         }
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -524,7 +527,8 @@ public class CarDetailsFragment extends Fragment {
     }
 
     private void jsonParserMake() {
-        String url1 = "http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/make/dd?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+      //  getData();
+        String url1 = api_url+"v1/vehicle/make/dd?api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -536,10 +540,10 @@ public class CarDetailsFragment extends Fragment {
                         int p = jsonObject.length();
                         String l = "" + p;
                         Log.i("JSON Help", jsonObject.toString());
-                        Log.i("Length", l);
+                        Log.i("Length", l+"");
                         make = jsonObject.getString(j);
                         make_dictionary.put(make, j);
-                        Log.i("Dictionary", make_dictionary.get(make));
+                        Log.i("Dictionary", make_dictionary.get(make)+"");
                         make_array.add(make);
                     }
                 } catch (JSONException e) {
@@ -559,7 +563,8 @@ public class CarDetailsFragment extends Fragment {
 
     public void jsonParserModel()
     {
-        url1 = "http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/model/dd/get?make_id="+id_make+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+       // getData();
+        url1 = api_url+"v1/vehicle/model/dd/get?make_id="+id_make+"&api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -574,7 +579,7 @@ public class CarDetailsFragment extends Fragment {
                         int p = jsonObject.length();
                         String l = "" + p;
                         Log.i("JSON Help", jsonObject.toString());
-                        Log.i("Length", l);
+                        Log.i("Length", l+"");
                         model_id = jsonObject.getString("id");
                         model_title=jsonObject.getString("title");
                         model_dictionary.put(model_title, model_id);
@@ -597,7 +602,8 @@ public class CarDetailsFragment extends Fragment {
 
     private void jsonParserYear()
     {
-        url1="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/year/dd/get?model_id="+id_model+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+       // getData();
+        url1=api_url+"v1/vehicle/year/dd/get?model_id="+id_model+"&api_token="+api_token;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
@@ -625,7 +631,8 @@ public class CarDetailsFragment extends Fragment {
     }
     private void jsonParserVariant()
     {
-        url1="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/variant/dd/get?model_id="+id_model+"&year="+year+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+       // getData();
+        url1=api_url+"v1/vehicle/variant/dd/get?model_id="+id_model+"&year="+year+"&api_token="+api_token;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
@@ -639,7 +646,7 @@ public class CarDetailsFragment extends Fragment {
                         String j = "" + k;
                         int p = jsonObject.length();
                         String l = "" + p;
-                        Log.i("Length", l);
+                        Log.i("Length", l+"");
                         variant_id = jsonObject.getString("id");
                         variant_title=jsonObject.getString("title");
                         variant_dictionary.put(variant_title, variant_id);
@@ -660,8 +667,8 @@ public class CarDetailsFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
     public void jsonParserSeries()
-    {
-        url1="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/detail/get?make_id="+id_make+"&model_id="+id_model+"&year="+year+"&variant_id="+variant_id+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+    {//getData();
+        url1=api_url+"v1/vehicle/detail/get?make_id="+id_make+"&model_id="+id_model+"&year="+year+"&variant_id="+variant_id+"&api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -674,7 +681,7 @@ public class CarDetailsFragment extends Fragment {
                         String j = "" + k;
                         int p = jsonObject.length();
                         String l = "" + p;
-                        Log.i("Length", l);
+                        Log.i("Length", l+"");
                         Log.i("Series Object",jsonObject.toString());
                         id=jsonObject.getInt("id");
                         name_series=jsonObject.getString("name");
@@ -709,6 +716,11 @@ public class CarDetailsFragment extends Fragment {
         id1=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+        SharedPreferences get_product_detail= getActivity().getSharedPreferences("product_detail",0);
+        get_product_detail.getString("product_name",product_name);
+        get_product_detail.getString("product_id",product_id);
         SharedPreferences get=getActivity().getSharedPreferences("data1",0);
         series_id=get.getString("series","");
         SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
@@ -740,6 +752,7 @@ public class CarDetailsFragment extends Fragment {
         make_name=business_edit.getString("make_name","");
         model_name=business_edit.getString("model_name","");
         variant_name=business_edit.getString("variant_name","");
+        Log.i("CAR_",product_name+name_title+"");
     }
 
 

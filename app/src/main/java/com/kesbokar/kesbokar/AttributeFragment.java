@@ -45,12 +45,17 @@ public class AttributeFragment extends Fragment {
 
     ViewPager viewPager;
     TabLayout tabLayout;
+    String api_token,api_url;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated,product_id,product_name,attribute_info,attribute_id,attribute="",attribute_value;
     int id,flag,entry_state;
     String make_id,model_id1,year1,variant_id1,vehicle_id,colour,airconditioning,registered,registration_state,registration_number,registration_expiry,name_title,product_condition,product_section,category_id1,price1,phone1,address1,description1,status1,pro_id,model_name,variant_name;
     int edit1;
+    String attributeValue[],resultId[],result[];
     Button btnRefresh;
-
+    int finalI;
+    EditText et;
+    TextView tv;
+    String[] att_value;
 
     public AttributeFragment(ViewPager viewPager, TabLayout tabLayout)
     {
@@ -65,19 +70,20 @@ public class AttributeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_attribute, container, false);
-
+        getData();
 
         final LinearLayout linearLayout = view.findViewById(R.id.linear_layout);
-        final Button btnRefresh = view.findViewById(R.id.btnRefresh);
+        btnRefresh = view.findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int totalSpace = 0;
-                getData();
+
                 int count =0;
                 String temp = "",id="";
                 int pos1=0, pos2=0, pos3=0;
                 btnRefresh.setVisibility(View.INVISIBLE);
+
                 for(int k=0;k<attribute_info.length();k++)
                 {
                     if(attribute_info.charAt(k)==',')
@@ -85,10 +91,18 @@ public class AttributeFragment extends Fragment {
                         count++;
                     }
                 }
-                String[] att_value = attribute_value.split(",");
-                final String[] resultId = new String[count];
-                final String[] result = new String[count];
-                for (int i=0;i<count;i++) {
+
+                    att_value = attribute_value.split(",");
+
+                    for (String s : att_value) {
+                        Log.i("S", s);
+                    }
+
+                //   String[] att_value = attribute_value.split(" ");
+                 resultId = new String[count];
+                 result = new String[count];
+                for (int i=0;i<count;i++)
+                {
                     temp = "";
                     id="";
 
@@ -135,8 +149,10 @@ public class AttributeFragment extends Fragment {
 
                     resultId[i] = id;
 
+                    result[i]=att_value[i];
+                    Log.i("et_value",att_value[i]);
 
-                    TextView tv = new TextView(getContext());
+                     tv = new TextView(getContext());
                     tv.setText("" + temp);
                     //tv.setId(i);
                     tv.setPadding(0,10,0,0);
@@ -144,17 +160,22 @@ public class AttributeFragment extends Fragment {
                     //textViewParams.setMargins(100 , 100 * i, 20, 20);
                     linearLayout.addView(tv, textViewParams);
 
-                    EditText et = new EditText(getContext());
+                    et = new EditText(getContext());
                     et.setHint("Enter ...");
                     et.setId(i);
                     et.setWidth(500);
+
                     LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-                    //editTextParams.setMargins(500, 90 * i, 20, 20);
+                    //editTextParams.setMargins(500, 90 * i, 20, 2resultId0);
                     if (edit1==1) {
                         et.setText(att_value[i]);
+
+                        //attributeValue=new String[count];
                     }
+                    else et.setText("");
                     linearLayout.addView(et, editTextParams);
-                    final int finalI = i;
+
+                    finalI = i;
                     et.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -177,7 +198,8 @@ public class AttributeFragment extends Fragment {
                     });
 
                     totalSpace = totalSpace + (90*(i+1));
-                }
+
+                }//end of for loop
 
                 Button btnPrevious = new Button(getContext());
                 btnPrevious.setText("Previous");
@@ -205,30 +227,45 @@ public class AttributeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final JSONArray jsonArray =new JSONArray();
+                        attribute_value="";
 
                         for (int i = 0; i< finalCount; i++)
                         {
 
+//                            Log.i("I",i+"");
+//                            JSONObject jsonObject=new JSONObject();
+//                            try {
+//                                jsonObject.put("product_id",product_id);
+//                                jsonObject.put("attribute_id",resultId[i]);
+//                                jsonObject.put("attribute_value",result[i]);
+//                                jsonArray.put(i,jsonObject);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
 
+                            Log.i("I",i+"");
                             JSONObject jsonObject=new JSONObject();
                             try {
                                 jsonObject.put("product_id",product_id);
                                 jsonObject.put("attribute_id",resultId[i]);
                                 jsonObject.put("attribute_value",result[i]);
+                                Log.i("log",product_id+resultId[i]+result[i]+"");
                                 jsonArray.put(i,jsonObject);
                             } catch (JSONException e) {
                                 e.printStackTrace();
+
                             }
+
                             attribute=attribute+resultId[i]+",";
+                            attribute_value=attribute_value+result[i]+",";
 
 
-                            Toast.makeText(getContext(),resultId[i],Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getContext(),resultId[i],Toast.LENGTH_SHORT).show();
 
-                        }
+                        }//end of for loop
+
                         RequestQueue queue= Volley.newRequestQueue(getActivity());
                         String url;
-
-                        url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+product_id+"/attributes";
+                        url=api_url+"v1/product/"+product_id+"/attributes";
 
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
@@ -245,29 +282,41 @@ public class AttributeFragment extends Fragment {
                             @Override
                             protected Map<String, String> getParams()
                             {
+                                getData();
                                 Map<String, String>  params = new HashMap<String, String >();
                                 params.put("product_id",product_id);
                                 params.put("data",jsonArray.toString());
                                 Log.i("jsonarray",jsonArray.toString());
-                                params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                                params.put("api_token",api_token);
                                 return params;
                             }
                         };
                         queue.add(stringRequest);
-                        int item=viewPager.getCurrentItem();
-                        View tab=tabLayout.getTabAt(item+1).view;
-                        tab.setEnabled(true);
-                        viewPager.setCurrentItem(item+1);
+                        queue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<String>() {
+                            @Override
+                            public void onRequestFinished(Request<String> request) {
+                                int item=viewPager.getCurrentItem();
+                                View tab=tabLayout.getTabAt(item+1).view;
+                                tab.setEnabled(true);
+                                viewPager.setCurrentItem(item+1);
+                            }
+                        });
+                        ////
 
+                        SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
+                        SharedPreferences.Editor edit1= business_edit.edit();
+                        edit1.putString("attribute_value",attribute_value);
+                        edit1.apply();
+                        Log.i("attribute",attribute+" 123"+attribute_value);
                     }
+
                 });
 
                 linearLayout.addView(btnSave, btnSaveParams);
 
             }
-        });
-
-
+        }//end of btn refresh
+        );
 
         return view;
     }
@@ -282,6 +331,9 @@ public class AttributeFragment extends Fragment {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+
         SharedPreferences get_product_detail=getActivity().getSharedPreferences("product_detail",0);
         product_id =get_product_detail.getString("product_id","");
         product_name=get_product_detail.getString("product_name","");
@@ -292,19 +344,20 @@ public class AttributeFragment extends Fragment {
         attribute_id = attribute.getString("attribute_id","");
         SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
         edit1=business_edit.getInt("edit",0);
-
-        name_title=business_edit.getString("name","");
-        product_condition=business_edit.getString("product_condition","");
-        product_section=business_edit.getString("product_section","");
-        category_id1=business_edit.getString("category_id","");
-        price1=business_edit.getString("price","");
-        phone1=business_edit.getString("phone","");
-        address1=business_edit.getString("address","");
-        description1=business_edit.getString("description","");
-        status1=business_edit.getString("status","");
-        pro_id=business_edit.getString("product_id","");
-        attribute_value=attribute.getString("attribute_value","");
-
+        if(edit1==1) {
+            name_title = business_edit.getString("name", "");
+            product_condition = business_edit.getString("product_condition", "");
+            product_section = business_edit.getString("product_section", "");
+            category_id1 = business_edit.getString("category_id", "");
+            price1 = business_edit.getString("price", "");
+            phone1 = business_edit.getString("phone", "");
+            address1 = business_edit.getString("address", "");
+            description1 = business_edit.getString("description", "");
+            status1 = business_edit.getString("status", "");
+            pro_id = business_edit.getString("product_id", "");
+            attribute_value = attribute.getString("attribute_value", "");
+        }
+        Log.i("ATTRIBUTE",attribute_value+"");
     }
 
 }

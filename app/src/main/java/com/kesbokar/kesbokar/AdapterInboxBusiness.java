@@ -33,7 +33,7 @@ public class AdapterInboxBusiness extends BaseAdapter {
     int id,flag;
     int pos;
     Activity activity;
-    String id1;
+    String id1,api_url,api_token;
     public AdapterInboxBusiness(Context context, ArrayList<InboxBusinessList> inboxBusinessLists,Activity activity){
         this.context = context;
         this.inboxBusinessLists = inboxBusinessLists;
@@ -80,8 +80,8 @@ public class AdapterInboxBusiness extends BaseAdapter {
 
                 RequestQueue queue= Volley.newRequestQueue(context);
                 String url;
-
-                url="http://serv.kesbokar.com.au/jil.0.1/v1/quotes-yellowpage/delete";
+                getData();
+                url=api_url+"v1/quotes-yellowpage/delete";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -98,13 +98,14 @@ public class AdapterInboxBusiness extends BaseAdapter {
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         id1=""+inboxBusinessLists.get(i).getId();
                         getData();
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("id",id1);
                         String user_id=""+id;
                         params.put("user_id",user_id);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -134,6 +135,7 @@ public class AdapterInboxBusiness extends BaseAdapter {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
     }
 }

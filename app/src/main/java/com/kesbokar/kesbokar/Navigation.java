@@ -75,7 +75,7 @@ public class Navigation extends AppCompatActivity
     TextView ab;
     ImageButton[] imagebutton;
     TextView[] dynamicTxt;
-
+    String api_token,api_url="";
     LinearLayout layoutmain;
     LinearLayout layout;
     LinearLayout layoutsec;
@@ -85,9 +85,9 @@ public class Navigation extends AppCompatActivity
     Button btnSrch,logout;
     String about;
     TextView name;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title, cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated, title, cdn_url="";
 
-    String personName, personEmail, personID;
+    String personName, personEmail, personID="";
 
 
     boolean a;
@@ -130,7 +130,7 @@ public class Navigation extends AppCompatActivity
 
     private String query = "";
 
-    private double lat, longitude;
+    private double lat=0.0, longitude=0.0;
     ArrayList<ExampleItem> exampleItems;
     int stateid = 0;
 
@@ -226,8 +226,9 @@ public class Navigation extends AppCompatActivity
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
 
         }
-        lat = 0.0;
-        longitude = 0.0;
+      //  lat = 0.0;
+        //longitude = 0.0;
+       // autoCompleteTextViewTwo_suburb_or_state = findViewById(R.id.autoCompleteTextViewTwo_suburb_or_state);
         autoCompleteTextViewTwo_suburb_or_state = findViewById(R.id.autoCompleteTextViewTwo_suburb_or_state);
         search=findViewById(R.id.search);
 
@@ -259,6 +260,7 @@ public class Navigation extends AppCompatActivity
         btnSrch = findViewById(R.id.btnSearch);
 
         autoCompleteTextViewOne_type_or_name = findViewById(R.id.autoCompleteTextViewOne_type_or_name);
+
 
         navigationView.setNavigationItemSelectedListener(this);
         btnTop = findViewById(R.id.btnTop);
@@ -488,24 +490,39 @@ public class Navigation extends AppCompatActivity
         btnSearch = new LoaderManager.LoaderCallbacks<ArrayList<ExampleItem>>() {
             @Override
             public Loader<ArrayList<ExampleItem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(Navigation.this,q,subV,"https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages",stateid,subType,lat,longitude);
+                getData();
+                LoaderBtnSearch loaderBtnSearch;
+                q = autoCompleteTextViewOne_type_or_name.getText().toString();
+//                if(autoCompleteTextViewTwo_suburb_or_state.getText().length()==0)
+//                {
+                loaderBtnSearch = new LoaderBtnSearch(Navigation.this, q, subV, api_url + "v2/yellowpages", stateid, subType, lat, longitude);
                 return loaderBtnSearch;
+//                }
             }
-
             @Override
             public void onLoadFinished(Loader<ArrayList<ExampleItem>> loader, ArrayList<ExampleItem> data) {
-                switch (loader.getId()){
-                    case LOADER_ID_BTNSRCH:
-                        if(data != null && q.length()> 2){
-                            exampleItems = data;
-                            Log.i("Search", data.toString());
-                            Intent intent = new Intent(Navigation.this,Buisness_Listing.class);
-                            intent.putExtra("CHOICE", "btnSearch");
-                            intent.putParcelableArrayListExtra("ARRAYLIST",exampleItems);
-                            startActivity(intent);
-                        }
-                        break;
-                }
+                try {
+                    switch (loader.getId()) {
+                        case LOADER_ID_BTNSRCH:
+                            Log.i("search", data.toString());
+                            q = autoCompleteTextViewOne_type_or_name.getText().toString();
+                            if (data.size() >0 && q.length() > 2 ) {
+
+                                exampleItems = data;
+
+                                Intent intent = new Intent(Navigation.this, Buisness_Listing.class);
+                             //   intent.putExtra("URL",url);
+                                intent.putExtra("CHOICE", "btnSearch");
+                                intent.putParcelableArrayListExtra("ARRAYLIST", exampleItems);
+                                startActivity(intent);
+                            }
+                            if(data.size()==0){
+                                Toast.makeText(Navigation.this, "No such item available", Toast.LENGTH_SHORT).show();
+                            }
+                          //  Log.i("data_size",data.size()+""+data);
+                            break;
+                    }
+                }catch (Exception e){e.printStackTrace();}
             }
 
             @Override
@@ -521,28 +538,27 @@ public class Navigation extends AppCompatActivity
 
 
 
-        businessSuburb = new androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<StateAndSuburb>>() {
+            businessSuburb = new androidx.loader.app.LoaderManager.LoaderCallbacks<ArrayList<StateAndSuburb>>() {
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Navigation.this,querySub,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search/cities");
+                getData();
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Navigation.this, querySub, api_url + "v2/yellowpages/search/cities");
                 return loaderBusSuburb;
             }
 
             @Override
-            public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data){
-                if(data!=null) {
-                    if (data.size() != 0) {
-                        valsSub = data;
-                        Log.i("Tag", valsSub + "");
-                        ArrayAdapter<StateAndSuburb> adapter = new ArrayAdapter<StateAndSuburb>(Navigation.this, android.R.layout.simple_dropdown_item_1line, valsSub);
-                        autoCompleteTextViewTwo_suburb_or_state = findViewById(R.id.autoCompleteTextViewTwo_suburb_or_state);
-                        autoCompleteTextViewTwo_suburb_or_state.setAdapter(adapter);
-                        getLoaderManager().destroyLoader(LOADER_ID_BUSVAL);
-                    } else {
-                        // Toast.makeText(Navigation.this, "No internet Connection", Toast.LENGTH_SHORT).show();
-                    }
+            public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data) {
+                if (data.size()>0) {
+                    valsSub = data;
+
+                    ArrayAdapter<StateAndSuburb> adapter = new ArrayAdapter<StateAndSuburb>(Navigation.this, android.R.layout.simple_dropdown_item_1line, valsSub);
+
+                    autoCompleteTextViewTwo_suburb_or_state.setAdapter(adapter);
+                    getLoaderManager().destroyLoader(LOADER_ID_BUSVAL);
                 }
+              //  Log.i("valussub", valsSub.size() + "");
+
             }
 
             @Override
@@ -553,22 +569,24 @@ public class Navigation extends AppCompatActivity
         businessSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(Navigation.this,query,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search");
+                getData();
+                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(Navigation.this,query,api_url+"v2/yellowpages/search");
                 return loaderBusSearch;
             }
 
             @Override
             public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> data) {
-                if (data.size() != 0) {
+                if (data.size()> 0) {
                     valsBus = data;
-                    Log.i("Tag", valsBus + "");
+                 //   Log.i("Tag", valsBus + "");
                     ArrayAdapter<String> adapter=new ArrayAdapter<String>(Navigation.this,android.R.layout.simple_dropdown_item_1line,valsBus);
                     autoCompleteTextViewOne_type_or_name.setAdapter(adapter);
                     getSupportLoaderManager().initLoader(LOADER_ID_BUSSUB,null,businessSuburb);
                 } else {
                  //   Toast.makeText(Navigation.this, "No internet Connection", Toast.LENGTH_SHORT).show();
                 }
-
+               // Log.i("valussub", data.size() + "");
+                //getLoaderManager().destroyLoader(LOADER_ID_BUSVAL);
             }
 
             @Override
@@ -580,7 +598,8 @@ public class Navigation extends AppCompatActivity
         buttonsDetailsLoaderCallbacks = new LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>>() {
             @Override
             public Loader<ArrayList<ButtonsDetails>> onCreateLoader(int id, Bundle args) {
-                String BASE_URL = "https://serv.kesbokar.com.au/jil.0.1/v2/business-categories?tlevel=0&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                getData();
+                String BASE_URL = api_url+"v2/business-categories?tlevel=0&api_token="+api_token;
                 LoaderButtons loaderButtons = new LoaderButtons(Navigation.this, BASE_URL);
                 return loaderButtons;
             }
@@ -610,8 +629,9 @@ public class Navigation extends AppCompatActivity
                                 imagebutton[i].setLayoutParams(params);
                                 imagebutton[i].setTag(data.get(i).getId());
                                 final int index = i;
+                                getData();
                                 String imgURL = cdn_url+"uploads/category/" + data.get(i).getImage();
-                                Log.i("Response", imgURL);
+                            //    Log.i("Response", imgURL);
                                 Picasso.with(Navigation.this).load(imgURL).into(imagebutton[i]);
                                 imagebutton[i].setAdjustViewBounds(true);
                                 //new DownLoadImageTask(imagebutton[i]).execute(imgURL);
@@ -620,13 +640,17 @@ public class Navigation extends AppCompatActivity
                                 imagebutton[i].setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        String url = "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages?&caturl="+data.get(index).getUrl()+"&catid="+data.get(index).getId()+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                        getData();
+
+                                        String url = api_url+"v2/yellowpages?&caturl="+data.get(index).getUrl()+"&catid="+data.get(index).getId()+"&api_token="+api_token;
                                         Intent intent = new Intent(Navigation.this, Buisness_Listing.class);
+                                      //  Log.i("URLL",url);
                                         intent.putExtra("URL",url);
                                         intent.putExtra("CHOICE","imgBtnService");
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         startActivityForResult(intent, 0);
                                         overridePendingTransition(0, 0);
+
                                         finish();
                                     }
                                 });
@@ -647,6 +671,7 @@ public class Navigation extends AppCompatActivity
                         } else {
                            // Toast.makeText(Navigation.this, "No internet Connection", Toast.LENGTH_SHORT).show();
                         }
+                     //   Log.i("valussub", data.size() + "");
                         break;
                 }
             }
@@ -680,6 +705,7 @@ public class Navigation extends AppCompatActivity
 //                        else{
 //                            Toast.makeText(Navigation.this, "no internet connection", Toast.LENGTH_SHORT).show();
 //                        }
+                  //      Log.i("valussub", dataSize + "");
                         break;
                 }
             }
@@ -757,20 +783,31 @@ public class Navigation extends AppCompatActivity
         btnSrch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 q = autoCompleteTextViewOne_type_or_name.getText().toString();
-                Log.i("Q and subV", q + " " + subV);
-                if(q.length() == 0 && subV.length() == 0){
+            //    Log.i("Q and subV", q + " " + subV);
+                if(q.length() == 0 &&  subV.length() == 0){
                     Toast.makeText(Navigation.this, "Cannot Search Empty fields", Toast.LENGTH_SHORT).show();
                 }
-                else if (subV.length()==0)
-                {
-                    Toast.makeText(Navigation.this, "Cannot Search Empty State", Toast.LENGTH_SHORT).show();
-                }
-                else if (q.length()==0)
-                {
-                    Toast.makeText(Navigation.this, "Cannot Search Empty Query", Toast.LENGTH_SHORT).show();
-                }
-                getLoaderManager().initLoader(LOADER_ID_BTNSRCH,null,btnSearch);
+//                else if (subV.length()==0)
+//                {
+//                    Toast.makeText(Navigation.this, "Cannot Search Empty State", Toast.LENGTH_SHORT).show();
+//                }
+//                else if (q.length()==0)
+//                {
+//                    Toast.makeText(Navigation.this, "Cannot Search Empty Query", Toast.LENGTH_SHORT).show();
+//                }
+
+//                if( getLoaderManager().initLoader(LOADER_ID_BTNSRCH,null,btnSearch).equals(""))
+//                {
+//                    Toast.makeText(Navigation.this, "No such item is available", Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+              getLoaderManager().initLoader(LOADER_ID_BTNSRCH,null,btnSearch);
+                              Toast.makeText(Navigation.this, "hi "+subV, Toast.LENGTH_SHORT).show();
+
+//                }
             }
         });
     }
@@ -1031,6 +1068,9 @@ public class Navigation extends AppCompatActivity
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
         cdn_url=loginData.getString("cdn_url","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
+
         personName=loginData.getString("name","");
         personEmail=loginData.getString("email","");
         personID=loginData.getString("provider_id", "");
@@ -1085,13 +1125,15 @@ public class Navigation extends AppCompatActivity
         Address address = list.get(0);
 
         StringBuffer str = new StringBuffer();
-        str.append(address.getLocality()+" " );
-        str.append(address.getSubAdminArea()+" " );
-        str.append(address.getAdminArea()+" ");
+        str.append(address.getLocality()+", " );
+        //str.append(address.getSubAdminArea()+" " );
+        //str.append(address.getAdminArea()+" ");
         str.append(address.getCountryName()+" ");
         str.append(address.getCountryCode()+" ");
 
         String strAddress = str.toString();
+
+
 
         //Toast.makeText(this, "Longitude"+longitudeV+"     Latitude"+latitude +"   "+ strAddress, Toast.LENGTH_SHORT).show();
         lat = latitude;

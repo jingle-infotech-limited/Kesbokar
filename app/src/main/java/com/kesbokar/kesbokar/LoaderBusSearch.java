@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class LoaderBusSearch extends AsyncTaskLoader<ArrayList<String>> {
     private String Query;
-    private String base_url;
+    private String base_url1;
     public LoaderBusSearch(Context context, String Query,String url){
         super(context);
         this.Query = Query;
-        base_url = url;
+        base_url1 = url;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class LoaderBusSearch extends AsyncTaskLoader<ArrayList<String>> {
     @Override
     public ArrayList<String> loadInBackground() {
         ArrayList<String> businessSearchBarsValues = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostMarkAndBus(Query,base_url);
+        String data = (new SetHttpPost(getContext())).sendPostMarkAndBus(Query,base_url1);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

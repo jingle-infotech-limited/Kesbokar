@@ -89,6 +89,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
             }
         });
+        getData();
         Picasso.with(Profile.this).load(cdn_url+"uploads/profile/"+image).into(ivImage);
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override

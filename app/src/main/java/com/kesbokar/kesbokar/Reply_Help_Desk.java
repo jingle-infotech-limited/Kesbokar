@@ -44,7 +44,7 @@ public class Reply_Help_Desk extends AppCompatActivity implements NavigationView
     private static final int LOADER_BUS_PRO_LIST = 66;
     TextView subject,message;
     ListView listView;
-    String replyMessage,replyBy,date1,subject1,message1;
+    String replyMessage,replyBy,date1,subject1,message1,api_url,api_token;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
     RequestQueue requestQueue;
@@ -117,7 +117,8 @@ public class Reply_Help_Desk extends AppCompatActivity implements NavigationView
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String url="http://serv.kesbokar.com.au/jil.0.1/v1/replyhelpdesk?user_id="+id;
+                getData();
+                final String url=api_url+"v1/replyhelpdesk?user_id="+id;
                 final String reply_message=((EditText)findViewById(R.id.etReply)).getText().toString();
                 RequestQueue queue= Volley.newRequestQueue(Reply_Help_Desk.this);
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
@@ -140,13 +141,14 @@ public class Reply_Help_Desk extends AppCompatActivity implements NavigationView
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         String id1=""+id;
                         String message_id=""+bundle.getInt("id");
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("user_id", id1);
                         params.put("message_id", message_id);
                         params.put("reply_message", reply_message);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
 
                         return params;
                     }
@@ -180,7 +182,8 @@ public class Reply_Help_Desk extends AppCompatActivity implements NavigationView
     }
     private void jsonParser()
     {
-        String url1="http://serv.kesbokar.com.au/jil.0.1/v1/helpdesk/"+bundle.getInt("id") +"?user_id="+id+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+        getData();
+        String url1=api_url+"v1/helpdesk/"+bundle.getInt("id") +"?user_id="+id+"&api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -463,6 +466,8 @@ public class Reply_Help_Desk extends AppCompatActivity implements NavigationView
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
 
     }
 }

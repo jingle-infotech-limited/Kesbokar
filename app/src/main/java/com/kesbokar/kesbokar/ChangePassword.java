@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChangePassword extends AppCompatActivity {
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url,api_token;
     int id,flag;
     EditText new_password,confirm_password;
     Button change_password_confirm;
@@ -43,7 +43,7 @@ public class ChangePassword extends AppCompatActivity {
                 }
                 else {
                     if (new_password.getText().toString().equals(confirm_password.getText().toString())) {
-                        String url = "http://serv.kesbokar.com.au/jil.0.1/v1/users/" + id;
+                        String url = api_url+"v1/users/" + id;
                         RequestQueue requestQueue = Volley.newRequestQueue(ChangePassword.this);
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
@@ -60,10 +60,11 @@ public class ChangePassword extends AppCompatActivity {
                                 }) {
                             @Override
                             protected Map<String, String> getParams() {
+                                getData();
                                 Map<String, String> params = new HashMap<String, String>();
                                 params.put("id", "" + id);
                                 params.put("password", new_password.getText().toString());
-                                params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                                params.put("api_token", api_token);
                                 return params;
                             }
                         };
@@ -91,6 +92,8 @@ public class ChangePassword extends AppCompatActivity {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
     }
 

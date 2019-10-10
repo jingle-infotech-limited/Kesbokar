@@ -33,6 +33,7 @@ public class SocialLinkBusinessFragment extends Fragment {
 
     EditText etFacebook, etTwitter, etLinkedIn, etGoogle, etInstagram, etYouTube, etTelegram;
     Button btnPrevious, btnSave;
+    String api_url,api_token;
     private String loginId, loginPass, full_name, email, image, phone_no,created,updated,product_id,product_name, yellowpage_id,facebook,twitter,linkedin,googleplus,instagram,youtube,telegram;
     private int id,flag;
     private String name, registration_no, license_no, website, category_id, phone, address, description, latitude, longitude, email1,status1,
@@ -86,10 +87,10 @@ public class SocialLinkBusinessFragment extends Fragment {
                     String url;
                     if (edit1==1)
                     {
-                        url="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id1+"/sociallinks";
+                        url=api_url+"v1/yellowpage/"+yellowpage_id1+"/sociallinks";
                     }
                     else {
-                        url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/" + yellowpage_id + "/sociallinks";
+                        url = api_url+"v1/yellowpage/" + yellowpage_id + "/sociallinks";
                     }
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
@@ -106,6 +107,7 @@ public class SocialLinkBusinessFragment extends Fragment {
                         @Override
                         protected Map<String, String> getParams()
                         {
+                            getData();
                             Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
 //                        params.put("product_condition",);
@@ -125,7 +127,7 @@ public class SocialLinkBusinessFragment extends Fragment {
                             params.put("youtube", etYouTube.getText().toString());
                             params.put("telegram", etTelegram.getText().toString());
 
-                            params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                            params.put("api_token",api_token);
                             return params;
                         }
                     };
@@ -159,6 +161,8 @@ public class SocialLinkBusinessFragment extends Fragment {
         id = loginData.getInt("id", 0);
         created = loginData.getString("create", "");
         updated = loginData.getString("update", "");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
         SharedPreferences get_product_detail = getActivity().getSharedPreferences("product_detail", 0);
         product_id = get_product_detail.getString("product_id", "");
         product_name = get_product_detail.getString("product_name", "");

@@ -2,10 +2,12 @@ package com.kesbokar.kesbokar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,14 +20,16 @@ public class AdapterCarDetailsSeries extends BaseAdapter{
     LayoutInflater layoutInflater;
     Activity activity;
     int id;
-    String id_series;
-    TextView rbName,tvName,tvDesBody,tvDesEngine;
+    String id_series,radio_text;
+    TextView tvName,tvDesBody,tvDesEngine;
+    RadioButton rbName;
 
     public AdapterCarDetailsSeries(Context context, Activity activity, ArrayList<CarDetailsSeries> CarDetailsSeriesModelArrayList) {
         this.context = context;
         this.activity=activity;
         this.CarDetailsSeriesModelArrayList = CarDetailsSeriesModelArrayList;
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -63,16 +67,22 @@ public class AdapterCarDetailsSeries extends BaseAdapter{
         tvName.setText(CarDetailsSeriesModelArrayList.get(position).getName());
         tvDesBody.setText(CarDetailsSeriesModelArrayList.get(position).getDes_body());
         tvDesEngine.setText(CarDetailsSeriesModelArrayList.get(position).getDes_engine());
+        getData();
+        if(tvName.getText().toString().equals(radio_text))
+        {
+            rbName.setChecked(true);
+        }
         rbName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 id=CarDetailsSeriesModelArrayList.get(position).getId();
                 id_series=""+id;
-                Toast.makeText(context, ""+id_series, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, ""+id_series, Toast.LENGTH_SHORT).show();
                 SharedPreferences get= activity.getSharedPreferences("data1",0);
                 SharedPreferences.Editor editor=get.edit();
                 editor.putString("series",id_series);
                 editor.apply();
+                Log.i("adapterCarDetail",rbName.getText().toString());
                 rbName.setEnabled(false);
             }
         });
@@ -80,7 +90,11 @@ public class AdapterCarDetailsSeries extends BaseAdapter{
         return convertView;
 
     }
+void getData(){
+    SharedPreferences get=context.getSharedPreferences("data1",0);
 
+    radio_text =get.getString("series","");
+}
 
 
 }

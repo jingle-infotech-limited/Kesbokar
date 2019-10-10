@@ -1,5 +1,7 @@
 package com.kesbokar.kesbokar;
 
+import android.content.Context;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,16 +10,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class TabsAccessorAdapter extends FragmentPagerAdapter
+public class
+TabsAccessorAdapter extends FragmentPagerAdapter
 {
     ViewPager viewPager;
     TabLayout tabLayout;
+    Context context;
 
-    public TabsAccessorAdapter(FragmentManager fm, ViewPager viewPager, TabLayout tabLayout)
+    public TabsAccessorAdapter(FragmentManager fm, ViewPager viewPager, TabLayout tabLayout,Context context)
     {
         super(fm);
         this.viewPager=viewPager;
         this.tabLayout=tabLayout;
+        this.context=context;
 
     }
 
@@ -40,7 +45,7 @@ public class TabsAccessorAdapter extends FragmentPagerAdapter
                 return descriptionFragment;
 
             case 3:
-               PhotosFragment photosFragment = new PhotosFragment(viewPager,tabLayout);
+               PhotosFragment photosFragment = new PhotosFragment(viewPager,tabLayout,context);
                return photosFragment;
 
             case 4:

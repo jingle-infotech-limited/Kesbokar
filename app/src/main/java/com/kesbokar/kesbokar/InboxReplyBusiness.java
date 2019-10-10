@@ -46,7 +46,7 @@ public class InboxReplyBusiness extends AppCompatActivity implements NavigationV
     TextView subject,message,date,replyBy1, reply;
     ListView listView;
     String replyMessage,replyBy,date1,message1;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url,api_token;
     int id,flag, enquiry_id;
     RequestQueue requestQueue;
     int id1,user_id;
@@ -133,8 +133,9 @@ public class InboxReplyBusiness extends AppCompatActivity implements NavigationV
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getData();
                 jsonParser();
-                final String url="http://serv.kesbokar.com.au/jil.0.1/v1/quotes-yellowpage/"+ en_id + "/reply";
+                final String url=api_url+"v1/quotes-yellowpage/"+ en_id + "/reply";
                 final String reply_message=((EditText)findViewById(R.id.etReply)).getText().toString();
                 RequestQueue queue= Volley.newRequestQueue(InboxReplyBusiness.this);
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
@@ -157,11 +158,12 @@ public class InboxReplyBusiness extends AppCompatActivity implements NavigationV
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("user_id", id+"");
                         params.put("enquiry_id", en_id + "");
                         params.put("reply_message", reply_message);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
 
                         return params;
                     }
@@ -187,7 +189,8 @@ public class InboxReplyBusiness extends AppCompatActivity implements NavigationV
 
     private void jsonParser()
     {
-        String url1="http://serv.kesbokar.com.au/jil.0.1/v1/quotes-yellowpage?user_id="+id+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+        getData();
+        String url1=api_url+"v1/quotes-yellowpage?user_id="+id+"&api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -474,6 +477,7 @@ public class InboxReplyBusiness extends AppCompatActivity implements NavigationV
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
     }
 }

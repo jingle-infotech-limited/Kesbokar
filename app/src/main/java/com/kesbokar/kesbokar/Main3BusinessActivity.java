@@ -22,14 +22,14 @@ public class Main3BusinessActivity extends AppCompatActivity {
 
     private int edit1=0;
 
-    private String name, registration_no, license_no, website, category_id, phone, address, description, latitude, longitude, email1,yellowpage_id,
-            quote_message, short_description;
+//    private String name, registration_no, license_no, website, category_id, phone, address, description, latitude, longitude, email1,yellowpage_id,
+//            quote_message, short_description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3_business);
-        getData();
+      //  getData();
 
         mToolbar = findViewById(R.id.main_page_toolbar_2);
         setSupportActionBar(mToolbar);
@@ -57,27 +57,27 @@ public class Main3BusinessActivity extends AppCompatActivity {
         tab5.setEnabled(false);
     }
 
-    public void getData() {
-        SharedPreferences basicInfoBusiness = getSharedPreferences("business_edit", 0);
-        edit1=basicInfoBusiness.getInt("edit", 0);
-        if (edit1 == 1) {
-
-            name = basicInfoBusiness.getString("name", "");
-            registration_no = basicInfoBusiness.getString("registration_no", "");
-            license_no = basicInfoBusiness.getString("license_no", "");
-            website = basicInfoBusiness.getString("website", "");
-            category_id = basicInfoBusiness.getString("category_id", "");
-            phone = basicInfoBusiness.getString("phone", "");
-            address = basicInfoBusiness.getString("address", "");
-            description = basicInfoBusiness.getString("description", "");
-            latitude = basicInfoBusiness.getString("latitude", "");
-            longitude = basicInfoBusiness.getString("longitude", "");
-            email1 = basicInfoBusiness.getString("email", "");
-            quote_message = basicInfoBusiness.getString("quote_message", "");
-            short_description = basicInfoBusiness.getString("short_desc", "");
-            yellowpage_id=basicInfoBusiness.getString("yellowpage_id","");
-
-        }
-
-    }
+//    public void getData() {
+//        SharedPreferences basicInfoBusiness = getSharedPreferences("business_edit", 0);
+//        edit1=basicInfoBusiness.getInt("edit", 0);
+//        if (edit1 == 1) {
+//
+//            name = basicInfoBusiness.getString("name", "");
+//            registration_no = basicInfoBusiness.getString("registration_no", "");
+//            license_no = basicInfoBusiness.getString("license_no", "");
+//            website = basicInfoBusiness.getString("website", "");
+//            category_id = basicInfoBusiness.getString("category_id", "");
+//            phone = basicInfoBusiness.getString("phone", "");
+//            address = basicInfoBusiness.getString("address", "");
+//            description = basicInfoBusiness.getString("description", "");
+//            latitude = basicInfoBusiness.getString("latitude", "");
+//            longitude = basicInfoBusiness.getString("longitude", "");
+//            email1 = basicInfoBusiness.getString("email", "");
+//            quote_message = basicInfoBusiness.getString("quote_message", "");
+//            short_description = basicInfoBusiness.getString("short_desc", "");
+//            yellowpage_id=basicInfoBusiness.getString("yellowpage_id","");
+//
+//        }
+//
+//    }
 }

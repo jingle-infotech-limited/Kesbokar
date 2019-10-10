@@ -141,28 +141,50 @@
                         android:textColorHint="#C0C0C0"
                         android:id="@+id/ml"
                         android:selectAllOnFocus="true" />
-                    <Button
-                        android:layout_width="50dp"
-                        android:layout_height="35dp"
-                        android:selectAllOnFocus="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="100dp"
-                        android:text="Location"
-                        android:textSize="5dp"
-                        android:visibility="invisible"
-                        android:id="@+id/location"/>
 
                     <AutoCompleteTextView
+
+                        android:id="@+id/ms"
                         android:layout_width="320dp"
                         android:layout_height="35dp"
-                        android:hint="Suburb Or State"
-                        android:textColorHint="#C0C0C0"
-                        android:id="@+id/ms"
-                        android:paddingStart="15dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="150dp"
+                        android:paddingStart="15dp"
+                        android:hint="Suburb Or State"
+                        android:textColorHint="#C0C0C0"
                         android:background="#FFFFFF"
                         android:selectAllOnFocus="true" />
+<!--                    <Button-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="35dp"-->
+<!--                        android:selectAllOnFocus="true"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginTop="100dp"-->
+<!--                        android:text="Location"-->
+<!--                        android:src="@drawable/location"-->
+<!--                        android:textSize="5dp"-->
+<!--                        android:visibility="invisible"-->
+<!--                        android:id="@+id/location"/>-->
+                    <ImageView
+                        android:id="@+id/ImgViewLocation"
+                        android:layout_width="30dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="150dp"
+                        android:layout_alignEnd="@+id/ms"
+                        android:selectAllOnFocus="true"
+                        android:clickable="true"
+                        android:src="@drawable/location" />
+<!--                        android:src="@drawable/location" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ImgViewLocation"-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="35dp"-->
+<!--                        android:layout_marginTop="150dp"-->
+<!--                        android:layout_alignEnd="@+id/ms"-->
+<!--                        android:selectAllOnFocus="true"-->
+<!--                        android:clickable="true"-->
+<!--                        android:src="@drawable/location" />-->
 
                     <Button
                         android:id="@+id/marBtnSrch"

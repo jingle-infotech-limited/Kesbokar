@@ -35,7 +35,7 @@ public class ManageHelpDeskActivity extends AppCompatActivity implements Navigat
     ListView listView;
     int id1;
     Button mng_helpdesk_new;
-    String date,reply,subject;
+    String date,reply,subject,api_url,api_token;
     RequestQueue requestQueue;
     ArrayList<GetHelpDesk> getHelpDesks;
 
@@ -100,7 +100,8 @@ public class ManageHelpDeskActivity extends AppCompatActivity implements Navigat
 
     private void jsonParser()
     {
-        String url1="http://serv.kesbokar.com.au/jil.0.1/v1/helpdesk?user_id="+id+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+        getData();
+        String url1=api_url+"v1/helpdesk?user_id="+id+"&api_token="+api_token;
         final JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -366,6 +367,8 @@ public class ManageHelpDeskActivity extends AppCompatActivity implements Navigat
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
     }
 }

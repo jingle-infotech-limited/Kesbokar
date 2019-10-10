@@ -26,7 +26,7 @@ public class ServiceExpertAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private TextView bc, bd;
     private ImageView bi;
-    String cdn_url;
+    String cdn_url,base_url;
 
     ArrayList<ServiceExpertSpace> serviceExpertSpaces;
     Context context;
@@ -78,7 +78,7 @@ getData();
             @Override
             public void onClick(View v) {
                 getData();
-                String url = cdn_url+"business/" + ab + "/" + serviceExpertSpaces.get(index).getUrlname() + "/" + serviceExpertSpaces.get(index).getId();
+                String url = base_url+"business/" + ab + "/" + serviceExpertSpaces.get(index).getUrlname() + "/" + serviceExpertSpaces.get(index).getId();
                 SharedPreferences get_product_detail= context.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
@@ -118,6 +118,8 @@ getData();
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
         cdn_url=loginData.getString("cdn_url","");
+        base_url=loginData.getString("base_url","");
+
 
     }
 }

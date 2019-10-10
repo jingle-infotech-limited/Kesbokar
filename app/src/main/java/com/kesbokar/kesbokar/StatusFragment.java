@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,7 +36,7 @@ public class StatusFragment extends Fragment {
 
     RadioGroup rgStatus;
     Button btnBack, btnSubmit;
-    String condition;
+    String condition,api_url,api_token;
     ViewPager viewPager;
     private String loginId, loginPass, full_name, email, image, phone_no,created,updated,product_id,product_name;
     private int id,flag;
@@ -66,6 +67,7 @@ public class StatusFragment extends Fragment {
         btnSubmit= view.findViewById(R.id.btnSubmit);
         rbactive=rgStatus.findViewById(R.id.rbActive);
         rbdeactive=rgStatus.findViewById(R.id.rbDeactive);
+        rbdeactive.setChecked(true);
         if (edit1==1)
         {
             if (status1.equals("1"))
@@ -86,7 +88,10 @@ public class StatusFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int item=viewPager.getCurrentItem();
+                View tab=tabLayout.getTabAt(item-1).view;
+                tab.setEnabled(true);
+                viewPager.setCurrentItem(item-1);
             }
         });
 
@@ -98,16 +103,17 @@ public class StatusFragment extends Fragment {
                 String url;
                 if (edit1==1)
                 {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+pro_id;
+                    url=api_url+"v1/product/"+pro_id;
                 }
                 else {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/product/" + product_id;
+                    url = api_url+"v1/product/" + product_id;
                 }
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("Response",response);
+                        Log.i("Response_status",response);
+                        Toast.makeText(getContext(), "Submission Successful", Toast.LENGTH_SHORT).show();
 
                     }
                 }, new Response.ErrorListener() {
@@ -118,7 +124,7 @@ public class StatusFragment extends Fragment {
                 }){
                     @Override
                     protected Map<String, String> getParams()
-                    {
+                    {getData();
                         Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
 //                        params.put("product_condition",);
@@ -131,11 +137,12 @@ public class StatusFragment extends Fragment {
                         String user_id=""+id;
                         params.put("user_id",user_id);
                         params.put("status",status);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
                 queue.add(stringRequest);
+
                 Intent intent=new Intent(getActivity(),LoginData.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -172,9 +179,13 @@ public class StatusFragment extends Fragment {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+
         SharedPreferences get_product_detail=getActivity().getSharedPreferences("product_detail",0);
         product_id =get_product_detail.getString("product_id","");
         product_name=get_product_detail.getString("product_name","");
+
         SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
         edit1=business_edit.getInt("edit",0);
         name_title=business_edit.getString("name","");

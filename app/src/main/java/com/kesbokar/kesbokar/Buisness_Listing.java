@@ -63,7 +63,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
     private RequestQueue requestQueue;
     private ProgressDialog progressDialog;
     private Button btnHelp,btnBuis,btnMar,btnTop;
-    String heading,state_id,state_name ,cdn_url;
+    String heading,state_id,state_name ,api_url;
 
     TextView txtCancel;
     TextView txtVisitMarketPlace;
@@ -91,6 +91,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
     String loginId, loginPass, full_name, email, image1, phone_no,created,updated;
     int id1,flag;
     double ratings;
+    Double longi=0.0,lati=0.0;
     Intent intent;
     Bundle bundle;
     SharedPreferences loginData;
@@ -338,7 +339,8 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
 
             @Override
             public Loader<ArrayList<ExampleItem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(Buisness_Listing.this,q,subV,"https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages",stateid,subType,0.0,0.0);
+                getData();
+                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(Buisness_Listing.this,q,subV,api_url+"v2/yellowpages",stateid,subType,longi,lati);
                 return loaderBtnSearch;
             }
 
@@ -346,9 +348,11 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
             public void onLoadFinished(Loader<ArrayList<ExampleItem>> loader, ArrayList<ExampleItem> data) {
                 switch (loader.getId()){
                     case LOADER_ID_BTNSRCH:
-                        if(data != null && q.length()!=0){
+                        if(data.size()>0 && q.length()!=0){
+
                             exampleItems = data;
-                            Log.i("Search", data.toString());
+                            Log.i("mylist",data.toString());
+                            //Log.i("Search", data.toString());
                             Intent intent = new Intent(Buisness_Listing.this,Buisness_Listing.class);
                             intent.putExtra("CHOICE", "btnSearch");
                             intent.putParcelableArrayListExtra("ARRAYLIST",exampleItems);
@@ -368,7 +372,8 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Buisness_Listing.this,querySub,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search/cities");
+                getData();
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Buisness_Listing.this,querySub,api_url+"v2/yellowpages/search/cities");
                 return loaderBusSuburb;
             }
 
@@ -376,7 +381,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
             public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data){
                 if (data.size() != 0) {
                     valsSub = data;
-                    Log.i("Tag", valsSub + "");
+                 //   Log.i("Tag", valsSub + "");
                     ArrayAdapter<StateAndSuburb> adapter=new ArrayAdapter<StateAndSuburb>(Buisness_Listing.this,android.R.layout.simple_dropdown_item_1line,valsSub);
                     autoCompleteTextViewTwo.setAdapter(adapter);
                     getLoaderManager().destroyLoader(LOADER_ID_BUSVAL);
@@ -395,7 +400,8 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         businessSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(Buisness_Listing.this,query,"http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search");
+                getData();
+                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(Buisness_Listing.this,query,api_url+"v2/yellowpages/search");
                 return loaderBusSearch;
             }
 
@@ -403,7 +409,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
             public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> data) {
                 if (data.size() != 0) {
                     valsBus = data;
-                    Log.i("Tag", valsBus + "");
+                  //  Log.i("Tag", valsBus + "");
                     ArrayAdapter<String> adapter=new ArrayAdapter<String>(Buisness_Listing.this,android.R.layout.simple_dropdown_item_1line,valsBus);
                     autoCompleteTextViewOne.setAdapter(adapter);
                     getSupportLoaderManager().initLoader(LOADER_ID_BUSSUB,null,businessSuburb);
@@ -425,7 +431,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
                 q = autoCompleteTextViewOne.getText().toString();
-                Log.i("Q and subV", q + " " + subV);
+               // Log.i("Q and subV", q + " " + subV);
                 if(q.length() == 0 && subV.length() == 0){
                     Toast.makeText(Buisness_Listing.this, "Cannot Search Empty fields", Toast.LENGTH_SHORT).show();
                 }
@@ -477,7 +483,8 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                             JSONArray jsonArray = response.getJSONArray("data");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject dat = jsonArray.getJSONObject(i);
-                                Log.i("JSON PAGI",dat.toString());
+                              //  Log.i("JSON PAGI",dat.toString());
+
                                 name = dat.getString("name");
                                 synopsis = dat.getString("synopsis");
                                 image = dat.getString("image");
@@ -528,7 +535,7 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
                                 }
 
                                 id=dat.getInt("id");
-                                exampleItems.add(new ExampleItem(image, name, synopsis,url1,city,id,ratings,heading));
+                                exampleItems.add(new ExampleItem(image, name, synopsis,url1,city,id,ratings,heading,state_name,cat_title));
                             }
 
                             dataAdapter = new DataAdapter(Buisness_Listing.this, exampleItems,flag, loginData);
@@ -824,7 +831,9 @@ public class Buisness_Listing extends AppCompatActivity implements NavigationVie
         id1=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-        cdn_url=loginData.getString("cdn_url","");
+     //   cdn_url=loginData.getString("cdn_url","");
+        api_url=loginData.getString("api_url","");
+       // api_token=loginData.getString("api_token","");
 
     }
 

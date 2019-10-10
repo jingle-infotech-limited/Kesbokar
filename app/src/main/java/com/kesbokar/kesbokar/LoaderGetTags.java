@@ -29,7 +29,7 @@ public class LoaderGetTags extends AsyncTaskLoader<ArrayList<TagsObject>> {
     @Override
     public ArrayList<TagsObject> loadInBackground() {
         ArrayList<TagsObject> tagsObjectArrayList = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostTags(tags, url);
+        String data = (new SetHttpPost(getContext())).sendPostTags(tags, url);
         if(data!=null){
             try {
                 JsonParser jsonParser = new JsonParser();

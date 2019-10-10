@@ -1,5 +1,7 @@
 package com.kesbokar.kesbokar;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -14,6 +16,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SetHttpPost {
+    String api_token;
+    Context context;
+
+    SetHttpPost(Context context){
+        this.context=context;
+
+    }
     public String convertStreamToString(InputStream is) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -37,6 +46,7 @@ public class SetHttpPost {
     }
 
     public String sendPostMarkAndBus(String query, String baseUrl){
+        getData();
         String ResponseData;
         try{
             URL url = new URL(baseUrl);
@@ -49,7 +59,7 @@ public class SetHttpPost {
             JSONObject jsonParam = new JSONObject();
 //            jsonParam.put("timestamp", 1488873360);
             jsonParam.put("query", query);
-            jsonParam.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+            jsonParam.put("api_token", api_token);
 //            jsonParam.put("latitude", 0D);
 //            jsonParam.put("longitude", 0D);
 
@@ -81,6 +91,7 @@ public class SetHttpPost {
 
     public String sendPostSearchBtn(String queryValue, String querySub,int subId, String type, double lat, double longitude, String baseUrl){
         String ResponseData;
+        getData();
         try{
             URL url = new URL(baseUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -117,7 +128,7 @@ public class SetHttpPost {
                 jsonParam.put("lat",lat);
                 jsonParam.put("lng", longitude);
             }
-            jsonParam.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+            jsonParam.put("api_token", api_token);
 //
 
             Log.i("JSON", jsonParam.toString());
@@ -147,6 +158,7 @@ public class SetHttpPost {
 
     public String sendPostLogin(String query_id, String query_pass, String baseUrl){
         String ResponseData;
+        getData();
         try{
             URL url = new URL(baseUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -159,7 +171,7 @@ public class SetHttpPost {
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("email", query_id);
             jsonParam.put("password", query_pass);
-            jsonParam.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+            jsonParam.put("api_token", api_token);
 
             Log.i("JSON", jsonParam.toString());
             DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -186,6 +198,7 @@ public class SetHttpPost {
 
     public String sendPostTags(String tags, String baseUrl){
         String ResponseData;
+        getData();
         try{
             URL url = new URL(baseUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -198,7 +211,7 @@ public class SetHttpPost {
             JSONObject jsonParam = new JSONObject();
 
             jsonParam.put("ids", tags);
-            jsonParam.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+            jsonParam.put("api_token", api_token);
 
 
             Log.i("JSON", jsonParam.toString());
@@ -223,4 +236,10 @@ public class SetHttpPost {
         }
         return null;
     }
+    void getData()
+    {
+        SharedPreferences loginData=context.getSharedPreferences("data",0);
+        api_token=loginData.getString("api_token","");
+    }
+
 }

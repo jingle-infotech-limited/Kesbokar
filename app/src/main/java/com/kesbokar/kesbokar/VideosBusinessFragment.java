@@ -34,7 +34,7 @@ public class VideosBusinessFragment extends Fragment {
     Button btnSave, btnPrevious, btnSubmitCode;
     EditText etTitle, etCode;
     RadioGroup rgDefault;
-    String condition;
+    String condition,api_url,api_token;
     private String loginId, loginPass, full_name, email, image, phone_no,created,updated,product_id,product_name, yellowpage_id;
     private int id,flag;
 
@@ -87,10 +87,10 @@ public class VideosBusinessFragment extends Fragment {
                 String url;
                 if (edit1==1)
                 {
-                    url="http:/serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id1+"/video";
+                    url=api_url+"v1/yellowpage/"+yellowpage_id1+"/video";
                 }
                 else {
-                    url = "http:/serv.kesbokar.com.au/jil.0.1/v1/yellowpage/" + yellowpage_id + "/video";
+                    url = api_url+"v1/yellowpage/" + yellowpage_id + "/video";
                 }
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -107,6 +107,7 @@ public class VideosBusinessFragment extends Fragment {
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
 //                        params.put("product_condition",);
@@ -120,7 +121,7 @@ public class VideosBusinessFragment extends Fragment {
                         params.put("user_id",user_id);
                         params.put("title",etTitle.getText().toString());
                         params.put("video_code", etCode.getText().toString());
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -139,7 +140,7 @@ public class VideosBusinessFragment extends Fragment {
                 RequestQueue queue= Volley.newRequestQueue(getActivity());
                 String url;
 
-                url="http:/serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id+"/video";
+                url=api_url+"v1/yellowpage/"+yellowpage_id+"/video";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -156,6 +157,7 @@ public class VideosBusinessFragment extends Fragment {
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
 //                        params.put("product_condition",);
@@ -169,7 +171,7 @@ public class VideosBusinessFragment extends Fragment {
                         params.put("user_id",user_id);
                         params.put("title",etTitle.getText().toString());
                         params.put("video_code", etCode.getText().toString());
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -209,6 +211,9 @@ public class VideosBusinessFragment extends Fragment {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+
         SharedPreferences get_product_detail=getActivity().getSharedPreferences("product_detail",0);
         product_id =get_product_detail.getString("product_id","");
         product_name=get_product_detail.getString("product_name","");

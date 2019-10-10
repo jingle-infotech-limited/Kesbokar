@@ -1,5 +1,7 @@
 package com.kesbokar.kesbokar;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -10,11 +12,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SetHttpConnection {
+    String api_token;
+    Context context;
     private static String BASE_URL,url2;
 
     //Setting category code
-    public SetHttpConnection(String url){
+    public SetHttpConnection(String url,Context context){
         BASE_URL = url;
+        this.context=context;
         //BASE_URL = "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages?page=1&caturl=service-providers&catid=172&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK#";
     }
 
@@ -80,7 +85,8 @@ public class SetHttpConnection {
         return null;
     }
 
-    public static String getInputStreamData(String BASE_URL){
+    public String getInputStreamData(String BASE_URL){
+        getData();
         HttpURLConnection httpURLConnection = null;
 
         InputStream inputStream = null;
@@ -90,7 +96,7 @@ public class SetHttpConnection {
 
             //Set the request method
             httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setRequestProperty("Authorization", "Bearer " + "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+            httpURLConnection.setRequestProperty("Authorization", "Bearer " + api_token);
             //Since we only need to read the data
             httpURLConnection.setDoInput(true);
             httpURLConnection.connect();
@@ -161,5 +167,9 @@ public class SetHttpConnection {
         }
         return sb.toString();
     }
-
+    void getData()
+    {
+        SharedPreferences loginData=context.getSharedPreferences("data",0);
+        api_token=loginData.getString("api_token","");
+    }
 }

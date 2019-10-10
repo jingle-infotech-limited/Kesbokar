@@ -24,7 +24,7 @@ import org.jsoup.select.Evaluator;
 
 public class ProductManagementActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,carAd;
     int id,flag;
 
     private EditText editText;
@@ -51,7 +51,7 @@ public class ProductManagementActivity extends AppCompatActivity implements Navi
         button = findViewById(R.id.btnGo);
         postACarAdd = findViewById(R.id.btnPostACarAdd);
         relativeLayout = findViewById(R.id.productTitle);
-
+        editText.setText("");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +61,22 @@ public class ProductManagementActivity extends AppCompatActivity implements Navi
                 bundle.putString("EDITTEXT_VALUE", data);
                 BasicInfoFragment basicInfoFragment = new BasicInfoFragment();
                 basicInfoFragment.setArguments(bundle);*/
-                Intent intent = new Intent(ProductManagementActivity.this, Main2Activity.class);
-                SharedPreferences sharedPreferences=getSharedPreferences("market_edit",0);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.putInt("edit",0);
-                editor.commit();
-                intent.putExtra("CAR_YES_OR_NO", false);
-                startActivity(intent);
+               try {
+                   Intent intent = new Intent(ProductManagementActivity.this, Main2Activity.class);
+                   SharedPreferences sharedPreferences2 = getSharedPreferences("market_edit", 0);
+                   SharedPreferences.Editor editor = sharedPreferences2.edit();
+                   editor.putInt("edit", 0);
+                   editor.putString("name", editText.getText().toString());
+                   editor.apply();
+                   SharedPreferences sharedPreferences1 = getSharedPreferences("product_detail", 0);
+                   SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                   editor1.putInt("edit", 0);
+                   editor1.putString("product_name", editText.getText().toString());
+                   editor1.putString("carAd","no");
+                   editor1.apply();
+                   intent.putExtra("CAR_YES_OR_NO", false);
+                   startActivity(intent);
+               }catch(Exception e){e.printStackTrace();}
             }
         });
 

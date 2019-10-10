@@ -2,8 +2,11 @@ package com.kesbokar.kesbokar;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.TooManyListenersException;
 
 public class LoaderBtnSearch extends AsyncTaskLoader<ArrayList<ExampleItem>> {
     private String Query;
@@ -16,7 +19,7 @@ public class LoaderBtnSearch extends AsyncTaskLoader<ArrayList<ExampleItem>> {
         super(context);
         this.Query = Query;
         this.Suburb = suburb;
-        BaseUrl = url;
+        this.BaseUrl = url;
         this.stateId = stateId;
         this.type = type;
         this.lat = lat;
@@ -32,17 +35,20 @@ public class LoaderBtnSearch extends AsyncTaskLoader<ArrayList<ExampleItem>> {
     @Override
     public ArrayList<ExampleItem> loadInBackground() {
         ArrayList<ExampleItem> btnSearchData = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostSearchBtn(Query,Suburb,stateId,type,lat,longitude,BaseUrl);
+        String data = (new SetHttpPost(getContext())).sendPostSearchBtn(Query,Suburb,stateId,type,lat,longitude,BaseUrl);
         //call jsonParser only if the data is not null
+
         if(data != null){
             try {
                 JsonParser jsonBtnSrch = new JsonParser();
                 btnSearchData = jsonBtnSrch.getBtnSrchData(data);
+                Log.i("LoaderButtonSearch_BUSI",btnSearchData.size()+data);
             }catch (Throwable t){
                 t.printStackTrace();
             }
             return btnSearchData;
         }
+
         return btnSearchData;
     }
 }

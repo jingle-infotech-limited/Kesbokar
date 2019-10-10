@@ -22,7 +22,7 @@ public class LoaderCategorySecond extends AsyncTaskLoader<ArrayList<CategorySeco
     @Override
     public ArrayList<CategorySecond> loadInBackground() {
         ArrayList<CategorySecond> secondCategoriesList = new ArrayList<>();
-        String data = ((new SetHttpConnection(BASE_URL))).getInputStreamData(BASE_URL);
+        String data = ((new SetHttpConnection(BASE_URL,getContext()))).getInputStreamData(BASE_URL);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

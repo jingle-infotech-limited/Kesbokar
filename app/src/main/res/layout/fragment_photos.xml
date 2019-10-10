@@ -21,6 +21,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,8 +31,18 @@
                     android:id="@+id/gv"
                     android:numColumns="3"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/def" />
+                <ProgressBar
+                    android:id="@+id/progressBar_cyclic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:minWidth="50dp"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -84,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="#EEE95A5A"
                     android:text="Upload Image"
+                    android:visibility="gone"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -115,6 +127,7 @@
                     android:background="#009688"
                     android:text="Save &amp; Next"
                     android:textColor="#FFFFFF" />
+
             </LinearLayout>
 
         </LinearLayout>

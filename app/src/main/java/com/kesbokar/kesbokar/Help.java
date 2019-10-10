@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Help extends AppCompatActivity {
-    String ip;
+    String ip,api_url,api_token;
     private boolean isNetworkAvailable(){
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
@@ -82,8 +82,8 @@ public class Help extends AppCompatActivity {
                 final String name=((EditText)findViewById(R.id.Name)).getText().toString();
                 RequestQueue queue= Volley.newRequestQueue(Help.this);
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
-
-                String url="http://serv.kesbokar.com.au/jil.0.1/v2/feedback";
+getData();
+                String url=api_url+"v2/feedback";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -103,13 +103,14 @@ public class Help extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("name", name);
                         params.put("email", email);
                         params.put("phone", phone);
                         params.put("message", message);
                         params.put("i6paddress",ip);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
 
                         return params;
                     }
@@ -167,6 +168,8 @@ public class Help extends AppCompatActivity {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
     }
 

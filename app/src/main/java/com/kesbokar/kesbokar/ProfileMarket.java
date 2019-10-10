@@ -31,7 +31,7 @@ public class ProfileMarket extends AppCompatActivity implements NavigationView.O
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
     Button btnProductManagement;
-
+String api_url;
     Button logout;
     TextView name;
 
@@ -91,7 +91,7 @@ public class ProfileMarket extends AppCompatActivity implements NavigationView.O
         busLoader = new LoaderManager.LoaderCallbacks<ArrayList<MarketProfileList>>() {
             @Override
             public Loader<ArrayList<MarketProfileList>> onCreateLoader(int i, Bundle bundle) {
-                LoaderBusProfileListMarket loaderBusProfileListMarket = new LoaderBusProfileListMarket(ProfileMarket.this,"http://serv.kesbokar.com.au/jil.0.1/v1/product?user_id=" + id);
+                LoaderBusProfileListMarket loaderBusProfileListMarket = new LoaderBusProfileListMarket(ProfileMarket.this,api_url+"v1/product?user_id=" + id);
                 return loaderBusProfileListMarket;
             }
 
@@ -348,7 +348,8 @@ public class ProfileMarket extends AppCompatActivity implements NavigationView.O
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+     //   api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
     }
 
 }

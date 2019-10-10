@@ -24,7 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class inbox_business extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url,api_token;
     int en_id;
     private LoaderManager.LoaderCallbacks<ArrayList<InboxBusinessList>> busLoader;
     private static final int LOADER_BUS_PRO_LIST = 66;
@@ -82,7 +82,8 @@ public class inbox_business extends AppCompatActivity implements NavigationView.
         busLoader = new LoaderManager.LoaderCallbacks<ArrayList<InboxBusinessList>>() {
             @Override
             public Loader<ArrayList<InboxBusinessList>> onCreateLoader(int i, Bundle bundle) {
-                LoaderInboxBusinessList loaderInboxBusinessList = new LoaderInboxBusinessList (inbox_business.this,"http://serv.kesbokar.com.au/jil.0.1/v1/quotes-yellowpage?user_id="+ id + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                getData();
+                LoaderInboxBusinessList loaderInboxBusinessList = new LoaderInboxBusinessList (inbox_business.this,api_url+"v1/quotes-yellowpage?user_id="+ id + "&api_token="+api_token);
                 return loaderInboxBusinessList;
             }
 
@@ -336,6 +337,8 @@ public class inbox_business extends AppCompatActivity implements NavigationView.
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 //        en_id = loginData.getInt("enquiry_id", 0);
     }
 }

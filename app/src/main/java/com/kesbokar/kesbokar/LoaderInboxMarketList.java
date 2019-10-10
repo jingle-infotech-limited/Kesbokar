@@ -21,7 +21,7 @@ public class LoaderInboxMarketList extends AsyncTaskLoader<ArrayList<InboxMarket
     @Override
     public ArrayList<InboxMarketList> loadInBackground() {
         ArrayList<InboxMarketList> inboxMarketLists = new ArrayList<>();
-        String data = (new SetHttpConnection(BaseUrl)).getInputStreamData(BaseUrl);
+        String data = (new SetHttpConnection(BaseUrl,getContext())).getInputStreamData(BaseUrl);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

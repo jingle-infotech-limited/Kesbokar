@@ -76,12 +76,12 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
     private Button btnCancel_1, btnCancel_2, btnCancel_3;
     private EditText edtABN_Number;
     private Button btnVerify;
-    String loginId, loginPass, full_name, email, image, phone_no, created, updated;
+    String loginId, loginPass, full_name, email, image, phone_no, created, updated,api_url,api_token;
     int id, flag, edit1=0;
     private Button btnDetect, btnSave;
 
     private String name, registration_no, license_no, website, category_id, phone, address, description, latitude, longitude, email1,topcat_id,parentcat_id,
-            quote_message, short_description,category_name,topcat_name,parentcat_name,yellowpage_id, new_name,cdn_url;
+            quote_message, short_description,category_name,topcat_name,parentcat_name,yellowpage_id, new_name,base_url;
 
 
     private EditText etLongitude, etLatitude, etLicense, etQuote, etPhone, etEmail, etStreet, etWebsite;
@@ -149,6 +149,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //getData();
         View view = inflater.inflate(R.layout.fragment_basic_info_business, container, false);
 
         progressDialog = new ProgressDialog(getActivity());
@@ -202,9 +203,18 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
 
         querySub = "";
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("business_edit",0);
-        edit1 = sharedPreferences.getInt("edit",0);
-
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("business_edit",0);
+//        edit1 = sharedPreferences.getInt("edit",0);
+//        if (edit1==1)
+//        {
+//            name=sharedPreferences.getString("name","");
+//        }
+//        SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
+//        edit1=business_edit.getInt("edit",0);
+//        if (edit1==1)
+//        {
+//            name=business_edit.getString("name","");
+//        }
         q = subV = querySub = "au";
 
         if (edit1 == 1){
@@ -279,7 +289,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
         firstCategoryLoader = new LoaderCallbacks<ArrayList<CategoryBase>>() {
             @Override
             public Loader<ArrayList<CategoryBase>> onCreateLoader(int i, Bundle bundle) {
-                LoaderFirstCategory loaderFirstCategory = new LoaderFirstCategory(getContext(), "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category?parent_id=0&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                getData();
+                LoaderFirstCategory loaderFirstCategory = new LoaderFirstCategory(getContext(), api_url+"v1/yellowpage-category?parent_id=0&api_token="+api_token);
                 return loaderFirstCategory;
             }
 
@@ -300,7 +311,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             @NonNull
             @Override
             public Loader<ArrayList<CategorySecond>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderCategorySecond loaderCategorySecond = new LoaderCategorySecond(getContext(), "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category?parent_id=" + parent_id + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                getData();
+                LoaderCategorySecond loaderCategorySecond = new LoaderCategorySecond(getContext(), api_url+"v1/yellowpage-category?parent_id=" + parent_id + "&api_token="+api_token);
                 return loaderCategorySecond;
             }
 
@@ -321,7 +333,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             @NonNull
             @Override
             public Loader<ArrayList<CategoryThird>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderCategoriesThird loaderCategoriesThird = new LoaderCategoriesThird(getContext(), "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage-category?parent_id=" + parent_id + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                getData();
+                LoaderCategoriesThird loaderCategoriesThird = new LoaderCategoriesThird(getContext(), api_url+"v1/yellowpage-category?parent_id=" + parent_id + "&api_token="+api_token);
                 return loaderCategoriesThird;
             }
 
@@ -342,7 +355,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             @NonNull
             @Override
             public Loader<ArrayList<TagsObject>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderGetTags loaderGetTags = new LoaderGetTags(getActivity(), tags, tagsName, "http://serv.kesbokar.com.au/jil.0.1/v1/tags/dd");
+                getData();
+                LoaderGetTags loaderGetTags = new LoaderGetTags(getActivity(), tags, tagsName, api_url+"v1/tags/dd");
                 return loaderGetTags;
             }
 
@@ -551,7 +565,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
 
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 String url;
-                url = cdn_url+"jil.0.1/api/v1/yellowpage/verify/abn?abn=" + edtABN_Number.getText().toString() + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                getData();
+                url = base_url+"jil.0.1/api/v1/yellowpage/verify/abn?abn=" + edtABN_Number.getText().toString() + "&api_token="+api_token;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -618,7 +633,8 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             @NonNull
             @Override
             public Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(getContext(), querySub, "http://serv.kesbokar.com.au/jil.0.1/v2/product/search/cities");
+                getData();
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(getContext(), querySub, api_url+"v2/product/search/cities");
                 return loaderBusSuburb;
             }
 
@@ -696,10 +712,10 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
                 String url;
                 if (edit1==1)
                 {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id;
+                    url = api_url+"v1/yellowpage/"+yellowpage_id;
                 }
                 else {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage";
+                    url = api_url+"v1/yellowpage";
                 }
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 final
@@ -729,6 +745,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
                 }) {
                     @Override
                     protected Map<String, String> getParams() {
+                        getData();
                         Map<String, String> params = new HashMap<String, String>();
 
                         params.put("user_id", "" + id);
@@ -749,7 +766,7 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
                         params.put("registration_name", "");
 
 
-                        params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token", api_token);
                         return params;
                     }
                 };
@@ -760,10 +777,10 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
                 viewPager.setCurrentItem(item + 1);  //For going to the next tab in viewPager
             }
         });
-
+        Log.i("name",name);
         return view;
 
-    }
+    }//end of Oncreate View
 
 
     @Override
@@ -828,7 +845,10 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             id = loginData.getInt("id", 0);
             created = loginData.getString("create", "");
             updated = loginData.getString("update", "");
-            cdn_url=loginData.getString("cdn_url","");
+            base_url=loginData.getString("base_url","");
+            api_url=loginData.getString("api_url","");
+            api_token=loginData.getString("api_token","");
+
 
         SharedPreferences basicInfoBusiness = getActivity().getSharedPreferences("business_edit", 0);
         edit1=basicInfoBusiness.getInt("edit",0);
@@ -855,6 +875,14 @@ public class BasicInfoBusinessFragment extends Fragment implements LocationListe
             yellowpage_id=basicInfoBusiness.getString("yellowpage_id","");
 
         }
+        SharedPreferences business_edit=getActivity().getSharedPreferences("market_edit",0);
+        edit1=business_edit.getInt("edit",0);
+        if (edit1==1)
+        {
+         name=business_edit.getString("name","");
+
+        }
+
 
     }
 }

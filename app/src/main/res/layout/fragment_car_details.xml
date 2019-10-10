@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".CarDetailsFragment">
     <ScrollView
         android:layout_width="match_parent"
@@ -23,6 +23,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Select"
         android:id="@+id/car_make"/>
     <TextView
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:visibility="invisible"
+        android:hint="Select"
         android:layout_height="wrap_content"
         android:id="@+id/car_model"/>
     <TextView
@@ -44,6 +46,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Select"
         android:id="@+id/car_year"
         android:visibility="invisible"/>
     <TextView
@@ -55,7 +58,7 @@
 
             <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/car_variant"
         android:visibility="invisible"/>
 
@@ -76,6 +79,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:visibility="invisible"
+        android:hint="Select"
         android:layout_height="wrap_content"
         android:id="@+id/car_color"/>
     <TextView
@@ -87,6 +91,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Select"
         android:visibility="invisible"
         android:id="@+id/car_air"/>
     <TextView
@@ -98,6 +103,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Select"
         android:visibility="invisible"
         android:id="@+id/car_registered"/>
     <TextView
@@ -110,6 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
+        android:hint="Select"
         android:id="@+id/car_state"/>
     <TextView
         android:layout_width="wrap_content"

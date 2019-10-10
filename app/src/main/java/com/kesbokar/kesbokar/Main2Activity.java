@@ -1,4 +1,7 @@
-package com.kesbokar.kesbokar;
+
+
+
+        package com.kesbokar.kesbokar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,8 +22,8 @@ public class Main2Activity extends AppCompatActivity {
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
     private SecondTabsAccessorAdapter secondTabsAccessorAdapter;
-    private static final int frag_id = 10;
-    String make_id,model_id,year,variant_id,vehicle_id,colour,airconditioning,registered,registration_state,registration_number,registration_expiry,name_title,product_condition,product_section,category_id1,price1,phone1,address1,description1,status1;
+    //private static final int frag_id = 10;
+   String make_id,model_id,year,variant_id,vehicle_id,colour,airconditioning,registered,registration_state,registration_number,registration_expiry,name_title,product_condition,product_section,category_id1,price1,phone1,address1,description1,status1;
     int edit1;
 
 
@@ -40,21 +43,21 @@ public class Main2Activity extends AppCompatActivity {
         myTabLayout =  findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
 
-        if(!car_yes_or_no) {
-            myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager(),myViewPager,myTabLayout);
+        if(!car_yes_or_no)
+        {
+            myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager(),myViewPager,myTabLayout,getApplicationContext());
             myViewPager.setAdapter(myTabsAccessorAdapter);
-        }else{
-//            Fragment fragment = new CarDetailsFragment();
-//            FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-//            tr.add(frag_id,fragment).commit();
-            secondTabsAccessorAdapter = new SecondTabsAccessorAdapter(getSupportFragmentManager(),myViewPager,myTabLayout);
+        }
+        else
+        {
+            secondTabsAccessorAdapter = new SecondTabsAccessorAdapter(getSupportFragmentManager(),myViewPager,myTabLayout,getApplicationContext());
             myViewPager.setAdapter(secondTabsAccessorAdapter);
             View tab5= Objects.requireNonNull(myTabLayout.getTabAt(5)).view;
-            if (edit1==0) {
+            if (edit1==0)
+            {
                 tab5.setEnabled(false);
             }
         }
-
 
         myViewPager.setPagingEnabled(false);
         View tab1= Objects.requireNonNull(myTabLayout.getTabAt(1)).view;
@@ -68,7 +71,7 @@ public class Main2Activity extends AppCompatActivity {
             tab3.setEnabled(false);
             tab4.setEnabled(false);
         }
-      tab5.setEnabled(false);
+        tab5.setEnabled(false);
 
 
     }

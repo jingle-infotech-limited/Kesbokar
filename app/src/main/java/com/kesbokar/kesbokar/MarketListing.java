@@ -50,13 +50,14 @@ import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MarketListing extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
     private DataAdapterMarket dataAdapter;
     private ArrayList<MarketIem> marketIems;
     private RequestQueue requestQueue;
-
+    String api_url;
     private Button btnHelp,btnBuis,btnMar,btnTop;
 
     ImageView imgKesbokarLogo;
@@ -93,6 +94,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
     Intent intent;
     Bundle bundle;
     ProgressDialog progressDialog;
+    Double latitude=0.0,longitude=0.0;
 
     TextView txtCancel;
     TextView txtVisitBusinessPlace;
@@ -307,7 +309,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
         btnSearch = new LoaderManager.LoaderCallbacks<ArrayList<MarketIem>>() {
             @Override
             public Loader<ArrayList<MarketIem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSrchMarket loaderBtnSearch = new LoaderBtnSrchMarket(MarketListing.this,q,subV,"http://serv.kesbokar.com.au/jil.0.1/v2/product",stateid,subType,0.0,0.0);
+                getData();
+                LoaderBtnSrchMarket loaderBtnSearch = new LoaderBtnSrchMarket(MarketListing.this,q,subV,api_url+"v2/product",stateid,subType,latitude,longitude);
                 return loaderBtnSearch;
             }
 
@@ -315,9 +318,10 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             public void onLoadFinished(Loader<ArrayList<MarketIem>> loader, ArrayList<MarketIem> data) {
                 switch (loader.getId()){
                     case LOADER_ID_BTNSRCH:
-                        if(data != null && q.length()!=0){
+                        if(data.size()>0 && q.length()!=0){
                             marketItems = data;
-                            Log.i("Search", data.toString());
+                            Log.i("mylist",data.toString());
+                          //  Log.i("Search", data.toString());
                             Intent intent = new Intent(MarketListing.this,MarketListing.class);
                             intent.putExtra("CHOICE", "btnSearch");
                             intent.putParcelableArrayListExtra("ARRAYLIST",marketItems);
@@ -337,7 +341,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args){
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(MarketListing.this,querySub,"http://serv.kesbokar.com.au/jil.0.1/v2/product/search/cities");
+                getData();
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(MarketListing.this,querySub,api_url+"v2/product/search/cities");
                 return loaderBusSuburb;
             }
 
@@ -345,7 +350,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data){
                 if (data.size() != 0) {
                     valsSub = data;
-                    Log.i("Tag Sub", valsSub + "");
+                   // Log.i("Tag Sub", valsSub + "");
                     ArrayAdapter<StateAndSuburb> adapter=new ArrayAdapter<StateAndSuburb>(MarketListing.this,android.R.layout.simple_dropdown_item_1line,valsSub);
 
                     autoCompleteTextViewTwo.setAdapter(adapter);
@@ -363,7 +368,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
         marketSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderMarketSearch loaderMarketSearch= new LoaderMarketSearch(MarketListing.this,"","http://serv.kesbokar.com.au/jil.0.1/v2/product/search");
+                getData();
+                LoaderMarketSearch loaderMarketSearch= new LoaderMarketSearch(MarketListing.this,"",api_url+"v2/product/search");
                 return loaderMarketSearch;
             }
 
@@ -371,7 +377,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> data) {
                 if (data.size() != 0) {
                     valsMarket = data;
-                    Log.i("Tag", valsMarket + "");
+                   // Log.i("Tag", valsMarket + "");
                     ArrayAdapter<String> adapter=new ArrayAdapter<String>(MarketListing.this,android.R.layout.simple_dropdown_item_1line,valsMarket);
 
                     autoCompleteTextViewOne.setAdapter(adapter);
@@ -394,7 +400,7 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View v) {
                 q = autoCompleteTextViewOne.getText().toString();
-                Log.i("Q and subV", q + " " + subV);
+               // Log.i("Q and subV", q + " " + subV);
                 if(q.length() == 0 && subV.length() == 0){
                     Toast.makeText(MarketListing.this, "Cannot Search Empty fields", Toast.LENGTH_SHORT).show();
                 }
@@ -445,8 +451,9 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                             JSONArray jsonArray = response.getJSONArray("data");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject dat = jsonArray.getJSONObject(i);
-                                Log.i("JSON PAGI",dat.toString());
+                               // Log.i("JSON PAGI",dat.toString());
                                 price=dat.getString("price");
+                                Log.i("price",price);
                                 name = dat.getString("name");
                                 synopsis = dat.getString("description");
                                 image = dat.getString("image");
@@ -490,6 +497,15 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
                                 }else {
 
                                 }
+                                if (price=="null") {
+                                    price="Not Available";
+                                }
+                                else
+                                {
+                                    Number j=Double.parseDouble(price);
+                                    price=NumberFormat.getNumberInstance(Locale.US).format(j)+"";
+                                }
+
 
 //                                if(price.length()>3){
 //                                    for (int j = 0; j<price.length(); j++){
@@ -766,6 +782,8 @@ public class MarketListing extends AppCompatActivity implements NavigationView.O
         id1=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        //api_token=loginData.getString("api_token","");
 
     }
 }

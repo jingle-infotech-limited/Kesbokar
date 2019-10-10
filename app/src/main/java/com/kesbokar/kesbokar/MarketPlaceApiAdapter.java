@@ -26,7 +26,7 @@ public class MarketPlaceApiAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     Context context;
     Activity activity;
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url,api_url,api_token,base_url;
     int id,flag;
 
 
@@ -57,11 +57,12 @@ public class MarketPlaceApiAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        getData();
 
         bc.setText(marketPlaceApis.get(position).getName());
         bd.setText(marketPlaceApis.get(position).getCat_title() + " - " + marketPlaceApis.get(position).getCity().getTitle() + " , " + marketPlaceApis.get(position).getState().getTitle());
 
-        String imgURL = "https://www.kesbokar.com.au/uploads/product/thumbs/" + marketPlaceApis.get(position).getImageLogo();
+        String imgURL = cdn_url+"uploads/product/thumbs/" + marketPlaceApis.get(position).getImageLogo();
         Picasso.with(context).load(imgURL).into(bi);
 
         //new DownLoadImageTask(bi[i]).execute(imgURL);
@@ -71,8 +72,9 @@ public class MarketPlaceApiAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         bi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getData();
                 final String ab = marketPlaceApis.get(index).getCity().getTitle().replaceAll(" ", "+");
-                final String url = "https://www.kesbokar.com.au/marketplace/" + ab + "/" + marketPlaceApis.get(index).getCat_title() + "/" + marketPlaceApis.get(index).getUrlname() + "/" + marketPlaceApis.get(index).getId();
+                final String url = base_url+"marketplace/" + ab + "/" + marketPlaceApis.get(index).getCat_title() + "/" + marketPlaceApis.get(index).getUrlname() + "/" + marketPlaceApis.get(index).getId();
                 SharedPreferences get_product_detail= context.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
@@ -112,6 +114,10 @@ public class MarketPlaceApiAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
         cdn_url=loginData.getString("cdn_url","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
+        base_url=loginData.getString("base_url","");
+
     }
 }
 

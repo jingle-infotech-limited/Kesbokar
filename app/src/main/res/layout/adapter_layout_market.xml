@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <HorizontalScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:scrollbars="none">
@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/adapMTxtStatus"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
@@ -45,19 +45,20 @@
                 android:textSize="18sp"
                 />
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:orientation="horizontal">
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="E"
+                    android:text="Edit"
                     android:id="@+id/adapMBtnEdt"
                     android:layout_weight="1"/>
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="D"
+                    android:text="Delete"
                     android:layout_weight="1"
                     android:id="@+id/adapMBtnDel"/>
             </LinearLayout>

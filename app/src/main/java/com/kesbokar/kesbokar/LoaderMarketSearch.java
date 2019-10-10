@@ -2,6 +2,7 @@ package com.kesbokar.kesbokar;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class LoaderMarketSearch extends AsyncTaskLoader<ArrayList<String>> {
     @Override
     public ArrayList<String> loadInBackground() {
         ArrayList<String> businessSearchBarsValues = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostMarkAndBus(Query,BaseUrl);
+        String data = (new SetHttpPost(getContext())).sendPostMarkAndBus(Query,BaseUrl);
         //call jsonParser only if the data is not null
         if(data != null){
             try {
@@ -33,6 +34,10 @@ public class LoaderMarketSearch extends AsyncTaskLoader<ArrayList<String>> {
                 t.printStackTrace();
             }
             return businessSearchBarsValues;
+        }
+        else
+        {
+            Toast.makeText(getContext(), "empty", Toast.LENGTH_SHORT).show();
         }
         return null;
     }

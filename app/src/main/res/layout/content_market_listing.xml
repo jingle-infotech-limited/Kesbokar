@@ -24,6 +24,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:textColor="@color/Black"
+        android:text="hello i am here"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -33,6 +34,7 @@
         android:id="@+id/mln"
         android:textSize="25dp"
         android:textStyle="bold"
+        android:text="hello i am here"
         android:textColor="@color/kesbokar"
         android:layout_gravity="center_horizontal"/>
 
@@ -40,6 +42,7 @@
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="hello i am here"
         android:layout_gravity="center_horizontal"
         android:textSize="10dp"
         android:textStyle="bold" />
@@ -47,6 +50,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
+        android:text="hello i am here"
         android:layout_height="wrap_content"
         android:id="@+id/mld"/>
 
@@ -54,6 +58,7 @@
         android:id="@+id/mlt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="hello i am here"
         android:height="0dp"
         android:fitsSystemWindows="true"
         android:visibility="invisible" />

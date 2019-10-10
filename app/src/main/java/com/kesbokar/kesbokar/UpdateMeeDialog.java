@@ -35,8 +35,11 @@ public class UpdateMeeDialog {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://play.google.com/store/apps/details?id=com.kesbokar.kesbokar"));
-                context.startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.kesbokar.kesbokar"));
+                    context.startActivity(intent);
+                }catch (Exception e)
+                {e.printStackTrace();}
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {

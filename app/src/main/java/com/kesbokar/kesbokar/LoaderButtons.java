@@ -33,7 +33,7 @@ public class LoaderButtons extends AsyncTaskLoader<ArrayList<ButtonsDetails>> {
     @Override
     public ArrayList<ButtonsDetails> loadInBackground() {
         buttonsDetails = new ArrayList<>();
-        String data = (new SetHttpConnection(Base_Url)).getInputStreamData();
+        String data = (new SetHttpConnection(Base_Url,getContext())).getInputStreamData();
 
         //call jsonParser only if the data is not null
         if(data != null){

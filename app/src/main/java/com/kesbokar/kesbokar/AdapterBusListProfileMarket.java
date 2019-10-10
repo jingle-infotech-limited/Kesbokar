@@ -40,6 +40,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
     String loginId, loginPass, full_name, email, image, phone_no,created,updated,make_id,make_name;
     int id,flag;
     int pos;
+    String api_url,api_token;
     Activity activity;
     Button adpMBtnDel,adpMBtnEdt;
     public AdapterBusListProfileMarket(Context context, ArrayList<MarketProfileList> marketProfileLists,Activity activity){
@@ -50,6 +51,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
     }
     @Override
     public int getCount() {
+        Log.i("marketlistinSIZE",marketProfileLists.size()+"");
         return marketProfileLists.size();
     }
 
@@ -73,6 +75,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
         adpMBtnDel=view.findViewById(R.id.adapMBtnDel);
         txtSno.setText(marketProfileLists.get(i).getTxtSno());
         txtTitle.setText(marketProfileLists.get(i).getTxtTitle());
+       // Log.i("titleleadperlstPrleMrkt",txtTitle.getText().toString());
         int status = marketProfileLists.get(i).getTxtStatus();
         if(status == 0){
             txtStatus.setText("Deactive");
@@ -87,11 +90,12 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
         adpMBtnEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getData();
 
-                final String url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+marketProfileLists.get(i).getId()+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                final String url=api_url+"v1/product/"+marketProfileLists.get(i).getId()+"?api_token="+api_token;
                 final String pro_id="" + marketProfileLists.get(i).getId();
 
-                Log.i("Url",url+"    "+pro_id+"    "+i);
+             //   Log.i("Url_view_ad_list",url+"pro_id    "+pro_id+" i=   "+i);
 
 
                 final RequestQueue queue= Volley.newRequestQueue(context);
@@ -100,7 +104,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                 JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("Json Response",response.toString());
+                       // Log.i("Json Response",response.toString());
                         try {
 
                             String name=response.getString("name");
@@ -140,7 +144,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                 editor.putString("registration_number", registration_number);
                                 editor.putString("registration_expiry", registration_expiry);
                                 editor.commit();
-                                String url1="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/make/"+make_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url1=api_url+"v1/vehicle/make/"+make_id+"?api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -163,7 +168,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                     }
                                 });
                                 queue.add(jsonObjectRequest1);
-                                String url2="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/model/"+model_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url2=api_url+"v1/vehicle/model/"+model_id+"?api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -185,7 +191,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                     }
                                 });
                                 queue.add(jsonObjectRequest2);
-                                String url3="http://serv.kesbokar.com.au/jil.0.1/v1/vehicle/variant/dd/get?model_id="+model_id+"&year="+year+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url3=api_url+"v1/vehicle/variant/dd/get?model_id="+model_id+"&year="+year+"&api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest3 = new JsonObjectRequest(Request.Method.GET, url3, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -217,7 +224,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                     }
                                 });
                                 queue.add(jsonObjectRequest3);
-                                String url4="http://serv.kesbokar.com.au/jil.0.1/v1/category/"+topcat_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url4=api_url+"v1/category/"+topcat_id+"?api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest4 = new JsonObjectRequest(Request.Method.GET, url4, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -245,7 +253,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                     }
                                 });
                                 queue.add(jsonObjectRequest4);
-                                String url5="http://serv.kesbokar.com.au/jil.0.1/v1/category/"+parentcat_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url5=api_url+"v1/category/"+parentcat_id+"?api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest5 = new JsonObjectRequest(Request.Method.GET, url5, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -271,7 +280,8 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                                     }
                                 });
                                 queue.add(jsonObjectRequest5);
-                                String url6="http://serv.kesbokar.com.au/jil.0.1/v1/category/"+category_id+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                getData();
+                                String url6=api_url+"v1/category/"+category_id+"?api_token="+api_token;
                                 final JsonObjectRequest jsonObjectRequest6 = new JsonObjectRequest(Request.Method.GET, url6, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -324,7 +334,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.i("Error",error.toString());
+                              //  Log.i("Error",error.toString());
 
                             }
                         });
@@ -357,13 +367,13 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                 id1=""+marketProfileLists.get(i).getId();
                 RequestQueue queue= Volley.newRequestQueue(context);
                 //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
-
-                String url="http://serv.kesbokar.com.au/jil.0.1/v1/product/delete";
+getData();
+                String url=api_url+"v1/product/delete";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(context, "Response"+"Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
-                        Log.i("Resposnse",response);
+                       // Log.i("Resposnse",response);
 
                     }
                 },
@@ -383,7 +393,7 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
                         String user_id=""+id;
                         Map<String, String>  params = new HashMap<String, String >();
                         params.put("id",id1);
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         params.put("user_id",user_id);
                         return params;
                     }
@@ -410,6 +420,9 @@ public class AdapterBusListProfileMarket extends BaseAdapter {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
+
 
     }
 

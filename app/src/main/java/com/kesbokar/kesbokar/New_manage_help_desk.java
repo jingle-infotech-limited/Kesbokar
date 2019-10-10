@@ -39,6 +39,7 @@ import java.util.Map;
 public class New_manage_help_desk extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
+    String api_url,api_token;
     EditText subject_helpdesk,message_helpdesk;
     Button create_helpdesk;
     @Override
@@ -67,7 +68,7 @@ public class New_manage_help_desk extends AppCompatActivity implements Navigatio
                     Toast.makeText(New_manage_help_desk.this, "Can't submit empty fields", Toast.LENGTH_SHORT).show();
                 } else {
                     RequestQueue queue = Volley.newRequestQueue(New_manage_help_desk.this);
-                    String url1 = "http://serv.kesbokar.com.au/jil.0.1/v1/helpdesk";
+                    String url1 = api_url+"v1/helpdesk";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -85,12 +86,13 @@ public class New_manage_help_desk extends AppCompatActivity implements Navigatio
                             }) {
                         @Override
                         protected Map<String, String> getParams() {
+                            getData();
                             String id1 = "" + id;
                             Map<String, String> params = new HashMap<String, String>();
                             params.put("subject", Subject);
                             params.put("message", Message);
                             params.put("sender_id", id1);
-                            params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                            params.put("api_token", api_token);
 
                             return params;
                         }
@@ -186,7 +188,8 @@ public class New_manage_help_desk extends AppCompatActivity implements Navigatio
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
     }
 }
 

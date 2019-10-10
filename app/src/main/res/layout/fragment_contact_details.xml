@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="CalledFromApi" />
+                    android:hint="Choose the State" />
 
             </LinearLayout>
 
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="CalledFromApi" />
+                    android:hint="Choose Suburb" />
 
             </LinearLayout>
 
@@ -137,28 +137,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
 
                 <Button
                     android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="#009688"
                     android:text="Back"
+                    android:layout_margin="10dp"
                     android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSubmit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="#009688"
+                    android:layout_margin="10dp"
                     android:text="Save &amp; Next"
                     android:textColor="#FFFFFF" />
             </LinearLayout>

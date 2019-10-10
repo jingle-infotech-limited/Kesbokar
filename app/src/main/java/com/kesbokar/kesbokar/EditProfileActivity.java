@@ -27,7 +27,7 @@ import java.util.Map;
 public class EditProfileActivity extends AppCompatActivity {
     EditText etFirstName,etLastName,etMobile,etPhone,etAddress;
     Button btnUpdate;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url,api_token;
     int id,flag;
 
     @Override
@@ -59,8 +59,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                String url = "http://serv.kesbokar.com.au/jil.0.1/v1/profile/" + id;
+getData();
+                String url = api_url+"v1/profile/" + id;
                 RequestQueue requestQueue = Volley.newRequestQueue(EditProfileActivity.this);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -77,10 +77,11 @@ public class EditProfileActivity extends AppCompatActivity {
                         }) {
                     @Override
                     protected Map<String, String> getParams() {
+                        getData();
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("id", "" + id);
                         params.put("data",jsonObject.toString());
-                        params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token", api_token);
                         return params;
 
                     }
@@ -113,6 +114,8 @@ public class EditProfileActivity extends AppCompatActivity {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
     }
 }

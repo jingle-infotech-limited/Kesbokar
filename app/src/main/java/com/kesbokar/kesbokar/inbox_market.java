@@ -24,7 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class inbox_market extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url;
     int id,flag;
     private LoaderManager.LoaderCallbacks<ArrayList<InboxMarketList>> busLoader;
     private static final int LOADER_BUS_PRO_LIST = 66;
@@ -79,7 +79,8 @@ public class inbox_market extends AppCompatActivity implements NavigationView.On
         busLoader = new LoaderManager.LoaderCallbacks<ArrayList<InboxMarketList>>() {
             @Override
             public Loader<ArrayList<InboxMarketList>> onCreateLoader(int i, Bundle bundle) {
-                LoaderInboxMarketList loaderInboxMarketList = new LoaderInboxMarketList (inbox_market.this,"http://serv.kesbokar.com.au/jil.0.1/v1/quotes-product?user_id="+ id + "&"  );
+                getData();
+                LoaderInboxMarketList loaderInboxMarketList = new LoaderInboxMarketList (inbox_market.this,api_url+"v1/quotes-product?user_id="+ id + "&"  );
                 return loaderInboxMarketList;
             }
 
@@ -344,6 +345,9 @@ public class inbox_market extends AppCompatActivity implements NavigationView.On
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+     //   api_token=loginData.getString("api_token","");
+
 
     }
 }

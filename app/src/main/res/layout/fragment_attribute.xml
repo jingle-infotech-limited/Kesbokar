@@ -4,14 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AttributeFragment"
+    android:orientation="vertical"
     android:id="@+id/fragmentAttribute">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/linear_layout"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:visibility="invisible"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"

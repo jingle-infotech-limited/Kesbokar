@@ -69,7 +69,7 @@ public class BasicInfoFragment extends Fragment {
     private TextView txtCatFirst, txtCatSecond, txtCatThird,etPostProduct;
     String make_id,model_id,year,variant_id,vehicle_id,colour,airconditioning,registered,registration_state,registration_number,registration_expiry,name_title,product_condition,product_section,category_id1,price1,phone1,address1,description1,status1,topcat_id,parentcat_id,topcat_name,parentcat_name,category_name,attribute_ids;
     int edit1;
-    String attribute_value;
+    String attribute_value,api_url,api_token;
 
     String condition1, condition2, product_name, product_id, condition1Value, condition2Value,pro_id;
     RadioGroup rgProductCondition, rgProductSelection;
@@ -167,6 +167,7 @@ public class BasicInfoFragment extends Fragment {
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Loading...");
+        edtProductTitle.setText(product_name);
 
         etPostProduct.setText(full_name);
         if (edit1==1) {
@@ -174,6 +175,7 @@ public class BasicInfoFragment extends Fragment {
             if (product_condition.equals("n")||product_condition.equals("N")) {
                 RadioButton rgNew=rgProductCondition.findViewById(R.id.rbNew);
                 rgNew.toggle();
+                rgNew.setChecked(true);
                 condition1Value="N";
 
             }
@@ -186,6 +188,7 @@ public class BasicInfoFragment extends Fragment {
             {
                 RadioButton rbSell=rgProductSelection.findViewById(R.id.rbSell);
                 rbSell.toggle();
+                rbSell.setChecked(true);
                 condition2Value="S";
             }
             else {
@@ -254,7 +257,8 @@ public class BasicInfoFragment extends Fragment {
         firstCategoryLoader = new LoaderManager.LoaderCallbacks<ArrayList<CategoryBase>>(){
             @Override
             public Loader<ArrayList<CategoryBase>> onCreateLoader(int i, Bundle bundle) {
-                LoaderFirstCategory loaderFirstCategory = new LoaderFirstCategory(context, "http://serv.kesbokar.com.au/jil.0.1/v1/category?parent_id=0&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                getData();
+                LoaderFirstCategory loaderFirstCategory = new LoaderFirstCategory(context, api_url+"v1/category?parent_id=0&api_token="+api_token);
                 return loaderFirstCategory;
             }
 
@@ -275,7 +279,7 @@ public class BasicInfoFragment extends Fragment {
             @NonNull
             @Override
             public Loader<ArrayList<CategorySecond>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderCategorySecond loaderCategorySecond = new LoaderCategorySecond(context, "http://serv.kesbokar.com.au/jil.0.1/v1/category?parent_id=" + parent_id + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                LoaderCategorySecond loaderCategorySecond = new LoaderCategorySecond(context, api_url+"v1/category?parent_id=" + parent_id + "&api_token="+api_token);
                 return loaderCategorySecond;
             }
 
@@ -296,7 +300,7 @@ public class BasicInfoFragment extends Fragment {
             @NonNull
             @Override
             public Loader<ArrayList<CategoryThird>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderCategoriesThird loaderCategoriesThird = new LoaderCategoriesThird(context, "http://serv.kesbokar.com.au/jil.0.1/v1/category?parent_id=" + parent_id + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                LoaderCategoriesThird loaderCategoriesThird = new LoaderCategoriesThird(context, api_url+"v1/category?parent_id=" + parent_id + "&api_token="+api_token);
                 return loaderCategoriesThird;
             }
 
@@ -318,7 +322,8 @@ public class BasicInfoFragment extends Fragment {
             @NonNull
             @Override
             public Loader<ArrayList<TagsObject>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderGetTags loaderGetTags = new LoaderGetTags(context, tags, tagsName, "http://serv.kesbokar.com.au/jil.0.1/v1/tags/dd");
+                getData();
+                LoaderGetTags loaderGetTags = new LoaderGetTags(context, tags, tagsName, api_url+"v1/tags/dd");
                 return loaderGetTags;
             }
 
@@ -334,19 +339,19 @@ public class BasicInfoFragment extends Fragment {
                     mltAutoKeyWords.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
                     mltAutoKeyWords.setThreshold(1);
                     mltAutoKeyWords.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                if (tagsSelectedArrayList.size()<5) {
-                                    mltAutoKeyWords.showDropDown();
-                                }
-                                else
-                                {
-                                    Log.i("TAGSIDS", "onTouch: " + tagsIds);
-                                    mltAutoKeyWords.dismissDropDown();
-                                    mltAutoKeyWords.setEnabled(false);
-                                }
-                                return false;
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if (tagsSelectedArrayList.size()<5) {
+                                mltAutoKeyWords.showDropDown();
                             }
+                            else
+                            {
+                                Log.i("TAGSIDS", "onTouch: " + tagsIds);
+                                mltAutoKeyWords.dismissDropDown();
+                                mltAutoKeyWords.setEnabled(false);
+                            }
+                            return false;
+                        }
                     });
                     cancel_tag.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -494,8 +499,8 @@ public class BasicInfoFragment extends Fragment {
                                 String url;
                                 RequestQueue queue= Volley.newRequestQueue(getActivity());
                                 final String price = etPrice.getText().toString();
-                                    url="http://serv.kesbokar.com.au/jil.0.1/v1/category/"+thirdCat+"?api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
-                                    final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                                url=api_url+"v1/category/"+thirdCat+"?api_token="+api_token;
+                                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         try {
@@ -590,7 +595,7 @@ public class BasicInfoFragment extends Fragment {
                     categoryThirdArrayList.clear();
                     categoriesThirdAdapter.notifyDataSetChanged();
                 }
-                  if(categorySecondArrayList.size() > 0)
+                if(categorySecondArrayList.size() > 0)
                     categorySecondArrayList.removeAll(null);
                 if(categoryThirdArrayList.size() > 0)
                     categoryThirdArrayList.removeAll(null);
@@ -604,12 +609,12 @@ public class BasicInfoFragment extends Fragment {
                 {
 
                     case R.id.rbNew:condition1="New";
-                    condition1Value = "N";
+                        condition1Value = "N";
                         break;
 
                     case R.id.rbUsed:condition1="used";
-                    condition1Value = "U";
-                                    }
+                        condition1Value = "U";
+                }
             }
         });
 
@@ -639,17 +644,17 @@ public class BasicInfoFragment extends Fragment {
                 final String price = etPrice.getText().toString();
                 if (edit1==1)
                 {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+pro_id;
-                    url1="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+pro_id+"/attributes?attr_ids="+attributes+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                    url=api_url+"v1/product/"+pro_id;
+                    url1=api_url+"v1/product/"+pro_id+"/attributes?attr_ids="+attributes+"&api_token="+api_token;
                 }
                 else if(entry_state==1)
                 {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+product_id;
-                    url1="http://serv.kesbokar.com.au/jil.0.1/v1/product/"+product_id+"/attributes?attr_ids="+attributes+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                    url=api_url+"v1/product/"+product_id;
+                    url1=api_url+"v1/product/"+product_id+"/attributes?attr_ids="+attributes+"&api_token="+api_token;
                 }
                 else {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/product";
-                    url1="http://serv.kesbokar.com.au/jil.0.1/v1/product/attributes?attr_ids="+attributes+"&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                    url=api_url+"v1/product";
+                    url1=api_url+"v1/product/attributes?attr_ids="+attributes+"&api_token="+api_token;
                 }
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
@@ -679,6 +684,7 @@ public class BasicInfoFragment extends Fragment {
                     @Override
                     protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
                         params.put("product_condition",condition1Value);
@@ -698,7 +704,7 @@ public class BasicInfoFragment extends Fragment {
                         params.put("tags",tagsIds);
 //                        params.put("price",);
 
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -759,6 +765,8 @@ public class BasicInfoFragment extends Fragment {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
         SharedPreferences get_product_detail=getActivity().getSharedPreferences("product_detail",0);
 

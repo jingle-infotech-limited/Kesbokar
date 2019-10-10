@@ -25,7 +25,7 @@ import org.w3c.dom.Text;
 public class LoginData extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
 
     String personName, personEmail, personID;
 

@@ -3,6 +3,7 @@ package com.kesbokar.kesbokar;
 import android.Manifest;
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -74,6 +76,7 @@ import java.util.List;
 public class Navigation_market extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
     TextView ab;
+    String api_token,api_url;
     String about;
     LinearLayout.LayoutParams params;
     int i;
@@ -82,10 +85,13 @@ public class Navigation_market extends AppCompatActivity
     TextView name;
     int flag=0;
     LinearLayout relativelayout;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,base_url;
     int id;
     private static int dataSize = 0;
     LinearLayout.LayoutParams params1;
+    double latitude=0.0;
+    double longitude=0.0;
+
     ImageButton[] imagebutton;
     private static final int LOADER_ID_BUSINESS = 0;
     private static final int LOADER_ID_SERVICES = 1;
@@ -106,9 +112,10 @@ public class Navigation_market extends AppCompatActivity
 
     private static ArrayList<String> tags;
     Toolbar toolbar;
-    ImageView[] bi, mi;
+    ImageView[] bi, mi ;
+    ImageView location;
     TextView[] dynamicTxt;
-    Button location, btnMarket;
+    Button btnMarket;
     TextView[] bc, bd, mc, md;
     private static final int LOADER_ID = 1;
     //Toolbar toolbar;
@@ -125,7 +132,8 @@ public class Navigation_market extends AppCompatActivity
     String subType;
     int stateid;
     Button btnSrch;
-String cdn_url;
+    String cdn_url;
+
     private ArrayList<MarketIem> marketItems;
 
     private RecyclerView recyclerView_navigation_service_expert,recyclerView_navigation_featured_ads;
@@ -171,7 +179,8 @@ String cdn_url;
         mc = new TextView[4];
         md = new TextView[4];
         bd = new TextView[4];
-        location = findViewById(R.id.location);
+        final ImageView location;
+        //location = findViewById(R.id.ImgViewLocation);
 
         ms = findViewById(R.id.ms);
 
@@ -210,6 +219,7 @@ String cdn_url;
 
         recyclerView_navigation_featured_ads.setHasFixedSize(true);
         recyclerView_navigation_featured_ads.setLayoutManager(new LinearLayoutManager(this));
+        location=findViewById(R.id.ImgViewLocation);;
 
         top.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,9 +310,13 @@ String cdn_url;
         });
         location.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                if (ActivityCompat.checkSelfPermission(Navigation_market.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Navigation_market.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            public void onClick(View v)
+            {
+                 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(Navigation_market.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(Navigation_market.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
                     // here to request the missing permissions, and then overriding
@@ -310,10 +324,26 @@ String cdn_url;
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
-                    return;
+
                 }
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                onLocationChanged(location);
+                if(ActivityCompat.shouldShowRequestPermissionRationale(Navigation_market.this, Manifest.permission.ACCESS_FINE_LOCATION)){
+                    new AlertDialog.Builder(Navigation_market.this)
+                            .setTitle("Grant Permission")
+                            .setMessage("Please open your GPS")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ActivityCompat.requestPermissions(Navigation_market.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0101);
+                                }
+                            })
+                            .create()
+                            .show();
+                }else{
+                    ActivityCompat.requestPermissions(Navigation_market.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0101);
+                }
+                Location location1 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                onLocationChanged(location1);
+
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -346,24 +376,33 @@ String cdn_url;
         });
 
         btnSearch = new LoaderManager.LoaderCallbacks<ArrayList<MarketIem>>() {
+
             @Override
             public Loader<ArrayList<MarketIem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSrchMarket loaderBtnSearch = new LoaderBtnSrchMarket(Navigation_market.this, q, subV, "http://serv.kesbokar.com.au/jil.0.1/v2/product", stateid, subType, 0.0, 0.0);
+                LoaderBtnSrchMarket loaderBtnSearch;
+
+                    getData();
+                    loaderBtnSearch = new LoaderBtnSrchMarket(Navigation_market.this, q, subV, api_url + "v2/product", stateid, subType, latitude, longitude);
+
                 return loaderBtnSearch;
             }
 
             @Override
             public void onLoadFinished(Loader<ArrayList<MarketIem>> loader, ArrayList<MarketIem> data) {
+                getData();
                 switch (loader.getId()) {
                     case LOADER_ID_BTNSRCH:
-                        if (data != null && q.length()!=0) {
+                        if (data.size() >0  && q.length()>0) {
                             marketItems = data;
-                            Log.i("Search", data.toString());
+                                Log.i("Search", data.size()+"");
                             Intent intent = new Intent(Navigation_market.this, MarketListing.class);
                             intent.putExtra("CHOICE", "btnSearch");
                             intent.putParcelableArrayListExtra("ARRAYLIST", marketItems);
                             startActivity(intent);
                             //Toast.makeText(Navigation_market.this, data, Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(Navigation_market.this, "NO SUCH ITEM AVAILABLE", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
@@ -378,22 +417,23 @@ String cdn_url;
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args)  {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Navigation_market.this, querySub, "http://serv.kesbokar.com.au/jil.0.1/v2/product/search/cities");
+                getData();
+
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(Navigation_market.this, querySub, api_url+"v2/product/search/cities");
                 return loaderBusSuburb;
             }
 
             @Override
             public void onLoadFinished(@NonNull androidx.loader.content.Loader<ArrayList<StateAndSuburb>> loader, ArrayList<StateAndSuburb> data){
-                if (data.size() != 0) {
+                if (data.size() > 0) {
                     valsSub = data;
-                    Log.i("Tag Sub", valsSub + "");
-                    ArrayAdapter<StateAndSuburb> adapter = new ArrayAdapter<StateAndSuburb>(Navigation_market.this, android.R.layout.simple_dropdown_item_1line, valsSub);
+                    //  Log.i("Tag Sub", valsSub + "");
+                    ArrayAdapter<StateAndSuburb> adapter = new ArrayAdapter<StateAndSuburb>(Navigation_market.this, android.R.layout.simple_dropdown_item_1line, data);
 
                     ms.setAdapter(adapter);
-                } else {
-                    // Toast.makeText(Navigation_market.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                    getLoaderManager().destroyLoader(LOADER_ID_MARVAL);
+
                 }
-                getLoaderManager().destroyLoader(LOADER_ID_MARVAL);
             }
 
             @Override
@@ -404,35 +444,33 @@ String cdn_url;
         marketSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderMarketSearch loaderMarketSearch = new LoaderMarketSearch(Navigation_market.this, "", "http://serv.kesbokar.com.au/jil.0.1/v2/product/search");
+                getData();
+                LoaderMarketSearch loaderMarketSearch = new LoaderMarketSearch(Navigation_market.this, "", api_url+"v2/product/search");
                 return loaderMarketSearch;
             }
 
             @Override
             public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> data) {
-                if (data.size() != 0) {
+                if (data.size() >0) {
                     valsMarket = data;
-                    Log.i("Tag", valsMarket + "");
+                    //  Log.i("Tag", valsMarket + "");
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(Navigation_market.this, android.R.layout.simple_dropdown_item_1line, valsMarket);
 
                     ml.setAdapter(adapter);
                     getSupportLoaderManager().initLoader(LOADER_ID_MARSUB, null, marketSub);
-                } else {
-                    //  Toast.makeText(Navigation_market.this, "No internet Connection", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onLoaderReset(Loader<ArrayList<String>> loader) {
 
             }
-                };
+        };
         buttonsDetailsLoaderCallbacks = new LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>>() {
             @Override
             public Loader<ArrayList<ButtonsDetails>> onCreateLoader(int id, Bundle args) {
-                String BASE_URL = "https://serv.kesbokar.com.au/jil.0.1/v2/product-categories?tlevel=0&api" +
-                        "_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK\n";
+                getData();
+                String BASE_URL = api_url+"v2/product-categories?tlevel=0&api_token="+api_token+"\n";
                 LoaderButtons loaderButtons = new LoaderButtons(Navigation_market.this, BASE_URL);
                 return loaderButtons;
             }
@@ -470,7 +508,8 @@ String cdn_url;
                                 imagebutton[i].setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        String url = "http://serv.kesbokar.com.au/jil.0.1/v2/product?caturl=" + URLEncoder.encode(data.get(index).getUrl()) + "&catid=" + data.get(index).getId() + "&api_token=FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK";
+                                        getData();
+                                        String url = api_url+"v2/product?caturl=" + URLEncoder.encode(data.get(index).getUrl()) + "&catid=" + data.get(index).getId() + "&api_token="+api_token;
                                         Intent intent = new Intent(Navigation_market.this, MarketListing.class);
                                         intent.putExtra("URL", url);
                                         intent.putExtra("CHOICE", "imgBtnService");
@@ -609,15 +648,15 @@ String cdn_url;
             public void onClick(View v) {
                 q = ml.getText().toString();
 
-                Log.i("Q and subV", q + " " + subV);
+                //  Log.i("Q and subV", q + " " + subV);
                 if(q.length() == 0 && subV.length() == 0){
                     Toast.makeText(Navigation_market.this, "Cannot Search Empty fields", Toast.LENGTH_SHORT).show();
                 }
                 //getLoaderManager().initLoader(LOADER_ID_BTNSRCH,null,btnSearch);
-                else if (subV.length()==0)
-                {
-                    Toast.makeText(Navigation_market.this, "Cannot Search Empty State", Toast.LENGTH_SHORT).show();
-                }
+//                else if (subV.length()==0)
+//                {
+//                    Toast.makeText(Navigation_market.this, "Cannot Search Empty State", Toast.LENGTH_SHORT).show();
+//                }
                 getLoaderManager().initLoader(LOADER_ID_BTNSRCH, null, btnSearch);
             }
         });
@@ -792,18 +831,18 @@ String cdn_url;
 
         } else if (Id == R.id.about) {
 
-                Intent intent = new Intent(Navigation_market.this, About.class);
-                intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("image",image);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
-                intent.putExtra("id",id);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 0);
-                overridePendingTransition(0, 0);
+            Intent intent = new Intent(Navigation_market.this, About.class);
+            intent.putExtra("Flag", flag);
+            intent.putExtra("Name",full_name);
+            intent.putExtra("mail",email);
+            intent.putExtra("image",image);
+            intent.putExtra("phone",phone_no);
+            intent.putExtra("create",created);
+            intent.putExtra("update",updated);
+            intent.putExtra("id",id);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0, 0);
 
 
 
@@ -811,18 +850,18 @@ String cdn_url;
         } else if (Id == R.id.career) {
 
 
-                Intent intent = new Intent(Navigation_market.this, Career.class);
-                intent.putExtra("Flag", flag);
-                intent.putExtra("Name",full_name);
-                intent.putExtra("mail",email);
-                intent.putExtra("image",image);
-                intent.putExtra("phone",phone_no);
-                intent.putExtra("create",created);
-                intent.putExtra("update",updated);
-                intent.putExtra("id",id);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 0);
-                overridePendingTransition(0, 0);
+            Intent intent = new Intent(Navigation_market.this, Career.class);
+            intent.putExtra("Flag", flag);
+            intent.putExtra("Name",full_name);
+            intent.putExtra("mail",email);
+            intent.putExtra("image",image);
+            intent.putExtra("phone",phone_no);
+            intent.putExtra("create",created);
+            intent.putExtra("update",updated);
+            intent.putExtra("id",id);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0, 0);
 
 
 
@@ -853,8 +892,8 @@ String cdn_url;
         } else if(Id == R.id.dashboard) {
 
 
-                Intent intent = new Intent(Navigation_market.this, Navigation.class);
-                startActivity(intent);
+            Intent intent = new Intent(Navigation_market.this, Navigation.class);
+            startActivity(intent);
 
         }
 
@@ -866,14 +905,14 @@ String cdn_url;
 
     @Override
     public void onLocationChanged(Location location) {
-        double longitude=location.getLongitude();
-        double latitude=location.getLatitude();
+        double longitude1=location.getLongitude();
+        double latitude1=location.getLatitude();
         Geocoder gc = new Geocoder(Navigation_market.this);
 
         List<Address> list = null;
         try {
 
-            list = gc.getFromLocation(latitude, longitude,1);
+            list = gc.getFromLocation(latitude1, longitude1,1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -882,15 +921,18 @@ String cdn_url;
         Address address = list.get(0);
 
         StringBuffer str = new StringBuffer();
-        str.append("Name: " + address.getLocality() + "\n");
-        str.append("Sub-Admin Ares: " + address.getSubAdminArea() + "\n");
-        str.append("Admin Area: " + address.getAdminArea() + "\n");
-        str.append("Country: " + address.getCountryName() + "\n");
-        str.append("Country Code: " + address.getCountryCode() + "\n");
+        str.append(address.getLocality() + ", ");
+        //str.append("Sub-Admin Ares: " + address.getSubAdminArea() + "\n");
+        //str.append("Admin Area: " + address.getAdminArea() + "\n");
+        str.append(address.getCountryName()+" " );
+        str.append( address.getCountryCode() );
 
         String strAddress = str.toString();
+        latitude = latitude1;
+        longitude = longitude1;
+        ms.setText(strAddress);
 
-       // Toast.makeText(this, "Longitude"+longitude+"     Latitude"+latitude +"   "+ strAddress, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Longitude"+longitude+"     Latitude"+latitude +"   "+ strAddress, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -915,7 +957,7 @@ String cdn_url;
         protected Void doInBackground(Void... voids) {
             try{
                 getData();
-                Document doc1 = Jsoup.connect(cdn_url).get();
+                Document doc1 = Jsoup.connect(base_url).get();
                 Elements repositories=doc1.select("#business-list-block");//doc1.getElementsByClass("content-area home-area-1 recent-property");
                 for (Element repository : repositories) {
                     Elements header = repository.getElementsByClass("col-md-10col-sm-12 text-center page-title");
@@ -982,6 +1024,10 @@ String cdn_url;
     {
         SharedPreferences loginData=getSharedPreferences("data",0);
         cdn_url=loginData.getString("cdn_url","");
+        base_url=loginData.getString("base_url","");
+        api_token=loginData.getString("api_token","");
+        api_url=loginData.getString("api_url","");
+
     }
 
 }

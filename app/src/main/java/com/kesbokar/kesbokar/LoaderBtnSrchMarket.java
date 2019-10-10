@@ -2,6 +2,8 @@ package com.kesbokar.kesbokar;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class LoaderBtnSrchMarket extends AsyncTaskLoader<ArrayList<MarketIem>> {
         super(context);
         this.Query = Query;
         this.Suburb = suburb;
-        BaseUrl = url;
+        this.BaseUrl = url;
         this.stateId = stateId;
         this.type = type;
         this.lat = lat;
@@ -32,17 +34,21 @@ public class LoaderBtnSrchMarket extends AsyncTaskLoader<ArrayList<MarketIem>> {
     @Override
     public ArrayList<MarketIem> loadInBackground() {
         ArrayList<MarketIem> btnSearchData = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostSearchBtn(Query,Suburb,stateId,type,lat,longitude,BaseUrl);
-        //call jsonParser only if the data is not null
+        String data = (new SetHttpPost(getContext())).sendPostSearchBtn(Query,Suburb,stateId,type,lat,longitude,BaseUrl);
         if(data != null){
             try {
                 JsonParser jsonBtnSrch = new JsonParser();
+
+                //call jsonParser only if the data is not null
+                Log.i("LoaderButtonSearch_mark",btnSearchData.size()+data);
                 btnSearchData = jsonBtnSrch.getBtnSearchMarket(data);
             }catch (Throwable t){
                 t.printStackTrace();
             }
+
             return btnSearchData;
         }
+
         return btnSearchData;
     }
 }

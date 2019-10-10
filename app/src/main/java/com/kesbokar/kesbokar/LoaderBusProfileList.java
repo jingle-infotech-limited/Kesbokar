@@ -21,7 +21,7 @@ public class LoaderBusProfileList extends AsyncTaskLoader<ArrayList<BusinessProf
     @Override
     public ArrayList<BusinessProfileList> loadInBackground() {
         ArrayList<BusinessProfileList> businessProfileLists = new ArrayList<>();
-        String data = (new SetHttpConnection(BaseUrl)).getInputStreamData(BaseUrl);
+        String data = (new SetHttpConnection(BaseUrl,getContext())).getInputStreamData(BaseUrl);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

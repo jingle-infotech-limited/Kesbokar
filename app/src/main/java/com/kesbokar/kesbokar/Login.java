@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
     int flag=0;
     ProgressDialog progressDialog;
     EditText edtLoginId, edtLoginPass;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,api_url,api_token;
 
     String personName, personEmail, personID;
 
@@ -124,7 +124,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+              //  Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
 
@@ -220,10 +220,12 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
                     @Override
                     public void onCompleted(final JSONObject object, GraphResponse response) {
+                        getData();
+
 
                         Log.i("Response", response.toString());
 
-                        String url1 = "https://serv.kesbokar.com.au/jil.0.1/auth/login/facebook";
+                        String url1 = api_url+"auth/login/facebook";
 
                         RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
@@ -234,10 +236,10 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 
                                 try {
                                     JSONObject jsonObject1 = new JSONObject(response);
-                                    Log.i("Response",  jsonObject1.getString("data"));
+                                 //   Log.i("Response",  jsonObject1.getString("data"));
 
                                     JSONObject jsonObject2 = new JSONObject(jsonObject1.getString("data"));
-                                    Log.i("Response",  jsonObject2.getString("id"));
+                                  //  Log.i("Response",  jsonObject2.getString("id"));
 
                                     if(jsonObject2!=null) {
                                         flag = 1;
@@ -283,8 +285,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                                 }catch (JSONException e){
                                     System.out.println(e);
                                 }
-
-                                params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                                getData();
+                                params.put("api_token", api_token);
                                 return params;
                             }
                         };
@@ -342,9 +344,12 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         });
 
         login_info_loader = new LoaderManager.LoaderCallbacks<LoginInfo>() {
+
             @Override
             public Loader<LoginInfo> onCreateLoader(int i, Bundle bundle) {
-                LoaderLogin loaderLogin = new LoaderLogin(Login.this, loginId, loginPass,"http://serv.kesbokar.com.au/jil.0.1/auth/login");
+                getData();
+
+                LoaderLogin loaderLogin = new LoaderLogin(Login.this, loginId, loginPass,api_url+"auth/login");
                 return loaderLogin;
             }
 
@@ -413,7 +418,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
 //            final String authToken = account.getIdToken();
 
             String url;
-            url = "https://serv.kesbokar.com.au/jil.0.1/auth/login/google";
+            getData();
+            url = api_url+"auth/login/google";
 
             RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
 
@@ -455,6 +461,7 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
             }){
                 @Override
                 protected Map<String, String> getParams() {
+                    getData();
                     Map<String, String> params = new HashMap<String, String>();
 
                     params.put("name", personName);
@@ -467,8 +474,8 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
                     } else {
                         params.put("avatar", "");
                     }
-
-                    params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                    getData();
+                    params.put("api_token", api_token);
                     return params;
                 }
             };
@@ -793,6 +800,14 @@ public class Login extends AppCompatActivity implements NavigationView.OnNavigat
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    void getData()
+    {
+        SharedPreferences loginData=getSharedPreferences("data",0);
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+
+
     }
 
 }

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".BasicInfoFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -257,9 +257,9 @@
                     <Button
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_cancel_black_24dp"
                         android:id="@+id/cancel_tag"
-                        android:layout_gravity="end"/>
+                        android:visibility="gone"
+                     />
 
                 <MultiAutoCompleteTextView
                     android:id="@+id/mltAutoKeyWords"
@@ -267,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="CallFromApi"
+                    android:hint="product"
                     android:inputType="textMultiLine" />
 
                 </LinearLayout>
@@ -296,7 +296,7 @@
                     android:id="@+id/etPostProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CallFromApi"
+                    android:hint="CallFromApi"
                     android:textColor="#000000"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -325,17 +325,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_weight="2"
                 android:paddingTop="10dp">
-
+                <Button
+                    android:id="@+id/backbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#009688"
+                    android:layout_margin="10dp"
+                    android:text="Back"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF" />
                 <Button
                     android:id="@+id/btn_save_and_next"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginRight="130dp"
                     android:background="#009688"
+                    android:layout_weight="1"
                     android:text="Save &amp; Next"
+                    android:layout_margin="10dp"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 

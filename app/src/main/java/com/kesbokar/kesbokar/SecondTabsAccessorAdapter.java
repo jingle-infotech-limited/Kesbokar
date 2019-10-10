@@ -1,5 +1,7 @@
 package com.kesbokar.kesbokar;
 
+import android.content.Context;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,11 +13,13 @@ import com.google.android.material.tabs.TabLayout;
 public class SecondTabsAccessorAdapter extends FragmentPagerAdapter {
     ViewPager viewPager;
     TabLayout tabLayout;
-    public SecondTabsAccessorAdapter(FragmentManager fm, ViewPager viewPager, TabLayout tabLayout)
+    Context context;
+    public SecondTabsAccessorAdapter(FragmentManager fm, ViewPager viewPager, TabLayout tabLayout,Context context)
     {
         super(fm);
         this.viewPager=viewPager;
         this.tabLayout=tabLayout;
+        this.context=context;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class SecondTabsAccessorAdapter extends FragmentPagerAdapter {
                 return descriptionFragment;
 
             case 4:
-                PhotosFragment photosFragment = new PhotosFragment(viewPager,tabLayout);
+                PhotosFragment photosFragment = new PhotosFragment(viewPager,tabLayout,context);
                 return photosFragment;
 
             case 5:

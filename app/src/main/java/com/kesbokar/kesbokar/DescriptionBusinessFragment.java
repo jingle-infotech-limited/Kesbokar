@@ -58,7 +58,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DescriptionBusinessFragment extends Fragment {
 
-    String myurl = "https://www.kesbokar.com.au/jil.0.1/api/v1/yellowpage/image/upload";
+    String myurl,base_url,api_url,api_token;
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     Bitmap[] bitmap;
@@ -161,26 +161,26 @@ public class DescriptionBusinessFragment extends Fragment {
                 String url;
                 if (edit1==1)
                 {
-                    url="http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id1;
+                    url=api_url+"v1/yellowpage/"+yellowpage_id1;
                 }
                 else {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/" + yellowpage_id;
+                    url = api_url+"v1/yellowpage/" + yellowpage_id;
                 }
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("Response",response);
+                      //  Log.i("Response",response);
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i("Error",error.toString());
+                       // Log.i("Error",error.toString());
                     }
                 }){
                     @Override
                     protected Map<String, String> getParams()
-                    {
+                    {   getData();
                         Map<String, String>  params = new HashMap<String, String >();
 //                        params.put("name",edtProductTitle.getText().toString());
 //                        params.put("product_condition",);
@@ -195,7 +195,7 @@ public class DescriptionBusinessFragment extends Fragment {
                         params.put("image",response1);
                         params.put("description",etDescription.getText().toString());
                         params.put("synopsis", etShortDescription.getText().toString());
-                        params.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        params.put("api_token",api_token);
                         return params;
                     }
                 };
@@ -215,12 +215,13 @@ public class DescriptionBusinessFragment extends Fragment {
 
 
         final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
+        getData();
+        myurl= base_url+"jil.0.1/api/v1/yellowpage/image/upload";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, myurl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("Myresponse",""+response);
-                Toast.makeText(getContext(), ""+response, Toast.LENGTH_SHORT).show();
+              //  Log.i("Myresponse",""+response);
+                Toast.makeText(getContext(), "Image Uploaded Successfuly", Toast.LENGTH_SHORT).show();
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     response1 = jsonObject.getString("image");
@@ -233,7 +234,7 @@ public class DescriptionBusinessFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("Error",""+error);
+               // Log.i("Error",""+error);
 
                 Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
 
@@ -241,6 +242,7 @@ public class DescriptionBusinessFragment extends Fragment {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                getData();
                 Map<String,String> param = new HashMap<>();
                 if (edit1==1)
                 {
@@ -250,9 +252,9 @@ public class DescriptionBusinessFragment extends Fragment {
                     param.put("filename", new_name+".png");
                 }
                 imageEncoded = getStringImage(bitmapImage);
-                Log.i("imageEncoded",imageEncoded);
+             //   Log.i("imageEncoded",imageEncoded);
                 param.put("image",imageEncoded);
-                param.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                param.put("api_token",api_token);
                 return param;
             }
         };
@@ -262,7 +264,7 @@ public class DescriptionBusinessFragment extends Fragment {
     }
 
     public String getStringImage(Bitmap bitmap){
-        Log.i("function bit",""+bitmap);
+        //Log.i("function bit",""+bitmap);
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,10, baos);
         Bitmap.createScaledBitmap(bitmap, 350, 200, false);
@@ -335,9 +337,12 @@ public class DescriptionBusinessFragment extends Fragment {
         id = loginData.getInt("id", 0);
         created = loginData.getString("create", "");
         updated = loginData.getString("update", "");
+        base_url=loginData.getString("base_url","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
         SharedPreferences get_product_detail = getActivity().getSharedPreferences("product_detail", 0);
         product_id = get_product_detail.getString("product_id", "");
-//        product_name=get_product_detail.getString("product_name","");
+       product_name=get_product_detail.getString("product_name","");
 //        SharedPreferences get_business_detail = getActivity().getSharedPreferences("business_detail", 0);
         yellowpage_id = get_product_detail.getString("yellowpage_id", "");
         new_name = get_product_detail.getString("new_name", "");

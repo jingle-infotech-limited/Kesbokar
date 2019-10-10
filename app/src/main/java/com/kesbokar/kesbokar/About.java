@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class About extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<ButtonsDetails>>{
-    static String URL1;
+    static String URL1,base_url;
     Document doc1;
     public static WebView webView;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
@@ -84,7 +84,7 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 
         }
         webView = findViewById(R.id.webview);
-        URL1 ="https://www.kesbokar.com.au/about-us";
+        URL1 =base_url+"about-us";
         new About.MyAsyncTask().execute();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -368,7 +368,8 @@ try {
 
             Document document = null;
             try {
-                URL1 ="https://www.kesbokar.com.au/about-us";
+                getData();
+                URL1 =base_url+"/about-us";
                 document= Jsoup.connect(URL1).get();
                 document.getElementsByClass("navbar navbar-default").remove();
                 document.getElementsByClass("needhelp_in_touch").remove();
@@ -390,7 +391,7 @@ try {
                 webView.setWebViewClient(new myWebClient());
                 WebSettings webSettings = webView.getSettings();
                 webSettings.setBuiltInZoomControls(true);
-                URL1 ="https://www.kesbokar.com.au/about-us";
+                URL1 =base_url+"about-us";
                 webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
                 webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                 webSettings.setJavaScriptEnabled(true);
@@ -410,6 +411,7 @@ try {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        base_url=loginData.getString("base_url","");
 
     }
 }

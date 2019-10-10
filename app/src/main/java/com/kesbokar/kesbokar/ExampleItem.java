@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ExampleItem implements Parcelable {
-    private String img,busi_name,busi_synop,url,city,heading;
+    private String img,busi_name,busi_synop,url,city,heading,state,category;
     int id;
     double ratings;
 
@@ -16,6 +16,8 @@ public class ExampleItem implements Parcelable {
         city = in.readString();
         id = in.readInt();
         ratings = in.readDouble();
+        state=in.readString();
+        category=in.readString();
     }
 
     public static final Creator<ExampleItem> CREATOR = new Creator<ExampleItem>() {
@@ -49,6 +51,12 @@ public class ExampleItem implements Parcelable {
     public void setCity(String city) {
         this.city = city;
     }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -62,7 +70,7 @@ public class ExampleItem implements Parcelable {
     }
 
 
-    public ExampleItem(String img,String busi_name,String busi_synop,String url,String city,int id, double ratings,String heading)
+    public ExampleItem(String img,String busi_name,String busi_synop,String url,String city,int id, double ratings,String heading,String state,String category)
     {
         this.img=img;
         this.ratings=ratings;
@@ -72,10 +80,20 @@ public class ExampleItem implements Parcelable {
         this.url=url;
         this.id=id;
         this.heading=heading;
+        this.state=state;
+        this.category=category;
     }
     public String getCity()
     {
         return city;
+    }
+    public String getState()
+    {
+        return state;
+    }
+    public String getCategory()
+    {
+        return category;
     }
     public String getUrl()
     {
@@ -120,5 +138,7 @@ public class ExampleItem implements Parcelable {
         parcel.writeString(city);
         parcel.writeInt(id);
         parcel.writeDouble(ratings);
+        parcel.writeString(state);
+        parcel.writeString(category);
     }
 }

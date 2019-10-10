@@ -53,8 +53,8 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class SliderBusinessFragment extends Fragment {
-String cdn_url;
-    String myurl = cdn_url+"jil.0.1/api/v1/yellowpage/slider/upload";
+String base_url;
+    String myurl,api_url,api_token;
 
     Button btnChooseFiles, btnUpload, btnPrevious, btnSave;
     TextView tvChosen;
@@ -140,6 +140,11 @@ String cdn_url;
 
               getData();
               uploaduserimage();
+          //      requestQueue.add(stringRequest);
+                int item=viewPager.getCurrentItem();
+                View tab=tabLayout.getTabAt(item+1).view;
+                tab.setEnabled(true);
+                viewPager.setCurrentItem(item+1);
 
             }
         });
@@ -162,14 +167,15 @@ String cdn_url;
 
 
         final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
+        getData();
+        myurl=  base_url+"jil.0.1/api/v1/yellowpage/slider/upload";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, myurl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 String url;
 
-                Log.i("Myresponse",""+response);
+              //  Log.i("Myresponse",""+response);
                 Toast.makeText(getContext(), ""+response, Toast.LENGTH_SHORT).show();
                 try {
                     json_name=new JSONObject(response);
@@ -179,10 +185,10 @@ String cdn_url;
                     e.printStackTrace();
                 }
                 if (edit1==1){
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id1+"/slider";
+                    url = api_url+"v1/yellowpage/"+yellowpage_id1+"/slider";
                 }
                 else {
-                    url = "http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage/"+yellowpage_id+"/slider";
+                    url = api_url+"v1/yellowpage/"+yellowpage_id+"/slider";
                 }
                 StringRequest stringRequest_name = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
                     @Override
@@ -204,9 +210,10 @@ String cdn_url;
                 }){
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
+                        getData();
                         Map<String,String> param = new HashMap<>();
                         param.put("image",pic_name);
-                        param.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                        param.put("api_token",api_token);
                         return param;
                     }
                 };
@@ -225,6 +232,7 @@ String cdn_url;
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                getData();
                 Map<String,String> param = new HashMap<>();
                 String[] images=new String[count];
                 JSONArray jsonArray=new JSONArray();
@@ -253,19 +261,20 @@ String cdn_url;
                     param.put("filename", new_name);
                 }
                 param.put("images",jsonArray.toString());
-                param.put("api_token","FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                param.put("api_token",api_token);
                 return param;
             }
         };
-
-        requestQueue.add(stringRequest);
-        int item=viewPager.getCurrentItem();
-        View tab=tabLayout.getTabAt(item+1).view;
-        tab.setEnabled(true);
-        viewPager.setCurrentItem(item+1);
+//
+      requestQueue.add(stringRequest);
+//        int item=viewPager.getCurrentItem();
+//        View tab=tabLayout.getTabAt(item+1).view;
+//        tab.setEnabled(true);
+//        viewPager.setCurrentItem(item+1);
 
 
     }
+
 
 
         public String getStringImage(Bitmap bitmap){
@@ -281,7 +290,7 @@ String cdn_url;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
-
+            super.onActivityResult(requestCode, resultCode, data);
             // When an Image is picked
             if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK
                     && null != data) {
@@ -363,7 +372,7 @@ String cdn_url;
             Log.i("error",e.toString());
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public void getData() {
@@ -374,9 +383,11 @@ String cdn_url;
         image = loginData.getString("image", "");
         phone_no = loginData.getString("phone", "");
         id = loginData.getInt("id", 0);
-        cdn_url=loginData.getString("cdn_url","");
+        base_url=loginData.getString("base_url","");
         created = loginData.getString("create", "");
         updated = loginData.getString("update", "");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
         SharedPreferences get_product_detail = getActivity().getSharedPreferences("product_detail", 0);
         product_id = get_product_detail.getString("product_id", "");
 //        product_name=get_product_detail.getString("product_name","");

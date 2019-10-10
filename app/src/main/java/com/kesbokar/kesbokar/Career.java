@@ -38,7 +38,7 @@ public class Career extends AppCompatActivity implements NavigationView.OnNaviga
     Document doc1;
     public static WebView webView;
     public static ImageView contact,logo;
-    String loginId, loginPass, full_name, email, image, phone_no,created,updated,cdn_url;
+    String loginId, loginPass, full_name, email, image, phone_no,created,updated,base_url;
     int id,flag;
 
     private Button btnHel,btnBuis,btnMar;
@@ -109,7 +109,8 @@ logo.setOnClickListener(new View.OnClickListener() {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = cdn_url+"contact-us";
+                getData();
+                String url = base_url+"contact-us";
                 Intent intent = new Intent(Career.this, WebViewActivity.class);
                 intent.putExtra("URL", url);
                 startActivity(intent);
@@ -117,7 +118,8 @@ logo.setOnClickListener(new View.OnClickListener() {
 
             }
         });
-        URL1 =cdn_url+"career";
+        getData();
+        URL1 =base_url+"career";
         new Career.MyAsyncTask().execute();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -499,7 +501,7 @@ logo.setOnClickListener(new View.OnClickListener() {
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-        cdn_url=loginData.getString("cdn_url","");
+        base_url=loginData.getString("base_url","");
 
     }
 }

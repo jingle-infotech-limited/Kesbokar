@@ -29,7 +29,7 @@ public class ProfileBusinessListing extends AppCompatActivity implements Navigat
     ListView listView;
     String loginId, loginPass, full_name, email, image, phone_no,created,updated;
     int id,flag;
-
+String api_url;
     Button btnCreateNewBusinessListing;
 
     Button logout;
@@ -93,7 +93,8 @@ public class ProfileBusinessListing extends AppCompatActivity implements Navigat
         busLoader = new LoaderManager.LoaderCallbacks<ArrayList<BusinessProfileList>>() {
             @Override
             public Loader<ArrayList<BusinessProfileList>> onCreateLoader(int i, Bundle bundle) {
-                LoaderBusProfileList loaderBusProfileList = new LoaderBusProfileList(ProfileBusinessListing.this,"http://serv.kesbokar.com.au/jil.0.1/v1/yellowpage?user_id=" + id);
+                getData();
+                LoaderBusProfileList loaderBusProfileList = new LoaderBusProfileList(ProfileBusinessListing.this,api_url+"v1/yellowpage?user_id=" + id);
                 return loaderBusProfileList;
             }
 
@@ -348,6 +349,6 @@ public class ProfileBusinessListing extends AppCompatActivity implements Navigat
         id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
-
+        api_url=loginData.getString("api_url","");
     }
 }

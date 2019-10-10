@@ -79,7 +79,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     static String URL1;
     Document doc1;
     public static WebView webView;
-    String loginId, loginPass, full_name, email, image1, phone_no, created, updated;
+    String loginId, loginPass, full_name, email, image1, phone_no, created, updated, api_url, api_token;
     int id1, flag;
     ImageView search_btn;
     private AutoCompleteTextView autoCompleteTextViewOne, autoCompleteTextViewTwo;
@@ -164,131 +164,133 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
                 url_name = extras.getString("url_name");
             }
 
-        imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
-        imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WebViewActivity.this, Navigation.class);
-                startActivity(intent);
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent);
-            }
-        });
-
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WebViewActivity.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flag = 0;
-                SharedPreferences loginData = getSharedPreferences("data", 0);
-                SharedPreferences.Editor editor = loginData.edit();
-                editor.putInt("Flag", flag);
-                editor.apply();
-                Intent intent = new Intent(WebViewActivity.this, Navigation.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            }
-        });
-
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RequestAlertDialogBox();
-            }
-        });
-
-        getData();
-        if (flag == 1) {
-            name1.setText(full_name);
-            login.setVisibility(View.INVISIBLE);
-            signup.setVisibility(View.INVISIBLE);
-            show.findItem(R.id.nav_send).setVisible(true);
-            show.findItem(R.id.nav_share).setVisible(true);
-            show.findItem(R.id.advertise).setVisible(true);
-            logout.setVisibility(View.VISIBLE);
-            show.findItem(R.id.loginPage).setVisible(true);
-        }
-        rqst_quote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { if (flag == 1) {
-                final Dialog dialog1 = new Dialog(WebViewActivity.this);
-                dialog1.setContentView(R.layout.get_in_touch);
-                dialog1.getWindow();
-                txt_name = dialog1.findViewById(R.id.name);
-                et_quote = dialog1.findViewById(R.id.et_quote);
-                btn_send = dialog1.findViewById(R.id.btn_send);
-                btnCloseDialog = dialog1.findViewById(R.id.btnCloseDialog);
-                txt_name.setText(full_name);
-                dialog1.show();
-                btnCloseDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog1.dismiss();
-                    }
-                });
-                btn_send.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final String url = "http://serv.kesbokar.com.au/jil.0.1/v2/product/enquiry";
-                        RequestQueue queue = Volley.newRequestQueue(WebViewActivity.this);
-                        //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(WebViewActivity.this, "Response" + "Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
-                                Log.i("Response", response);
-
-                            }
-                                },
-                                new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // errorLog.d("Error.Response", String.valueOf(error));
-                                Toast.makeText(WebViewActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                                Log.i("Error", error.toString());
-                            }
-                        }) {
-                            @Override
-                            protected Map<String, String> getParams() {
-                                Map<String, String> params = new HashMap<String, String>();
-                                params.put("user_id", "" + id1);
-                                params.put("product_id", "" + PID);
-                                params.put("urlname", url_name);
-                                params.put("message", et_quote.getText().toString());
-                                params.put("ipaddress", "");
-                                params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
-
-                                return params;
-                            }
-                        };
-                        RequestQueue requestQueue = Volley.newRequestQueue(WebViewActivity.this);
-                        queue.add(stringRequest);
-                        dialog1.dismiss();
-                    }
-                });
-            } else {
-                Intent intent1 = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent1);
+            imgKesbokarLogo = findViewById(R.id.imgKesbokarLogo);
+            imgKesbokarLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WebViewActivity.this, Navigation.class);
+                    startActivity(intent);
                 }
-            }
-        });
+            });
 
-        new MyAsyncTask().execute();
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WebViewActivity.this, Login.class);
+                    startActivity(intent);
+                }
+            });
+
+            signup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WebViewActivity.this, SignUp.class);
+                    startActivity(intent);
+                }
+            });
+
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    flag = 0;
+                    SharedPreferences loginData = getSharedPreferences("data", 0);
+                    SharedPreferences.Editor editor = loginData.edit();
+                    editor.putInt("Flag", flag);
+                    editor.apply();
+                    Intent intent = new Intent(WebViewActivity.this, Navigation.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+            });
+
+            search_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RequestAlertDialogBox();
+                }
+            });
+
+            getData();
+            if (flag == 1) {
+                name1.setText(full_name);
+                login.setVisibility(View.INVISIBLE);
+                signup.setVisibility(View.INVISIBLE);
+                show.findItem(R.id.nav_send).setVisible(true);
+                show.findItem(R.id.nav_share).setVisible(true);
+                show.findItem(R.id.advertise).setVisible(true);
+                logout.setVisibility(View.VISIBLE);
+                show.findItem(R.id.loginPage).setVisible(true);
+            }
+            rqst_quote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (flag == 1) {
+                        final Dialog dialog1 = new Dialog(WebViewActivity.this);
+                        dialog1.setContentView(R.layout.get_in_touch);
+                        dialog1.getWindow();
+                        txt_name = dialog1.findViewById(R.id.name);
+                        et_quote = dialog1.findViewById(R.id.et_quote);
+                        btn_send = dialog1.findViewById(R.id.btn_send);
+                        btnCloseDialog = dialog1.findViewById(R.id.btnCloseDialog);
+                        txt_name.setText(full_name);
+                        dialog1.show();
+                        btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog1.dismiss();
+                            }
+                        });
+                        btn_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getData();
+                                final String url = api_url+"v2/product/enquiry";
+                                RequestQueue queue = Volley.newRequestQueue(WebViewActivity.this);
+                                //Toast.makeText(Help.this, "Ipaddress"+ip, Toast.LENGTH_SHORT).show();
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Toast.makeText(WebViewActivity.this, "Response" + "Your Query Has been Submitted", Toast.LENGTH_SHORT).show();
+                                        Log.i("Response", response);
+
+                                    }
+                                },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                // errorLog.d("Error.Response", String.valueOf(error));
+                                                Toast.makeText(WebViewActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                Log.i("Error", error.toString());
+                                            }
+                                        }) {
+                                    @Override
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("user_id", "" + id1);
+                                        params.put("product_id", "" + PID);
+                                        params.put("urlname", url_name);
+                                        params.put("message", et_quote.getText().toString());
+                                        params.put("ipaddress", "");
+                                        params.put("api_token", api_token);
+
+                                        return params;
+                                    }
+                                };
+                                RequestQueue requestQueue = Volley.newRequestQueue(WebViewActivity.this);
+                                queue.add(stringRequest);
+                                dialog1.dismiss();
+                            }
+                        });
+                    } else {
+                        Intent intent1 = new Intent(WebViewActivity.this, Login.class);
+                        startActivity(intent1);
+                    }
+                }
+            });
+
+            new MyAsyncTask().execute();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -309,10 +311,11 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), Navigation.class);
+        startActivity(intent);
     }
 
-    public class myWebClient extends WebViewClient
-    {
+    public class myWebClient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
@@ -321,7 +324,7 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            if(url.contains("phone-view")) {
+            if (url.contains("phone-view")) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
@@ -459,43 +462,31 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.about) {
 
-            if (flag == 1) {
-                Intent intent = new Intent(WebViewActivity.this, About.class);
-                intent.putExtra("Flag", flag);
-                intent.putExtra("Name", full_name);
-                intent.putExtra("mail", email);
-                intent.putExtra("phone", phone_no);
-                intent.putExtra("create", created);
-                intent.putExtra("update", updated);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 0);
-                overridePendingTransition(0, 0);
+            Intent intent = new Intent(WebViewActivity.this, About.class);
+            intent.putExtra("Flag", flag);
+            intent.putExtra("Name", full_name);
+            intent.putExtra("mail", email);
+            intent.putExtra("phone", phone_no);
+            intent.putExtra("create", created);
+            intent.putExtra("update", updated);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0, 0);
 
-
-            } else {
-                Intent intent = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent);
-            }
 
         } else if (Id == R.id.career) {
 
-            if (flag == 1) {
-                Intent intent = new Intent(WebViewActivity.this, Career.class);
-                intent.putExtra("Flag", flag);
-                intent.putExtra("Name", full_name);
-                intent.putExtra("mail", email);
-                intent.putExtra("phone", phone_no);
-                intent.putExtra("create", created);
-                intent.putExtra("update", updated);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 0);
-                overridePendingTransition(0, 0);
 
-
-            } else {
-                Intent intent = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(WebViewActivity.this, Career.class);
+            intent.putExtra("Flag", flag);
+            intent.putExtra("Name", full_name);
+            intent.putExtra("mail", email);
+            intent.putExtra("phone", phone_no);
+            intent.putExtra("create", created);
+            intent.putExtra("update", updated);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0, 0);
 
 
         } else if (Id == R.id.loginPage) {
@@ -519,13 +510,10 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
 
         } else if (Id == R.id.dashboard) {
 
-            if (flag == 1) {
-                Intent intent = new Intent(WebViewActivity.this, Navigation.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(WebViewActivity.this, Login.class);
-                startActivity(intent);
-            }
+
+            Intent intent = new Intent(WebViewActivity.this, Navigation.class);
+            startActivity(intent);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -576,35 +564,34 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         protected void onPostExecute(Document document) {
             super.onPostExecute(document);
 
-                try {
-                    webView.setWebViewClient(new myWebClient());
-                    WebSettings webSettings = webView.getSettings();
-                    webSettings.setJavaScriptEnabled(true);
-                    // webSettings.getJavaScriptCanOpenWindowsAutomatically();
-                    System.out.println(URL1);
-                    webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
+            try {
+                //  webView.setWebViewClient(new myWebClient());
+                WebSettings webSettings = webView.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                // webSettings.getJavaScriptCanOpenWindowsAutomatically();
+                System.out.println(URL1);
+                webView.loadDataWithBaseURL(URL1, document.toString(), "text/html", "utf-8", "");
 
-                    }
-
-                catch(Exception e)
-                {
-                    System.out.println(e);
-                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 
-        public void getData() {
-            SharedPreferences loginData = getSharedPreferences("data", 0);
-            flag = loginData.getInt("Flag", 0);
-            full_name = loginData.getString("Name", "");
-            email = loginData.getString("mail", "");
-            image1 = loginData.getString("image", "");
-            phone_no = loginData.getString("phone", "");
-            id1 = loginData.getInt("id", 0);
-            created = loginData.getString("create", "");
-            updated = loginData.getString("update", "");
-            SharedPreferences loginData1 = getSharedPreferences("entry", 0);
-            entry_level = loginData1.getString("entry_level", "");
+    public void getData() {
+        SharedPreferences loginData = getSharedPreferences("data", 0);
+        flag = loginData.getInt("Flag", 0);
+        full_name = loginData.getString("Name", "");
+        email = loginData.getString("mail", "");
+        image1 = loginData.getString("image", "");
+        phone_no = loginData.getString("phone", "");
+        id1 = loginData.getInt("id", 0);
+        created = loginData.getString("create", "");
+        updated = loginData.getString("update", "");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
+        SharedPreferences loginData1 = getSharedPreferences("entry", 0);
+        entry_level = loginData1.getString("entry_level", "");
     }
 
     private void RequestAlertDialogBox() {
@@ -637,7 +624,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         btnSearch = new LoaderManager.LoaderCallbacks<ArrayList<ExampleItem>>() {
             @Override
             public Loader<ArrayList<ExampleItem>> onCreateLoader(int id, Bundle args) {
-                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(WebViewActivity.this, q, subV, "https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages", stateid, subType, 0.0, 0.0);
+                getData();
+                LoaderBtnSearch loaderBtnSearch = new LoaderBtnSearch(WebViewActivity.this, q, subV, api_url+"v2/yellowpages", stateid, subType, 0.0, 0.0);
                 return loaderBtnSearch;
             }
 
@@ -669,7 +657,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             @NonNull
             @Override
             public androidx.loader.content.Loader<ArrayList<StateAndSuburb>> onCreateLoader(int id, @Nullable Bundle args) {
-                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(WebViewActivity.this, querySub, "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search/cities");
+                getData();
+                LoaderBusSuburb loaderBusSuburb = new LoaderBusSuburb(WebViewActivity.this, querySub, api_url+"v2/yellowpages/search/cities");
                 return loaderBusSuburb;
             }
 
@@ -695,7 +684,8 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
         businessSearch = new LoaderManager.LoaderCallbacks<ArrayList<String>>() {
             @Override
             public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args) {
-                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(WebViewActivity.this, query, "http://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/search");
+                getData();
+                LoaderBusSearch loaderBusSearch = new LoaderBusSearch(WebViewActivity.this, query, api_url+"v2/yellowpages/search");
                 return loaderBusSearch;
             }
 
@@ -763,5 +753,6 @@ public class WebViewActivity extends AppCompatActivity implements NavigationView
             }
         });
     }
+
 }
 

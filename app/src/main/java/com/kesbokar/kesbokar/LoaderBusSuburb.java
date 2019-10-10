@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class LoaderBusSuburb extends AsyncTaskLoader<ArrayList<StateAndSuburb>> {
     String Query;
-    String base_url;
+    String base_url1;
     public LoaderBusSuburb(Context context, String Query, String url){
         super(context);
         this.Query = Query;
-        base_url = url;
+        base_url1 = url;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class LoaderBusSuburb extends AsyncTaskLoader<ArrayList<StateAndSuburb>> 
     @Override
     public ArrayList<StateAndSuburb> loadInBackground() {
         ArrayList<StateAndSuburb> srchSubs = new ArrayList<>();
-        String data = (new SetHttpPost()).sendPostMarkAndBus(Query,base_url);
+        String data = (new SetHttpPost(getContext())).sendPostMarkAndBus(Query,base_url1);
         //call jsonParser only if the data is not null
         if(data != null){
             try {

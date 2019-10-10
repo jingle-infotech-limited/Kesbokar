@@ -46,14 +46,14 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     EditText name,email,phone,details;
-    String loginId, loginPass, full_name, email1, image, phone_no,created,updated;
+    String loginId, loginPass, full_name, email1, image, phone_no,created,updated,cdn_url,base_url,api_url,api_token;
     int Id,flag;
     private ArrayList<ExampleItem> exampleItems;
     String ip;
     int id;
     private ProgressDialog progressDialog;
     SharedPreferences loginData;
-    String url,cdn_url;
+    String url;
     private int isLoggedIn;
     public DataAdapter(Buisness_Listing activity , ArrayList<ExampleItem> exampleList, int flag, SharedPreferences logindata) {
         this.mActivity = activity;
@@ -108,12 +108,13 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getData();
                 final String Name=name.getText().toString();
                 final String Email=email.getText().toString();
                 final String Phone=phone.getText().toString();
                 final String Quotes=details.getText().toString();
                 RequestQueue queue= Volley.newRequestQueue(mActivity);
-                final String url="https://serv.kesbokar.com.au/jil.0.1/v2/yellowpages/enquiry";
+                final String url=api_url+"v2/yellowpages/enquiry";
                 try {
                 for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
                     NetworkInterface intf = en.nextElement();
@@ -121,12 +122,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         InetAddress inetAddress = enumIpAddr.nextElement();
                         if (!inetAddress.isLoopbackAddress()) {
                             ip = Formatter.formatIpAddress(inetAddress.hashCode());
-                            Log.i("response", "***** IP="+ ip);
+                           // Log.i("response", "***** IP="+ ip);
                         }
                     }
                 }
             } catch (SocketException ex) {
-                Log.i("error", ex.toString());
+                //Log.i("error", ex.toString());
                 ip="000.000.000.000";
             }
 
@@ -134,7 +135,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(mActivity, "Response"+"Query submitted", Toast.LENGTH_SHORT).show();
-                        Log.i("Response",response);
+                       // Log.i("Response",response);
 
                     }
                 }, new Response.ErrorListener()
@@ -148,6 +149,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         @Override
                         protected Map<String, String> getParams()
                     {
+                        getData();
                         Map<String, String> params = new HashMap<String, String>();
                         if(flag==0) {
                             String id1 = "" + id2;
@@ -164,7 +166,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             else {
                                 params.put("preferred_method", "no preference");
                             }
-                            params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                            params.put("api_token", api_token);
                         }
                         if(flag==1){
                             String id1 = "" + id2;
@@ -182,7 +184,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             else {
                                 params.put("preferred_method", "no preference");
                             }
-                            params.put("api_token", "FSMNrrMCrXp2zbym9cun7phBi3n2gs924aYCMDEkFoz17XovFHhIcZZfCCdK");
+                            params.put("api_token", api_token);
 
                         }
 
@@ -206,7 +208,8 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
-        private TextView bln,bls,bld,heading_text;
+       // private TextView bln,bls,bld,heading_text;
+        private TextView business_name,business_city,business_category,business_intro;
         RatingBar blr;
         ImageView bli;
         LinearLayout clickable;
@@ -214,14 +217,16 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Button blrq;
         public MyViewHolder(@NonNull View view) {
             super(view);
-            bln=view.findViewById(R.id.bln);
-            bls=view.findViewById(R.id.bls);
+            business_name=view.findViewById(R.id.business_name);
+            business_city=view.findViewById(R.id.business_city);
+            business_category= view.findViewById(R.id.business_category);
+            business_intro=view.findViewById(R.id.business_intro);
             progressBar=view.findViewById(R.id.progressBar);
             clickable=view.findViewById(R.id.clickable);
             //url1=view.findViewById(R.id.url);
 //            bld=view.findViewById(R.id.bld);
             bli=view.findViewById(R.id.bli);
-            heading_text=view.findViewById(R.id.heading);
+            //heading_text=view.findViewById(R.id.heading);
             blr=view.findViewById(R.id.blr);
             blrq=view.findViewById(R.id.blrq);
 //            blw=view.findViewById(R.id.blw);
@@ -240,7 +245,9 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
+       // Log.i("exampleItems.size()",exampleItems.size()+"");
         return exampleItems == null ? 0 : exampleItems.size();
+
     }
     private void showLoadingView(LoadingViewHolder viewHolder, int position) {
         //ProgressBar would be displayed
@@ -249,16 +256,21 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void populateItemRows(MyViewHolder holder, int position) {
         final ExampleItem current=exampleItems.get(position);
         getData();
+       // Log.i("current.getUrl()",current.getUrl());
+     //   Log.i("DA: ",current.getBusi_name()+ ",,"+current.getBusi_synop()+",,"+current.getCity()+",,"+current.getHeading());
         String image=cdn_url+"uploads/yellowpage/"+current.getImg();
         String bName=current.getBusi_name();
         String bSynop=current.getBusi_synop();
-        final String city=current.getCity();
+        String city=current.getCity();
+    String category=current.getCategory();
+    String state=current.getState();
         String heading=current.getHeading();
         url=current.getUrl();
         id=current.getId();
-        holder.bln.setText(bName);
-        holder.bls.setText(bSynop);
-        holder.heading_text.setText(heading);
+        holder.business_name.setText(bName);
+        holder.business_city.setText(city +","+state);
+        holder.business_category.setText(category);
+        holder.business_intro.setText(bSynop);
         float ratings=(float)current.getratings();
         holder.blr.setRating(ratings);
         if(current.getImg()==null)
@@ -279,7 +291,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View v) {
                 getData();
-                String finalUrl=cdn_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
+                String finalUrl=base_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
@@ -292,7 +304,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             }
         });
-        holder.bln.setOnClickListener(new View.OnClickListener() {
+        holder.business_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getData();
@@ -300,7 +312,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
                 editor.apply();
-                String finalUrl=cdn_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
+                String finalUrl=base_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
                 Intent intent = new Intent(mActivity, WebViewActivity.class);
                 intent.putExtra("URL", finalUrl);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -373,7 +385,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View v) {
                 getData();
-                String finalUrl=cdn_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
+                String finalUrl=base_url+"business/"+current.getCity()+"/"+current.getUrl()+"/"+current.getId();
                 SharedPreferences get_product_detail= mActivity.getSharedPreferences("entry",0);
                 SharedPreferences.Editor editor=get_product_detail.edit();
                 editor.putString("entry_level","1");
@@ -399,7 +411,10 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Id=loginData.getInt("id",0);
         created=loginData.getString("create","");
         updated=loginData.getString("update","");
+        base_url=loginData.getString("base_url","");
         cdn_url=loginData.getString("cdn_url","");
+        api_url=loginData.getString("api_url","");
+        api_token=loginData.getString("api_token","");
 
     }
 }
